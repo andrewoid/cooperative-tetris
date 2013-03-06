@@ -5,13 +5,12 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 public class BoxPieceTest {
-	
+
 	@Test
-	
-	public void TestInitalPosition(){
-		BoxPiece aBoxPiece= new BoxPiece();
+	public void TestInitalPosition() {
+		BoxPiece aBoxPiece = new BoxPiece();
 		Square[] squares = aBoxPiece.getSquares();
-		
+
 		Assert.assertEquals(0, squares[0].getX());
 		Assert.assertEquals(0, squares[0].getY());
 		Assert.assertEquals(10, squares[1].getX());
@@ -21,7 +20,5 @@ public class BoxPieceTest {
 		Assert.assertEquals(10, squares[3].getX());
 		Assert.assertEquals(10, squares[3].getY());
 	}
-	
-	
 
 }
