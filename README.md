@@ -6,5 +6,6 @@ My CIS 152/364 class creating multiplayer cooperative tetris at Touro College
 Instructor: Andrew Schwimmer
 Students: A Karman,
 Chaya Spiegel,
-Stein, Gurwitz
+Stein, 
+Gurwitz
 
