@@ -13,4 +13,9 @@ public class LinePiece extends Piece {
 		}
 	}
 
+	@Override
+	public void rotate() {
+
+	}
+
 }
