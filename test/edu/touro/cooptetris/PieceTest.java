@@ -52,7 +52,18 @@ public class PieceTest {
 	
 	@Test
 	public void testCollidesWith(){
-		
+		BoxPiece aBox=new BoxPiece();
+		LinePiece aLine=new LinePiece();
+		Assert.assertTrue(aBox.collidesWith(aLine));
+	}
+	
+	@Test
+	public void testDoesNotCollideWith(){
+		BoxPiece aBox= new BoxPiece();
+		LinePiece aLine= new LinePiece();
+		aLine.moveRight();
+		aLine.moveRight();
+		Assert.assertTrue(!aBox.collidesWith(aLine));
 	}
 	
 }
