@@ -49,4 +49,10 @@ public class PieceTest {
 		Assert.assertEquals(10, squares[3].getX());
 		Assert.assertEquals(20, squares[3].getY());
 	}
+	
+	@Test
+	public void testCollidesWith(){
+		
+	}
+	
 }

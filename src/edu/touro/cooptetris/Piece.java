@@ -43,4 +43,17 @@ public abstract class Piece {
 
 	public abstract void rotate();
 
+	public boolean collidesWith(Piece p) {
+		Square[] currSquares = this.getSquares();
+		Square[] pSquares = p.getSquares();
+		for (int i = 0; i < currSquares.length; i++) {
+			for (int j = 0; j < pSquares.length; j++) {
+				if (currSquares[i].equals(pSquares[j])) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 }
