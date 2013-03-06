@@ -2,9 +2,9 @@ package edu.touro.cooptetris;
 
 import java.awt.Color;
 
-public class Line extends Piece {
+public class LinePiece extends Piece {
 
-	public Line() {
+	public LinePiece() {
 		super();
 		for (int i = 0; i < squares.length; i++) {
 			Square s = squares[i];
