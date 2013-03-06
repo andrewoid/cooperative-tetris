@@ -18,4 +18,9 @@ public class JPiece extends Piece {
 		s.setColor(Color.BLUE);
 
 	}
+
+	@Override
+	public void rotate() {
+
+	}
 }

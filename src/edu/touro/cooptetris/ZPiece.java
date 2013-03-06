@@ -24,4 +24,9 @@ public class ZPiece extends Piece {
 		s.setColor(color);
 
 	}
+
+	@Override
+	public void rotate() {
+
+	}
 }
