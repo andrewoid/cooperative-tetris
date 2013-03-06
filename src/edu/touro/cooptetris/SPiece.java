@@ -24,9 +24,4 @@ public class SPiece extends Piece {
 
 	}
 
-	@Override
-	public void rotate() {
-
-	}
-
 }

@@ -17,8 +17,4 @@ public class TPiece extends Piece {
 		s.setColor(Color.YELLOW);
 	}
 
-	@Override
-	public void rotate() {
-
-	}
 }

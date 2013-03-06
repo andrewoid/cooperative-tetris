@@ -25,8 +25,4 @@ public class ZPiece extends Piece {
 
 	}
 
-	@Override
-	public void rotate() {
-
-	}
 }
