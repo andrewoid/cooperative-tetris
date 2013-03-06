@@ -11,8 +11,8 @@ public class SPieceTest {
 		SPiece piece = new SPiece();
 		Square[] squares = piece.getSquares();
 		assertEquals(squares[0].getX(), 0);
-		assertEquals(squares[1].getX(), 0);
 		assertEquals(squares[0].getY(), 0);
+		assertEquals(squares[1].getX(), 0);
 		assertEquals(squares[1].getY(), 10);
 		assertEquals(squares[2].getX(), -10);
 		assertEquals(squares[2].getY(), 10);

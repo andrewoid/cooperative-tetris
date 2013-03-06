@@ -12,9 +12,33 @@ public class Piece {
 
 		}
 	}
-	
-	public Square[] getSquares(){
+
+	public Square[] getSquares() {
 		return squares;
+	}
+
+	public void moveRight() {
+		for (int i = 0; i < squares.length; i++) {
+			Square s = squares[i];
+			int side = s.getSide();
+			s.setX(s.getX() + side);
+		}
+	}
+
+	public void moveDown() {
+		for (int i = 0; i < squares.length; i++) {
+			Square s = squares[i];
+			int side = s.getSide();
+			s.setY(s.getY() + side);
+		}
+	}
+
+	public void moveLeft() {
+		for (int i = 0; i < squares.length; i++) {
+			Square s = squares[i];
+			int side = s.getSide();
+			s.setX(s.getX() - side);
+		}
 	}
 
 }
