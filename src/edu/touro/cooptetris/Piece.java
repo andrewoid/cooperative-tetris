@@ -2,7 +2,7 @@ package edu.touro.cooptetris;
 
 public class Piece {
 
-	Square[] squares;
+	protected Square[] squares;
 
 	public Piece() {
 		squares = new Square[4];
@@ -11,6 +11,10 @@ public class Piece {
 			squares[i] = new Square(10, 0, 0);
 
 		}
+	}
+	
+	public Square[] getSquares(){
+		return squares;
 	}
 
 }
