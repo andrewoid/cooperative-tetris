@@ -1,6 +1,6 @@
 package edu.touro.cooptetris;
 
-public abstract class Piece {
+public class Piece {
 
 	protected Square[] squares;
 
@@ -17,6 +17,13 @@ public abstract class Piece {
 		return squares;
 	}
 
-	public abstract void rotate();
+	public void rotate() {
+
+		for (Square s : squares) {
+			int currX = s.getX();
+			s.setX(s.getY());
+			s.setY(-currX);
+		}
+	}
 
 }

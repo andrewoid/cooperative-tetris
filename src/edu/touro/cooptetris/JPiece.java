@@ -19,8 +19,4 @@ public class JPiece extends Piece {
 
 	}
 
-	@Override
-	public void rotate() {
-
-	}
 }

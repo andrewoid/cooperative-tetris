@@ -19,9 +19,4 @@ public class LPiece extends Piece {
 
 	}
 
-	@Override
-	public void rotate() {
-
-	}
-
 }
