@@ -27,6 +27,8 @@ public class JPieceTest {
 		j.rotate();
 		Square[] squares = j.getSquares();
 
+		// (Rx + Ry - Py, -Rx + Ry + Px)
+
 		assertEquals(0, squares[0].getX());
 		assertEquals(0, squares[0].getY());
 		assertEquals(10, squares[1].getX());

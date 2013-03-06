@@ -32,6 +32,8 @@ public class Piece {
 		int rx = squares[2].getX();
 		int ry = squares[2].getY();
 		// (Rx + Ry - Py, -Rx + Ry + Px)
+		// explanation is here:
+		// http://answers.yahoo.com/question/index?qid=20100826111525AAh16QO
 		for (Square s : squares) {
 			int px = s.getX();
 			int py = s.getY();
