@@ -16,10 +16,10 @@ public class PieceView extends JComponent {
 	public PieceView() {
 		pieces = new ArrayList<Piece>();
 		pieces.add(new JPiece());
-		pieces.add(new TPiece());
-		pieces.add(new LinePiece());
-		pieces.add(new BoxPiece());
-		pieces.add(new ZPiece());
+		//pieces.add(new TPiece());
+		//pieces.add(new LinePiece());
+		//pieces.add(new BoxPiece());
+		//pieces.add(new ZPiece());
 		pieces.add(new SPiece());
 		pieces.add(new LPiece());
 
@@ -38,6 +38,7 @@ public class PieceView extends JComponent {
 		g.translate(this.getWidth() / 2, this.getHeight() / 2);
 		for (Piece p : pieces) {
 			p.rotate();
+			p.moveDown();
 			p.drawPiece(g);
 		}
 

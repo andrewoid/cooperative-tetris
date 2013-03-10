@@ -46,7 +46,8 @@ public class Piece {
 		for (int i = 0; i < squares.length; i++) {
 			Square s = squares[i];
 			int side = s.getSide();
-			s.setY(s.getY() + side);
+			s.setY(s.getY() - side);
+			//if it is + side then it moves up
 		}
 	}
 

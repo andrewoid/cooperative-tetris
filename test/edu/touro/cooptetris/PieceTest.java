@@ -41,13 +41,13 @@ public class PieceTest {
 		Square[] squares = aBox.getSquares();
 		aBox.moveDown();
 		Assert.assertEquals(0, squares[0].getX());
-		Assert.assertEquals(10, squares[0].getY());
+		Assert.assertEquals(-10, squares[0].getY());
 		Assert.assertEquals(10, squares[1].getX());
-		Assert.assertEquals(10, squares[1].getY());
+		Assert.assertEquals(-10, squares[1].getY());
 		Assert.assertEquals(0, squares[2].getX());
-		Assert.assertEquals(20, squares[2].getY());
+		Assert.assertEquals(0, squares[2].getY());
 		Assert.assertEquals(10, squares[3].getX());
-		Assert.assertEquals(20, squares[3].getY());
+		Assert.assertEquals(0, squares[3].getY());
 	}
 	
 	@Test
