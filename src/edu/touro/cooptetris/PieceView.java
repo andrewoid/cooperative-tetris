@@ -1,5 +1,5 @@
 package edu.touro.cooptetris;
-
+// TODO: get rid of the warnings in here
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;

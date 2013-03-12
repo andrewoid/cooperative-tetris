@@ -75,6 +75,7 @@ public class Piece {
 	public void drawPiece(Graphics g) {
 		for (Square s : squares) {
 			g.setColor(s.getColor());
+			// TODO: only call these getters once
 			g.fillRect(s.getX(), -s.getY(), s.getSide(), s.getSide());
 			g.setColor(Color.BLACK);
 			g.drawRect(s.getX(), -s.getY(), s.getSide(), s.getSide());

@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public class Square {
 
+	// TODO: if this never changes, shouldn't it be a constant?
 	private int side;
 	private int x;
 	private int y;
@@ -14,6 +15,8 @@ public class Square {
 		this.side = side;
 		this.x = x;
 		this.y = y;
+		// TODO: Why is this is default color? 
+		// Couldn't the color be passed in through constructor?
 		this.color = Color.GRAY;
 	}
 

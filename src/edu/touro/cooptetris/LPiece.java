@@ -6,6 +6,7 @@ public class LPiece extends Piece {
 
 	public LPiece() {
 		super();
+		// TODO: is it a waste to call .getSide() so many times?
 		for (int i = 0; i < 3; i++) {
 			Square s = squares[i];
 			s.setY(i * s.getSide());
