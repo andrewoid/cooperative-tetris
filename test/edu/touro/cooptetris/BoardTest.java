@@ -62,7 +62,7 @@ public class BoardTest {
 	}
 
 	@Test
-	public void testCollidesWithFloor() {
+	public void testCollidesWithFloorVertical() {
 		givenBoard();
 		givenFullRow();
 
@@ -71,15 +71,49 @@ public class BoardTest {
 		LinePiece linePiece = givenLinePiece();
 		
 		assertTrue(board.willCollideWithFloorVertical(linePiece));
+	
 	}
 
-	private LinePiece givenLinePiece() {
-		LinePiece linePiece = new LinePiece(0,0);
+	@Test
+	public void testCollidesWithFloorRight(){
+		givenBoard();
+		givenFullRow();
+				
+		LinePiece linePiece=givenLinePiece();
+		assertFalse(board.willCollideWithFloorRight(linePiece));
+		
+		board.setSquareFull(new Square(10,490,40));
+		
+		assertTrue(board.willCollideWithFloorRight(linePiece));
+	}
+	
+	@Test
+	public void testCollidesWithFloorLeft(){
+		givenBoard();
+		givenFullRow();
+		
+		LinePiece linePiece=givenLinePiece();
 		for(int i=0;i<linePiece.getSquares().length;i++){
 			Square s=linePiece.getSquares()[i];
-			s.setX(10);
+			s.setX(20+10*i);
+			s.setY(10+i*10);
+		}
+		
+		assertFalse(board.willCollideWithFloorLeft(linePiece));
+		
+		board.setSquareFull(new Square(10,10,10));
+		assertTrue(board.willCollideWithFloorLeft(linePiece));
+		
+	}
+	
+	private LinePiece givenLinePiece() {
+		LinePiece linePiece = new LinePiece(10,450);
+		for(int i=0;i<linePiece.getSquares().length;i++){
+			Square s=linePiece.getSquares()[i];
+			s.setX(450+10*i);
 			s.setY(10+i*10);
 		}
 		return linePiece;
 	}
+	
 }

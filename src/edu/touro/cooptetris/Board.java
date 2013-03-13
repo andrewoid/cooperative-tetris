@@ -24,7 +24,10 @@ public class Board {
 		return true;
 	}
 
-	public void setSquareFull(int rowNumber, int colNumber, Square square) {
+	public void setSquareFull(Square square) {
+		int rowNumber = square.getY() / square.getSide();
+		int colNumber = square.getX() / square.getSide();
+
 		squares.get(rowNumber)[colNumber] = square;
 	}
 
@@ -39,8 +42,8 @@ public class Board {
 
 	public boolean willCollideWithFloorVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
-			int rowNumber = square.getX() / square.getSide();
-			int colNumber = square.getY() / square.getSide();
+			int rowNumber = square.getY() / square.getSide();
+			int colNumber = square.getX() / square.getSide();
 
 			if (rowNumber == 0)
 				return true;
@@ -54,22 +57,22 @@ public class Board {
 
 	public boolean willCollideWithFloorRight(Piece piece){
 		for(Square square: piece.getSquares()){
-			int rowNumber = square.getX() / square.getSide();
-			int colNumber = square.getY() / square.getSide();
+			int rowNumber = square.getY() / square.getSide();
+			int colNumber = square.getX() / square.getSide();
 			
 			if(colNumber==NUM_COLUMNS-1)
 				return true;
 				
 			if(squares.get(rowNumber)[colNumber+1]!=null)
-			return true;
+				return true;
 		}
 		return false;
 	}
 	
 	public boolean willCollideWithFloorLeft(Piece piece){
 		for(Square square: piece.getSquares()){
-			int rowNumber = square.getX() / square.getSide();
-			int colNumber = square.getY() / square.getSide();
+			int rowNumber = square.getY() / square.getSide();
+			int colNumber = square.getX() / square.getSide();
 			
 			if(colNumber==0)
 				return true;
