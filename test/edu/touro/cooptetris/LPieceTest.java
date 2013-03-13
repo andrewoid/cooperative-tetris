@@ -8,7 +8,7 @@ public class LPieceTest {
 
 	@Test
 	public void testInitialPosition() {
-		LPiece L = new LPiece();
+		LPiece L = new LPiece(0,0);
 		Square[] squares = L.getSquares();
 
 		assertEquals(0, squares[0].getX());

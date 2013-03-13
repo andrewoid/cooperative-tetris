@@ -6,6 +6,7 @@ import java.awt.Graphics;
 public class Piece {
 
 	protected Square[] squares;
+	protected Square center;
 
 	public Piece() {
 		squares = new Square[4];
@@ -29,8 +30,8 @@ public class Piece {
 	}
 
 	public void rotate() {
-		int rx = squares[2].getX();
-		int ry = squares[2].getY();
+		int rx = center.getX();
+		int ry = center.getY();
 		// (Rx + Ry - Py, -Rx + Ry + Px)
 		// explanation is here:
 		// http://answers.yahoo.com/question/index?qid=20100826111525AAh16QO
@@ -82,5 +83,6 @@ public class Piece {
 		}
 
 	}
+	
 
 }
