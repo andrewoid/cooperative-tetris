@@ -14,12 +14,11 @@ public class PieceView extends JComponent {
 	private ArrayList<Piece> pieces;
 	private int x;
 	private int y;
-	private int timer;
-	private int timeIncrement;
+	private DropTimer timer;
+	
 
 	public PieceView() {
-		timer = 0;
-		timeIncrement = 1;
+		timer=new DropTimer(300);
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
 		x = getWidth() / 2;
@@ -53,11 +52,10 @@ public class PieceView extends JComponent {
 			p.drawPiece(g);
 		}
 
-		timer += timeIncrement;
-		if (timer > 200) {
-			//pieces.get(0).moveDown();
-			timer = 0;
+		if (timer.isTimeToDrop()){
+			pieces.get(0).moveDown();
 		}
+		
 		repaint();
 	}
 }
