@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ZPieceTest extends ZPiece {
+public class ZPieceTest {
 
 	@Test
 	public void testZPiece() {
-		ZPiece piece = new ZPiece();
+		ZPiece piece = new ZPiece(0,0);
 		Square[] squares = piece.getSquares();
 		assertEquals(squares[0].getX(), 0);
 		assertEquals(squares[1].getX(), 0);
