@@ -15,15 +15,23 @@ public class PieceView extends JComponent {
 	private int x;
 	private int y;
 	private DropTimer timer;
-	
+	private ArrayList<Level> levels;
+	private int score;
+	private Level currLevel;
+
 
 	public PieceView() {
+		levels=new ArrayList<Level>();
+		for(int i=0; i<10; i++){
+			levels.add(new Level(i, 1000-(i*100)));
+		}
+		currLevel=levels.get(0);
 		timer=new DropTimer(300);
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
 		x = getWidth() / 2;
 		y = 0;
-		// y=this.getHeight();
+		
 		
 		p=new LPiece(x, y);
 		pieces.add(p);
@@ -57,5 +65,22 @@ public class PieceView extends JComponent {
 		}
 		
 		repaint();
+	}
+	
+	public void lineCompleted(int numLines){
+		switch(numLines){
+		case 1:
+			score+=100;
+			break;
+		case 2:
+			score+=250;
+			break;
+		case 3:
+			score+=500;
+			break;
+		case 4:
+			score+=1000;
+			break;
+		}
 	}
 }
