@@ -23,7 +23,7 @@ public class PieceView extends JComponent {
 	public PieceView() {
 		levels=new ArrayList<Level>();
 		for(int i=0; i<10; i++){
-			levels.add(new Level(i, 1100-(i*100)));
+			levels.add(new Level(i, 1000-(i*100)));
 		}
 		currLevel=levels.get(0);
 		timer=new DropTimer(300);
