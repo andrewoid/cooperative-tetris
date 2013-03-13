@@ -51,13 +51,34 @@ public class Board {
 		return false;
 	}
 	
-	/*
+
 	public boolean willCollideWithFloorRight(Piece piece){
 		for(Square square: piece.getSquares()){
 			int rowNumber = square.getX() / square.getSide();
 			int colNumber = square.getY() / square.getSide();
+			
+			if(colNumber==NUM_COLUMNS-1)
+				return true;
+				
+			if(squares.get(rowNumber)[colNumber+1]!=null)
+			return true;
 		}
-	}*/
+		return false;
+	}
+	
+	public boolean willCollideWithFloorLeft(Piece piece){
+		for(Square square: piece.getSquares()){
+			int rowNumber = square.getX() / square.getSide();
+			int colNumber = square.getY() / square.getSide();
+			
+			if(colNumber==0)
+				return true;
+				
+			if(squares.get(rowNumber)[colNumber-1]!=null)
+			return true;
+		}
+		return false;
+	}
 
 	public ArrayList<Square[]> getSquares() {
 		return squares;

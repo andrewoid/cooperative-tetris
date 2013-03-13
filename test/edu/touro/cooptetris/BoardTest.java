@@ -74,7 +74,7 @@ public class BoardTest {
 	}
 
 	private LinePiece givenLinePiece() {
-		LinePiece linePiece = new LinePiece();
+		LinePiece linePiece = new LinePiece(0,0);
 		for(int i=0;i<linePiece.getSquares().length;i++){
 			Square s=linePiece.getSquares()[i];
 			s.setX(10);
