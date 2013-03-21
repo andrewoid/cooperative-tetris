@@ -9,8 +9,6 @@ public class DropTimer {
 		lastTime = System.currentTimeMillis();
 		this.timeIncrement = timeIncrement;
 	}
-	
-
 
 	public boolean isTimeToDrop() {
 		long currTime = System.currentTimeMillis();

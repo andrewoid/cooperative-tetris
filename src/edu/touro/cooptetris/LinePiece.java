@@ -6,13 +6,14 @@ public class LinePiece extends Piece {
 
 	public LinePiece(int x, int y) {
 		super();
+		int side = squares[0].getSide();
 		for (int i = 0; i < squares.length; i++) {
 			Square s = squares[i];
-			s.setY(i * s.getSide()+y);
+			s.setY(i * side + y);
 			s.setX(x);
 			s.setColor(Color.ORANGE);
 		}
-		center=squares[1];
+		center = squares[1];
 	}
 
 }

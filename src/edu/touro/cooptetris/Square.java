@@ -4,52 +4,53 @@ import java.awt.Color;
 
 public class Square {
 
-	// TODO: if this never changes, shouldn't it be a constant?
-	private int side;
+	private final int SIDE = 10;
 	private int x;
 	private int y;
 	private Color color;
 
-	public Square(int side, int x, int y) {
+	public Square(int x, int y, Color color) {
 		super();
-		this.side = side;
 		this.x = x;
 		this.y = y;
-		// TODO: Why is this is default color? 
-		// Couldn't the color be passed in through constructor?
-		this.color = Color.GRAY;
+		this.color = color;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Square other = (Square) obj;
+		if (x != other.x) {
+			return false;
+		}
+		if (y != other.y) {
+			return false;
+		}
+		return true;
 	}
 
 	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
 	public int getSide() {
-		return side;
-	}
-
-	public void setSide(int side) {
-		this.side = side;
+		return SIDE;
 	}
 
 	public int getX() {
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
 	public int getY() {
 		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	@Override
@@ -61,20 +62,16 @@ public class Square {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Square other = (Square) obj;
-		if (x != other.x)
-			return false;
-		if (y != other.y)
-			return false;
-		return true;
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 
 }

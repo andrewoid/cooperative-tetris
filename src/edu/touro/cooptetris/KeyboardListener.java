@@ -7,22 +7,14 @@ public class KeyboardListener implements KeyListener {
 
 	private Piece piece;
 
-	
-	public void setPiece(Piece piece){
-		this.piece=piece;
-	}
-
-
-
 	@Override
 	public void keyPressed(KeyEvent event) {
-		
+
 		if (piece != null) {
 			switch (event.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_KP_LEFT:
 			case KeyEvent.VK_A:
-				System.out.println("moving piece left");
 				piece.moveLeft();
 				break;
 			case KeyEvent.VK_RIGHT:
@@ -45,21 +37,23 @@ public class KeyboardListener implements KeyListener {
 				break;
 
 			}
-		}
-		else{
+		} else {
 			System.out.println("piece is null");
 		}
-		
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent event) {
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent event) {
+	}
+
+	public void setPiece(Piece piece) {
+		this.piece = piece;
 	}
 
 }
