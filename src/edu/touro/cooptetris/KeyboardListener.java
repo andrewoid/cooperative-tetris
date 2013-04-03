@@ -7,10 +7,6 @@ public class KeyboardListener implements KeyListener {
 
 	private Piece piece;
 
-	public void setPiece(Piece piece) {
-		this.piece = piece;
-	}
-
 	@Override
 	public void keyPressed(KeyEvent event) {
 
@@ -53,6 +49,10 @@ public class KeyboardListener implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent event) {
+	}
+
+	public void setPiece(Piece piece) {
+		this.piece = piece;
 	}
 
 }

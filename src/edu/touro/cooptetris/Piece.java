@@ -12,8 +12,7 @@ public class Piece {
 		squares = new Square[4];
 
 		for (int i = 0; i < 4; i++) {
-			squares[i] = new Square(15, 0, 0);
-
+			squares[i] = new Square(0, 0, Color.BLACK);
 		}
 	}
 
@@ -21,9 +20,23 @@ public class Piece {
 		return squares;
 	}
 
+	public void moveDown() {
+		for (Square s : squares) {
+			int side = s.getSide();
+			s.setY(s.getY() - side);
+			// if it is + side then it moves up
+		}
+	}
+
+	public void moveLeft() {
+		for (Square s : squares) {
+			int side = s.getSide();
+			s.setX(s.getX() - side);
+		}
+	}
+
 	public void moveRight() {
-		for (int i = 0; i < squares.length; i++) {
-			Square s = squares[i];
+		for (Square s : squares) {
 			int side = s.getSide();
 			s.setX(s.getX() + side);
 		}
@@ -43,29 +56,12 @@ public class Piece {
 		}
 	}
 
-	public void moveDown() {
-		for (int i = 0; i < squares.length; i++) {
-			Square s = squares[i];
-			int side = s.getSide();
-			s.setY(s.getY() - side);
-			// if it is + side then it moves up
-		}
-	}
-
-	public void moveLeft() {
-		for (int i = 0; i < squares.length; i++) {
-			Square s = squares[i];
-			int side = s.getSide();
-			s.setX(s.getX() - side);
-		}
-	}
-
 	public boolean collidesWith(Piece p) {
 		Square[] currSquares = this.getSquares();
 		Square[] pSquares = p.getSquares();
-		for (int i = 0; i < currSquares.length; i++) {
-			for (int j = 0; j < pSquares.length; j++) {
-				if (currSquares[i].equals(pSquares[j])) {
+		for (Square currSquare : currSquares) {
+			for (Square pSquare : pSquares) {
+				if (currSquare.equals(pSquare)) {
 					return true;
 				}
 			}
@@ -76,10 +72,12 @@ public class Piece {
 	public void drawPiece(Graphics g) {
 		for (Square s : squares) {
 			g.setColor(s.getColor());
-			// TODO: only call these getters once
-			g.fillRect(s.getX(), -s.getY(), s.getSide(), s.getSide());
+			int x = s.getX();
+			int y = -s.getY();
+			int side = s.getSide();
+			g.fillRect(x, y, side, side);
 			g.setColor(Color.BLACK);
-			g.drawRect(s.getX(), -s.getY(), s.getSide(), s.getSide());
+			g.drawRect(x, y, side, side);
 		}
 
 	}

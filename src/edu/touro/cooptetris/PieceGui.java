@@ -6,6 +6,12 @@ import javax.swing.JFrame;
 
 public class PieceGui extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) {
+		new PieceGui();
+	}
+
 	public PieceGui() {
 		setTitle("piece GUI");
 		setSize(800, 600);
@@ -16,10 +22,6 @@ public class PieceGui extends JFrame {
 
 		setVisible(true);
 
-	}
-
-	public static void main(String[] args) {
-		new PieceGui();
 	}
 
 }

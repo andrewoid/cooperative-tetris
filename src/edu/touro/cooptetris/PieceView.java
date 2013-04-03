@@ -1,20 +1,19 @@
 package edu.touro.cooptetris;
 
-// TODO: get rid of the warnings in here
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Timer;
 
 import javax.swing.JComponent;
 
 public class PieceView extends JComponent {
 
-	private Piece p;
-	private ArrayList<Piece> pieces;
-	private int x;
-	private int y;
-	private DropTimer timer;
-	private ArrayList<Level> levels;
+	private static final long serialVersionUID = 1L;
+	private final Piece p;
+	private final ArrayList<Piece> pieces;
+	private final int x;
+	private final int y;
+	private final DropTimer timer;
+	private final ArrayList<Level> levels;
 	private int score;
 	private Level currLevel;
 	private int boardMarginSide;
@@ -39,6 +38,7 @@ public class PieceView extends JComponent {
 		x = boardMarginSide + (boardWidth / 2);
 		y = 0;
 		p = new JPiece(x, y);
+
 		pieces.add(p);
 		for (int i = 0; i < 5; i++) {
 			p.moveDown();
@@ -68,6 +68,32 @@ public class PieceView extends JComponent {
 		leftX = boardMarginSide;
 	}
 
+	public Level getCurrLevel() {
+		return currLevel;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void lineCompleted(int numLines) {
+		switch (numLines) {
+		case 1:
+			setScore(getScore() + 100);
+			break;
+		case 2:
+			setScore(getScore() + 250);
+			break;
+		case 3:
+			setScore(getScore() + 500);
+			break;
+		case 4:
+			setScore(getScore() + 1000);
+			break;
+		}
+	}
+
+	@Override
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -91,21 +117,7 @@ public class PieceView extends JComponent {
 		g.drawLine(leftX, bottomY, rightX, bottomY);
 	}
 
-	public void lineCompleted(int numLines) {
-		switch (numLines) {
-		case 1:
-			score += 100;
-			break;
-		case 2:
-			score += 250;
-			break;
-		case 3:
-			score += 500;
-			break;
-		case 4:
-			score += 1000;
-			break;
-		}
-
+	public void setScore(int score) {
+		this.score = score;
 	}
 }
