@@ -11,15 +11,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 public class ThemeMusicPlayer extends JFrame {
-	
+
 	private Clip clip;
 
 	public ThemeMusicPlayer() throws UnsupportedAudioFileException,
 			IOException, LineUnavailableException {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(600, 600);
+		this.setSize(0, 0);
 		this.setTitle("Theme Song Player");
-		this.setVisible(true);
+		this.setVisible(false);
 
 		try {
 			// Open an audio input stream.
@@ -42,23 +42,23 @@ public class ThemeMusicPlayer extends JFrame {
 		}
 
 	}
-	
-	public void pause(){
+
+	public void pause() {
 		clip.stop();
 	}
-	
-	public void resume(){
+
+	public void resume() {
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
-	
-	public void restart(){
+
+	public void restart() {
 		clip.setMicrosecondPosition(0);
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 	public static void main(String[] args) {
 		try {
-			ThemeMusicPlayer testPlayer= new ThemeMusicPlayer();
+			ThemeMusicPlayer testPlayer = new ThemeMusicPlayer();
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {
@@ -80,8 +80,7 @@ public class ThemeMusicPlayer extends JFrame {
 				e.printStackTrace();
 			}
 			testPlayer.restart();
-			
-			
+
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

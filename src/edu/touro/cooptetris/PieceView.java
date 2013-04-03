@@ -1,8 +1,11 @@
 package edu.touro.cooptetris;
 
 import java.awt.Graphics;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
 public class PieceView extends JComponent {
@@ -15,7 +18,7 @@ public class PieceView extends JComponent {
 	private final DropTimer timer;
 	private final ArrayList<Level> levels;
 	private int score;
-	private Level currLevel;
+	private int currLevel;
 	private int boardMarginSide;
 	private int boardMarginBottom;
 	private int topY;
@@ -23,13 +26,22 @@ public class PieceView extends JComponent {
 	private int rightX;
 	private int leftX;
 	private int boardWidth;
+	private int totalHeight;
+	private int totalWidth;
+	private ThemeMusicPlayer themeMusicPlayer;
+	private CompleteLineMusicPlayer completeLinePlayer;
+	private RotateMusicPlayer rotatePlayer;
+	private LevelChangeMusicPlayer levelChangePlayer;
+	private HitFloorMusicPlayer hitFloorPlayer;
 
-	public PieceView() {
+	public PieceView(int totalHeight, int totalWidth) {
+		this.totalHeight = totalHeight;
+		this.totalWidth = totalWidth;
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
 		}
-		currLevel = levels.get(0);
+		currLevel = 1;
 		timer = new DropTimer(300);
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
@@ -42,6 +54,23 @@ public class PieceView extends JComponent {
 		pieces.add(p);
 		for (int i = 0; i < 5; i++) {
 			p.moveDown();
+		}
+
+		try {
+			themeMusicPlayer = new ThemeMusicPlayer();
+			rotatePlayer = new RotateMusicPlayer();
+			levelChangePlayer = new LevelChangeMusicPlayer();
+			hitFloorPlayer = new HitFloorMusicPlayer();
+			completeLinePlayer = new CompleteLineMusicPlayer();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		// pieces.add(new TPiece());
@@ -58,17 +87,15 @@ public class PieceView extends JComponent {
 	}
 
 	private void setBoardDimensions() {
-		boardWidth = Board.getNumColumns() * 15;
-		// p.getSquares()[0].getSide() This needs to be static to be usable
-		// because p isn't instantiated yet
-		boardMarginSide = (getWidth() - boardWidth) / 2;
-		boardMarginBottom = 50;
-		bottomY = (getHeight() - boardMarginBottom);
-		rightX = (getWidth() - boardMarginSide);
+		boardWidth = Board.getNumColumns() * Square.SIDE;
+		boardMarginSide = (totalWidth - boardWidth) / 2;
+		boardMarginBottom = totalHeight / 4;
+		bottomY = (totalHeight - boardMarginBottom);
+		rightX = (totalWidth - boardMarginSide);
 		leftX = boardMarginSide;
 	}
 
-	public Level getCurrLevel() {
+	public int getCurrLevel() {
 		return currLevel;
 	}
 
@@ -90,6 +117,11 @@ public class PieceView extends JComponent {
 		case 4:
 			setScore(getScore() + 1000);
 			break;
+		}
+		completeLinePlayer.play();
+		if (score > currLevel * 4000) {
+			currLevel++;
+			levelChangePlayer.play();
 		}
 	}
 

@@ -11,15 +11,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 public class HitFloorMusicPlayer extends JFrame {
-	
+
 	private Clip clip;
 
 	public HitFloorMusicPlayer() throws UnsupportedAudioFileException,
 			IOException, LineUnavailableException {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(600, 600);
+		this.setSize(0, 0);
 		this.setTitle("Hit Floor Song Player");
-		this.setVisible(true);
+		this.setVisible(false);
 
 		try {
 			// Open an audio input stream.
@@ -39,17 +39,16 @@ public class HitFloorMusicPlayer extends JFrame {
 		}
 
 	}
-	
-	public void play(){
+
+	public void play() {
 		clip.start();
 	}
-	
-	
+
 	public static void main(String[] args) {
 		try {
-			HitFloorMusicPlayer test= new HitFloorMusicPlayer();
+			HitFloorMusicPlayer test = new HitFloorMusicPlayer();
 			test.play();
-			
+
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

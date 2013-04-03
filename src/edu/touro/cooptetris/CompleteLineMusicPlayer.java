@@ -11,15 +11,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 public class CompleteLineMusicPlayer extends JFrame {
-	
+
 	private Clip clip;
 
 	public CompleteLineMusicPlayer() throws UnsupportedAudioFileException,
 			IOException, LineUnavailableException {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(600, 600);
+		this.setSize(0, 0);
 		this.setTitle("Complete Line Player");
-		this.setVisible(true);
+		this.setVisible(false);
 
 		try {
 			// Open an audio input stream.
@@ -39,25 +39,21 @@ public class CompleteLineMusicPlayer extends JFrame {
 		}
 
 	}
-	
-	public void play(){
+
+	public void play() {
 		clip.start();
 	}
-	
-	
+
 	public static void main(String[] args) {
 		try {
-			CompleteLineMusicPlayer test= new CompleteLineMusicPlayer();
+			CompleteLineMusicPlayer test = new CompleteLineMusicPlayer();
 			test.play();
-			
+
 		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

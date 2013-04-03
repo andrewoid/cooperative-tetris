@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Board {
 
 	private static final int NUM_ROWS = 150;
-	private static final int NUM_COLUMNS = 15;
+	private static final int NUM_COLUMNS = 10;
 	private ArrayList<Square[]> squares;
 
 	public Board() {

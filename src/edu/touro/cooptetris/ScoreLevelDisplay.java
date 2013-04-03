@@ -33,11 +33,16 @@ public class ScoreLevelDisplay extends JPanel {
 		Font font = new Font("Calibri", Font.BOLD, 18);
 		scoreLabel.setFont(font);
 		levelLabel.setFont(font);
-		setLayout(new GridLayout(5, 1));
+		setLayout(new GridLayout(5, 2));
 		add(new JLabel());
+		add(new JLabel());
+
 		add(scoreLabel);
 		add(new JLabel());
+		add(new JLabel());
+		add(new JLabel());
 		add(levelLabel);
+		add(new JLabel());
 		setVisible(true);
 	}
 
