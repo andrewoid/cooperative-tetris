@@ -13,7 +13,6 @@ public class Piece {
 
 		for (int i = 0; i < 4; i++) {
 			squares[i] = new Square(0, 0, Color.BLACK);
-
 		}
 	}
 

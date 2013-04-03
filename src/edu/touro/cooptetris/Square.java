@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class Square {
 
-	private final int SIDE = 10;
+	private static final int SIDE = 10;
 	private int x;
 	private int y;
 	private Color color;
