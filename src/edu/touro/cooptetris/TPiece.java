@@ -6,7 +6,7 @@ public class TPiece extends Piece {
 
 	public TPiece(int x, int y) {
 		super();
-		int side = squares[0].getSide();
+		int side = Square.SIDE;
 		for (int i = 0; i < 3; i++) {
 			Square s = squares[i];
 			s.setX(i * side + x);
