@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Board {
 
-	private static final int NUM_ROWS = 200;
-	private static final int NUM_COLUMNS = 50;
+	private static final int NUM_ROWS = 150;
+	private static final int NUM_COLUMNS = 15;
 	private ArrayList<Square[]> squares;
 
 	public Board() {
@@ -47,38 +47,37 @@ public class Board {
 
 			if (rowNumber == 0)
 				return true;
-			
+
 			if (squares.get(rowNumber - 1)[colNumber] != null)
 				return true;
 		}
 		return false;
 	}
-	
 
-	public boolean willCollideWithFloorRight(Piece piece){
-		for(Square square: piece.getSquares()){
+	public boolean willCollideWithFloorRight(Piece piece) {
+		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / square.getSide();
 			int colNumber = square.getX() / square.getSide();
-			
-			if(colNumber==NUM_COLUMNS-1)
+
+			if (colNumber == NUM_COLUMNS - 1)
 				return true;
-				
-			if(squares.get(rowNumber)[colNumber+1]!=null)
+
+			if (squares.get(rowNumber)[colNumber + 1] != null)
 				return true;
 		}
 		return false;
 	}
-	
-	public boolean willCollideWithFloorLeft(Piece piece){
-		for(Square square: piece.getSquares()){
+
+	public boolean willCollideWithFloorLeft(Piece piece) {
+		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / square.getSide();
 			int colNumber = square.getX() / square.getSide();
-			
-			if(colNumber==0)
+
+			if (colNumber == 0)
 				return true;
-				
-			if(squares.get(rowNumber)[colNumber-1]!=null)
-			return true;
+
+			if (squares.get(rowNumber)[colNumber - 1] != null)
+				return true;
 		}
 		return false;
 	}
@@ -93,6 +92,14 @@ public class Board {
 
 	public void setSquaresArray(Square[] squaresArray, int numRow) {
 		squares.set(numRow, squaresArray);
+	}
+
+	public static int getNumRows() {
+		return NUM_ROWS;
+	}
+
+	public static int getNumColumns() {
+		return NUM_COLUMNS;
 	}
 
 }

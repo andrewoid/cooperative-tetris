@@ -33,7 +33,6 @@ public class KeyboardListener implements KeyListener {
 				piece.moveDown();
 				break;
 			default:
-				System.out.println("in default");
 				break;
 
 			}

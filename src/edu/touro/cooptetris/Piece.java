@@ -16,32 +16,6 @@ public class Piece {
 		}
 	}
 
-	public boolean collidesWith(Piece p) {
-		Square[] currSquares = this.getSquares();
-		Square[] pSquares = p.getSquares();
-		for (Square currSquare : currSquares) {
-			for (Square pSquare : pSquares) {
-				if (currSquare.equals(pSquare)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	public void drawPiece(Graphics g) {
-		for (Square s : squares) {
-			g.setColor(s.getColor());
-			int x = s.getX();
-			int y = -s.getY();
-			int side = s.getSide();
-			g.fillRect(x, y, side, side);
-			g.setColor(Color.BLACK);
-			g.drawRect(x, y, side, side);
-		}
-
-	}
-
 	public Square[] getSquares() {
 		return squares;
 	}
@@ -80,6 +54,32 @@ public class Piece {
 			s.setX(rx + ry - py);
 			s.setY(-rx + ry + px);
 		}
+	}
+
+	public boolean collidesWith(Piece p) {
+		Square[] currSquares = this.getSquares();
+		Square[] pSquares = p.getSquares();
+		for (Square currSquare : currSquares) {
+			for (Square pSquare : pSquares) {
+				if (currSquare.equals(pSquare)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public void drawPiece(Graphics g) {
+		for (Square s : squares) {
+			g.setColor(s.getColor());
+			int x = s.getX();
+			int y = -s.getY();
+			int side = s.getSide();
+			g.fillRect(x, y, side, side);
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, side, side);
+		}
+
 	}
 
 }

@@ -13,6 +13,7 @@ public class Square {
 		super();
 		this.x = x;
 		this.y = y;
+
 		this.color = color;
 	}
 

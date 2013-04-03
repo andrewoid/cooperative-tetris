@@ -15,7 +15,14 @@ public class PieceView extends JComponent {
 	private final DropTimer timer;
 	private final ArrayList<Level> levels;
 	private int score;
-	private final Level currLevel;
+	private Level currLevel;
+	private int boardMarginSide;
+	private int boardMarginBottom;
+	private int topY;
+	private int bottomY;
+	private int rightX;
+	private int leftX;
+	private int boardWidth;
 
 	public PieceView() {
 		levels = new ArrayList<Level>();
@@ -26,10 +33,12 @@ public class PieceView extends JComponent {
 		timer = new DropTimer(300);
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
-		x = getWidth() / 2;
-		y = 0;
 
-		p = new LPiece(x, y);
+		setBoardDimensions();
+		x = boardMarginSide + (boardWidth / 2);
+		y = 0;
+		p = new JPiece(x, y);
+
 		pieces.add(p);
 		for (int i = 0; i < 5; i++) {
 			p.moveDown();
@@ -46,6 +55,17 @@ public class PieceView extends JComponent {
 		keyListener.setPiece(p);
 		setFocusable(true);
 
+	}
+
+	private void setBoardDimensions() {
+		boardWidth = Board.getNumColumns() * 15;
+		// p.getSquares()[0].getSide() This needs to be static to be usable
+		// because p isn't instantiated yet
+		boardMarginSide = (getWidth() - boardWidth) / 2;
+		boardMarginBottom = 50;
+		bottomY = (getHeight() - boardMarginBottom);
+		rightX = (getWidth() - boardMarginSide);
+		leftX = boardMarginSide;
 	}
 
 	public Level getCurrLevel() {
@@ -77,6 +97,7 @@ public class PieceView extends JComponent {
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
+		drawBoard(g);
 
 		for (Piece p : pieces) {
 			p.drawPiece(g);
@@ -87,6 +108,13 @@ public class PieceView extends JComponent {
 		}
 
 		repaint();
+	}
+
+	public void drawBoard(Graphics g) {
+
+		g.drawLine(leftX, topY, leftX, bottomY);
+		g.drawLine(rightX, topY, rightX, bottomY);
+		g.drawLine(leftX, bottomY, rightX, bottomY);
 	}
 
 	public void setScore(int score) {

@@ -10,6 +10,8 @@ public class DropTimer {
 		this.timeIncrement = timeIncrement;
 	}
 
+
+
 	public boolean isTimeToDrop() {
 		long currTime = System.currentTimeMillis();
 		if (currTime - lastTime > timeIncrement) {
