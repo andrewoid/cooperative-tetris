@@ -6,7 +6,7 @@ public class JPiece extends Piece {
 
 	public JPiece(int x, int y) {
 		super();
-		int side = squares[0].getSide();
+		int side = Square.SIDE;
 		for (int i = 0; i < 3; i++) {
 			Square s = squares[i];
 			s.setY(i * side + y);

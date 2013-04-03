@@ -7,7 +7,7 @@ public class ZPiece extends Piece {
 	public ZPiece(int x, int y) {
 		super();
 		Color color = Color.GREEN;
-		int side = squares[0].getSide();
+		int side = Square.SIDE;
 
 		for (int i = 0; i < 2; i++) {
 			Square s = squares[i];
