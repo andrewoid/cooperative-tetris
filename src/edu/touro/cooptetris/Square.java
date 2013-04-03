@@ -15,7 +15,7 @@ public class Square {
 		this.side = side;
 		this.x = x;
 		this.y = y;
-		// TODO: Why is this is default color? 
+		// TODO: Why is this is default color?
 		// Couldn't the color be passed in through constructor?
 		this.color = Color.GRAY;
 	}

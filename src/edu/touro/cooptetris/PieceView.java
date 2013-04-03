@@ -10,7 +10,6 @@ import javax.swing.JComponent;
 public class PieceView extends JComponent {
 
 	private Piece p;
-	private LinePiece line;
 	private ArrayList<Piece> pieces;
 	private int x;
 	private int y;
@@ -18,27 +17,33 @@ public class PieceView extends JComponent {
 	private ArrayList<Level> levels;
 	private int score;
 	private Level currLevel;
-
+	private int boardMarginSide;
+	private int boardMarginBottom;
+	private int topY;
+	private int bottomY;
+	private int rightX;
+	private int leftX;
+	private int boardWidth;
 
 	public PieceView() {
-		levels=new ArrayList<Level>();
-		for(int i=0; i<10; i++){
-			levels.add(new Level(i, 1000-(i*100)));
+		levels = new ArrayList<Level>();
+		for (int i = 0; i < 10; i++) {
+			levels.add(new Level(i, 1000 - (i * 100)));
 		}
-		currLevel=levels.get(0);
-		timer=new DropTimer(300);
+		currLevel = levels.get(0);
+		timer = new DropTimer(300);
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
-		x = getWidth() / 2;
+
+		setBoardDimensions();
+		x = boardMarginSide + (boardWidth / 2);
 		y = 0;
-		
-		
-		p=new LPiece(x, y);
+		p = new JPiece(x, y);
 		pieces.add(p);
-		for (int i=0; i<5; i++){
+		for (int i = 0; i < 5; i++) {
 			p.moveDown();
 		}
-		
+
 		// pieces.add(new TPiece());
 		// pieces.add(new LinePiece());
 		// pieces.add(new BoxPiece());
@@ -52,35 +57,55 @@ public class PieceView extends JComponent {
 
 	}
 
+	private void setBoardDimensions() {
+		boardWidth = Board.getNumColumns() * 15;
+		// p.getSquares()[0].getSide() This needs to be static to be usable
+		// because p isn't instantiated yet
+		boardMarginSide = (getWidth() - boardWidth) / 2;
+		boardMarginBottom = 50;
+		bottomY = (getHeight() - boardMarginBottom);
+		rightX = (getWidth() - boardMarginSide);
+		leftX = boardMarginSide;
+	}
+
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
+		drawBoard(g);
 
 		for (Piece p : pieces) {
 			p.drawPiece(g);
 		}
 
-		if (timer.isTimeToDrop()){
+		if (timer.isTimeToDrop()) {
 			pieces.get(0).moveDown();
 		}
-		
+
 		repaint();
 	}
-	
-	public void lineCompleted(int numLines){
-		switch(numLines){
+
+	public void drawBoard(Graphics g) {
+
+		g.drawLine(leftX, topY, leftX, bottomY);
+		g.drawLine(rightX, topY, rightX, bottomY);
+		g.drawLine(leftX, bottomY, rightX, bottomY);
+	}
+
+	public void lineCompleted(int numLines) {
+		switch (numLines) {
 		case 1:
-			score+=100;
+			score += 100;
 			break;
 		case 2:
-			score+=250;
+			score += 250;
 			break;
 		case 3:
-			score+=500;
+			score += 500;
 			break;
 		case 4:
-			score+=1000;
+			score += 1000;
 			break;
 		}
+
 	}
 }

@@ -12,7 +12,7 @@ public class Piece {
 		squares = new Square[4];
 
 		for (int i = 0; i < 4; i++) {
-			squares[i] = new Square(10, 0, 0);
+			squares[i] = new Square(15, 0, 0);
 
 		}
 	}
@@ -48,7 +48,7 @@ public class Piece {
 			Square s = squares[i];
 			int side = s.getSide();
 			s.setY(s.getY() - side);
-			//if it is + side then it moves up
+			// if it is + side then it moves up
 		}
 	}
 
@@ -83,6 +83,5 @@ public class Piece {
 		}
 
 	}
-	
 
 }
