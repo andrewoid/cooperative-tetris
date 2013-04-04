@@ -29,6 +29,7 @@ public class PieceView extends JComponent {
 				p.moveRight();
 			}
 
+
 		}
 	}
 
