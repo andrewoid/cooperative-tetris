@@ -6,19 +6,23 @@ import javax.swing.JFrame;
 
 public class PieceGui extends JFrame {
 
-	public PieceGui() {
-		setTitle("piece GUI");
-		setSize(800, 600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
-
-		add(new PieceView(), BorderLayout.CENTER);
-		setVisible(true);
-
-	}
+	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		new PieceGui();
+	}
+
+	public PieceGui() {
+		int height = 600, width = 500;
+		setTitle("piece GUI");
+		setSize(height, width);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		add(new PieceView(height, width), BorderLayout.CENTER);
+		add(new ScoreLevelDisplay(0, 1), BorderLayout.EAST);
+
+		setVisible(true);
+
 	}
 
 }

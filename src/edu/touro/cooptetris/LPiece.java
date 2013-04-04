@@ -4,20 +4,21 @@ import java.awt.Color;
 
 public class LPiece extends Piece {
 
-	public LPiece() {
+	public LPiece(int x, int y) {
 		super();
-		// TODO: is it a waste to call .getSide() so many times?
+		int side = Square.SIDE;
 		for (int i = 0; i < 3; i++) {
 			Square s = squares[i];
-			s.setY(i * s.getSide());
+			s.setY(i * side + y);
+			s.setX(x);
 			s.setColor(Color.PINK);
 		}
 
 		Square s = squares[3];
-		s.setY(2 * s.getSide());
-		s.setX(s.getX() + s.getSide());
+		s.setY(2 * side + y);
+		s.setX(s.getX() + side + x);
 		s.setColor(Color.PINK);
-
+		center = squares[1];
 	}
 
 }

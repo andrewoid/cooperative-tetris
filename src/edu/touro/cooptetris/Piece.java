@@ -2,69 +2,30 @@ package edu.touro.cooptetris;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Piece {
 
 	protected Square[] squares;
+	protected Square center;
 
 	public Piece() {
 		squares = new Square[4];
 
 		for (int i = 0; i < 4; i++) {
-			squares[i] = new Square(10, 0, 0);
-
-		}
-	}
-
-	public Square[] getSquares() {
-		return squares;
-	}
-
-	public void moveRight() {
-		for (int i = 0; i < squares.length; i++) {
-			Square s = squares[i];
-			int side = s.getSide();
-			s.setX(s.getX() + side);
-		}
-	}
-
-	public void rotate() {
-		int rx = squares[2].getX();
-		int ry = squares[2].getY();
-		// (Rx + Ry - Py, -Rx + Ry + Px)
-		// explanation is here:
-		// http://answers.yahoo.com/question/index?qid=20100826111525AAh16QO
-		for (Square s : squares) {
-			int px = s.getX();
-			int py = s.getY();
-			s.setX(rx + ry - py);
-			s.setY(-rx + ry + px);
-		}
-	}
-
-	public void moveDown() {
-		for (int i = 0; i < squares.length; i++) {
-			Square s = squares[i];
-			int side = s.getSide();
-			s.setY(s.getY() - side);
-			//if it is + side then it moves up
-		}
-	}
-
-	public void moveLeft() {
-		for (int i = 0; i < squares.length; i++) {
-			Square s = squares[i];
-			int side = s.getSide();
-			s.setX(s.getX() - side);
+			squares[i] = new Square(0, 0, Color.BLACK);
 		}
 	}
 
 	public boolean collidesWith(Piece p) {
 		Square[] currSquares = this.getSquares();
 		Square[] pSquares = p.getSquares();
-		for (int i = 0; i < currSquares.length; i++) {
-			for (int j = 0; j < pSquares.length; j++) {
-				if (currSquares[i].equals(pSquares[j])) {
+		for (Square currSquare : currSquares) {
+			for (Square pSquare : pSquares) {
+				if (currSquare.equals(pSquare)) {
 					return true;
 				}
 			}
@@ -75,12 +36,66 @@ public class Piece {
 	public void drawPiece(Graphics g) {
 		for (Square s : squares) {
 			g.setColor(s.getColor());
-			// TODO: only call these getters once
-			g.fillRect(s.getX(), -s.getY(), s.getSide(), s.getSide());
+			int x = s.getX();
+			int y = -s.getY();
+			int side = s.getSide();
+			g.fillRect(x, y, side, side);
 			g.setColor(Color.BLACK);
-			g.drawRect(s.getX(), -s.getY(), s.getSide(), s.getSide());
+			g.drawRect(x, y, side, side);
 		}
 
+	}
+
+	public Square[] getSquares() {
+		return squares;
+	}
+
+	public void moveDown() {
+		for (Square s : squares) {
+			int side = s.getSide();
+			s.setY(s.getY() - side);
+			// if it is + side then it moves up
+		}
+	}
+
+	public void moveLeft() {
+		for (Square s : squares) {
+			int side = s.getSide();
+			s.setX(s.getX() - side);
+		}
+	}
+
+	public void moveRight() {
+		for (Square s : squares) {
+			int side = s.getSide();
+			s.setX(s.getX() + side);
+		}
+	}
+
+	public void rotate() {
+		RotateMusicPlayer rotatePlayer;
+		try {
+			rotatePlayer = new RotateMusicPlayer();
+			rotatePlayer.play();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+
+		int rx = center.getX();
+		int ry = center.getY();
+		// (Rx + Ry - Py, -Rx + Ry + Px)
+		// explanation is here:
+		// http://answers.yahoo.com/question/index?qid=20100826111525AAh16QO
+		for (Square s : squares) {
+			int px = s.getX();
+			int py = s.getY();
+			s.setX(rx + ry - py);
+			s.setY(-rx + ry + px);
+		}
 	}
 
 }

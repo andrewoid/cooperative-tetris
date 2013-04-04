@@ -1,55 +1,154 @@
 package edu.touro.cooptetris;
-// TODO: get rid of the warnings in here
-import java.awt.Color;
+
 import java.awt.Graphics;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
 public class PieceView extends JComponent {
 
-	private JPiece j;
-	private TPiece t;
-	private LinePiece line;
-	private ArrayList<Piece> pieces;
+	private static final long serialVersionUID = 1L;
+	private final Piece p;
+	private final ArrayList<Piece> pieces;
+	private final int x;
+	private final int y;
+	private final DropTimer timer;
+	private final ArrayList<Level> levels;
+	private int score;
+	private int currLevel;
+	private int boardMarginSide;
+	private int boardMarginBottom;
+	private int topY;
+	private int bottomY;
+	private int rightX;
+	private int leftX;
+	private int boardWidth;
+	private int totalHeight;
+	private int totalWidth;
+	private ThemeMusicPlayer themeMusicPlayer;
+	private CompleteLineMusicPlayer completeLinePlayer;
+	private LevelChangeMusicPlayer levelChangePlayer;
+	private HitFloorMusicPlayer hitFloorPlayer;
 
-	public PieceView() {
-		pieces = new ArrayList<Piece>();
-		pieces.add(new JPiece());
-		//pieces.add(new TPiece());
-		//pieces.add(new LinePiece());
-		//pieces.add(new BoxPiece());
-		//pieces.add(new ZPiece());
-		pieces.add(new SPiece());
-		pieces.add(new LPiece());
-
-		for (int i = 0; i < 20; i++) {
-			for (Piece p : pieces) {
-				p.moveDown();
-				p.moveRight();
-			}
-
-
+	public PieceView(int totalHeight, int totalWidth) {
+		this.totalHeight = totalHeight;
+		this.totalWidth = totalWidth;
+		levels = new ArrayList<Level>();
+		for (int i = 0; i < 10; i++) {
+			levels.add(new Level(i, 1000 - (i * 100)));
 		}
-	}
+		currLevel = 1;
+		timer = new DropTimer(300);
+		setSize(800, 600);
+		pieces = new ArrayList<Piece>();
 
-	protected void paintComponent(Graphics g) {
+		setBoardDimensions();
+		x = boardMarginSide + (boardWidth / 2);
+		y = 0;
+		p = new JPiece(x, y);
 
-		super.paintComponent(g);
-		g.translate(this.getWidth() / 2, this.getHeight() / 2);
-		for (Piece p : pieces) {
-			p.rotate();
+		pieces.add(p);
+		for (int i = 0; i < 5; i++) {
 			p.moveDown();
-			p.drawPiece(g);
 		}
 
 		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			themeMusicPlayer = new ThemeMusicPlayer();
+			themeMusicPlayer.play();
+			levelChangePlayer = new LevelChangeMusicPlayer();
+			hitFloorPlayer = new HitFloorMusicPlayer();
+			completeLinePlayer = new CompleteLineMusicPlayer();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
 
+		// pieces.add(new TPiece());
+		// pieces.add(new LinePiece());
+		// pieces.add(new BoxPiece());
+		// pieces.add(new ZPiece());
+		// pieces.add(new SPiece());
+		// pieces.add(new LPiece());
+		KeyboardListener keyListener = new KeyboardListener();
+		addKeyListener(keyListener);
+		keyListener.setPiece(p);
+		setFocusable(true);
+
+	}
+
+	public void drawBoard(Graphics g) {
+		g.drawLine(leftX, topY, leftX, bottomY);
+		g.drawLine(rightX, topY, rightX, bottomY);
+		g.drawLine(leftX, bottomY, rightX, bottomY);
+	}
+
+	public int getCurrLevel() {
+		return currLevel;
+	}
+
+	public HitFloorMusicPlayer getHitFloorPlayer() {
+		return hitFloorPlayer;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void lineCompleted(int numLines) {
+		switch (numLines) {
+		case 1:
+			setScore(getScore() + 100);
+			break;
+		case 2:
+			setScore(getScore() + 250);
+			break;
+		case 3:
+			setScore(getScore() + 500);
+			break;
+		case 4:
+			setScore(getScore() + 1000);
+			break;
+		}
+		completeLinePlayer.play();
+		if (score > currLevel * 4000) {
+			currLevel++;
+			levelChangePlayer.play();
+		}
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+
+		super.paintComponent(g);
+		drawBoard(g);
+
+		for (Piece p : pieces) {
+			p.drawPiece(g);
+		}
+
+		if (timer.isTimeToDrop()) {
+			pieces.get(0).moveDown();
+		}
+
 		repaint();
+	}
+
+	private void setBoardDimensions() {
+		boardWidth = Board.getNumColumns() * Square.SIDE;
+		boardMarginSide = (totalWidth - boardWidth) / 2;
+		boardMarginBottom = totalHeight / 4;
+		bottomY = (totalHeight - boardMarginBottom);
+		rightX = (totalWidth - boardMarginSide);
+		leftX = boardMarginSide;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 }
