@@ -12,6 +12,25 @@ import javax.swing.JFrame;
 
 public class HitFloorMusicPlayer extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) {
+		try {
+			HitFloorMusicPlayer test = new HitFloorMusicPlayer();
+			test.play();
+
+		} catch (UnsupportedAudioFileException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+
+			e.printStackTrace();
+		}
+	}
+
 	private Clip clip;
 
 	public HitFloorMusicPlayer() throws UnsupportedAudioFileException,
@@ -42,23 +61,6 @@ public class HitFloorMusicPlayer extends JFrame {
 
 	public void play() {
 		clip.start();
-	}
-
-	public static void main(String[] args) {
-		try {
-			HitFloorMusicPlayer test = new HitFloorMusicPlayer();
-			test.play();
-
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

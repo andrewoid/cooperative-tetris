@@ -12,6 +12,22 @@ import javax.swing.JFrame;
 
 public class CompleteLineMusicPlayer extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) {
+		try {
+			CompleteLineMusicPlayer test = new CompleteLineMusicPlayer();
+			test.play();
+
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private Clip clip;
 
 	public CompleteLineMusicPlayer() throws UnsupportedAudioFileException,
@@ -42,20 +58,6 @@ public class CompleteLineMusicPlayer extends JFrame {
 
 	public void play() {
 		clip.start();
-	}
-
-	public static void main(String[] args) {
-		try {
-			CompleteLineMusicPlayer test = new CompleteLineMusicPlayer();
-			test.play();
-
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
 	}
 
 }
