@@ -96,7 +96,7 @@ public class ThemeMusicPlayer extends JFrame {
 	}
 	
 	public void play(){
-		clip.start();
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 }
