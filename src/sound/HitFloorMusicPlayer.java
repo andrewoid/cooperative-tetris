@@ -1,17 +1,19 @@
-package edu.touro.cooptetris;
+package sound;
 
 import java.io.IOException;
 
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import sound.SoundPlayer;
 
-public class LevelChangeMusicPlayer extends SoundPlayer {
+public class HitFloorMusicPlayer extends SoundPlayer {
+
+	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		try {
-			LevelChangeMusicPlayer test = new LevelChangeMusicPlayer();
+			HitFloorMusicPlayer test = new HitFloorMusicPlayer();
 			test.play();
 			Thread.sleep(10000);
 
@@ -25,16 +27,14 @@ public class LevelChangeMusicPlayer extends SoundPlayer {
 
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public LevelChangeMusicPlayer() throws UnsupportedAudioFileException,
+	public HitFloorMusicPlayer() throws UnsupportedAudioFileException,
 			IOException, LineUnavailableException {
-
-		super("./Level.wav");
-
+		super("./Land.wav");
 	}
 
 }

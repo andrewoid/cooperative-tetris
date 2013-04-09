@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import sound.SoundPlayer;
+
 public class CompleteLineMusicPlayer extends SoundPlayer {
 
 	public static void main(String[] args) {
