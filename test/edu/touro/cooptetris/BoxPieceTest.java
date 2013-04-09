@@ -19,6 +19,7 @@ public class BoxPieceTest {
 		Assert.assertEquals(Square.SIDE, squares[2].getY());
 		Assert.assertEquals(Square.SIDE, squares[3].getX());
 		Assert.assertEquals(Square.SIDE, squares[3].getY());
+
 	}
 
 }

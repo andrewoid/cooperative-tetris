@@ -17,7 +17,7 @@ public class BoardTest {
 	}
 
 	private void givenFullRow() {
-		fullRow = new Square[50];
+		fullRow = new Square[Board.getNumColumns()];
 
 		for (int i = 0; i < fullRow.length; i++) {
 			fullRow[i] = new Square(0, 0, Color.BLACK);
@@ -25,12 +25,12 @@ public class BoardTest {
 	}
 
 	private LinePiece givenLinePiece() {
-		LinePiece linePiece = new LinePiece(10, 450);
-		for (int i = 0; i < linePiece.getSquares().length; i++) {
-			Square s = linePiece.getSquares()[i];
-			s.setX(450 + 10 * i);
-			s.setY(10 + i * 10);
-		}
+		LinePiece linePiece = new LinePiece(20, 10);
+		/*
+		 * for (int i = 0; i < linePiece.getSquares().length; i++) { Square s =
+		 * linePiece.getSquares()[i]; s.setX(10 + Square.SIDE * i); s.setY(150 +
+		 * i * Square.SIDE); }
+		 */
 		return linePiece;
 	}
 
@@ -40,11 +40,11 @@ public class BoardTest {
 		givenFullRow();
 
 		LinePiece linePiece = givenLinePiece();
-		for (int i = 0; i < linePiece.getSquares().length; i++) {
-			Square s = linePiece.getSquares()[i];
-			s.setX(20 + 10 * i);
-			s.setY(10 + i * 10);
-		}
+		/*
+		 * for (int i = 0; i < linePiece.getSquares().length; i++) { Square s =
+		 * linePiece.getSquares()[i]; s.setX(20 + Square.SIDE * i); s.setY(10 +
+		 * i * Square.SIDE); }
+		 */
 
 		assertFalse(board.willCollideWithFloorLeft(linePiece));
 
@@ -61,7 +61,7 @@ public class BoardTest {
 		LinePiece linePiece = givenLinePiece();
 		assertFalse(board.willCollideWithFloorRight(linePiece));
 
-		board.setSquareFull(new Square(490, 40, Color.BLACK));
+		board.setSquareFull(new Square(30, 40, Color.BLACK));
 
 		assertTrue(board.willCollideWithFloorRight(linePiece));
 	}

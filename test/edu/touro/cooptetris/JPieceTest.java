@@ -1,6 +1,6 @@
 package edu.touro.cooptetris;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -18,6 +18,7 @@ public class JPieceTest {
 		assertEquals(0, squares[2].getX());
 		assertEquals(2 * Square.SIDE, squares[2].getY());
 		assertEquals(-Square.SIDE, squares[3].getX());
+
 		assertEquals(2 * Square.SIDE, squares[3].getY());
 	}
 
