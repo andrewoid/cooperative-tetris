@@ -92,6 +92,7 @@ public class Board {
 		}
 		return false;
 	}
+	
 
 	public boolean willCollideWithFloorVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
