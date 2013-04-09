@@ -8,7 +8,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
-public class PieceView extends JComponent {
+public class TetrisGameView extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 	private final Piece p;
@@ -33,7 +33,7 @@ public class PieceView extends JComponent {
 	private LevelChangeMusicPlayer levelChangePlayer;
 	private HitFloorMusicPlayer hitFloorPlayer;
 
-	public PieceView(int totalHeight, int totalWidth) {
+	public TetrisGameView(int totalHeight, int totalWidth) {
 		this.totalHeight = totalHeight;
 		this.totalWidth = totalWidth;
 		levels = new ArrayList<Level>();

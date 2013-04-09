@@ -109,5 +109,11 @@ public class Board {
 		}
 		return false;
 	}
+	
+	public void landPiece(Piece piece){
+		for(Square square: piece.getSquares()){
+			this.setSquareFull(square); 
+		}
+	}
 
 }
