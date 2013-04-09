@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import sound.SoundPlayer;
+import edu.touro.cooptetris.sound.SoundPlayer;
 
 public class HitFloorMusicPlayer extends SoundPlayer {
 

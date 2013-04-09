@@ -6,7 +6,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import sound.SoundPlayer;
+import edu.touro.cooptetris.sound.SoundPlayer;
 
 public class ThemeMusicPlayer extends SoundPlayer {
 
