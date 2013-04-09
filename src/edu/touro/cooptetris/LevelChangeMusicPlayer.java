@@ -1,16 +1,12 @@
 package edu.touro.cooptetris;
 
-import java.io.File;
 import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JFrame;
 
-public class LevelChangeMusicPlayer extends JFrame {
+public class LevelChangeMusicPlayer extends SoundPlayer {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,6 +14,7 @@ public class LevelChangeMusicPlayer extends JFrame {
 		try {
 			LevelChangeMusicPlayer test = new LevelChangeMusicPlayer();
 			test.play();
+			Thread.sleep(10000);
 
 		} catch (UnsupportedAudioFileException e) {
 
@@ -28,39 +25,17 @@ public class LevelChangeMusicPlayer extends JFrame {
 		} catch (LineUnavailableException e) {
 
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-
-	private Clip clip;
 
 	public LevelChangeMusicPlayer() throws UnsupportedAudioFileException,
 			IOException, LineUnavailableException {
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(0, 0);
-		this.setTitle("Level Change Player");
-		this.setVisible(false);
 
-		try {
-			// Open an audio input stream.
-			File soundFile = new File("./Level.wav");
-			AudioInputStream audioIn = AudioSystem
-					.getAudioInputStream(soundFile);
-			// Get a sound clip resource.
-			clip = AudioSystem.getClip();
-			// Open audio clip and load samples from the audio input stream.
-			clip.open(audioIn);
-		} catch (UnsupportedAudioFileException e) {
-			throw e;
-		} catch (IOException e) {
-			throw e;
-		} catch (LineUnavailableException e) {
-			throw e;
-		}
+		super("./Level.wav");
 
-	}
-
-	public void play() {
-		clip.start();
 	}
 
 }
