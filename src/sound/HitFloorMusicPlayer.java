@@ -1,17 +1,19 @@
-package edu.touro.cooptetris;
+package sound;
 
 import java.io.IOException;
 
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class RotateMusicPlayer extends SoundPlayer {
+
+public class HitFloorMusicPlayer extends SoundPlayer {
 
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		try {
-			RotateMusicPlayer test = new RotateMusicPlayer();
+			HitFloorMusicPlayer test = new HitFloorMusicPlayer();
 			test.play();
 			Thread.sleep(10000);
 
@@ -30,10 +32,9 @@ public class RotateMusicPlayer extends SoundPlayer {
 		}
 	}
 
-	public RotateMusicPlayer() throws UnsupportedAudioFileException,
+	public HitFloorMusicPlayer() throws UnsupportedAudioFileException,
 			IOException, LineUnavailableException {
-
-		super("./Rotate.wav");
+		super("./Land.wav");
 	}
 
 }

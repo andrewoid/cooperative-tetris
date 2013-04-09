@@ -1,10 +1,11 @@
-package edu.touro.cooptetris;
+package sound;
 
 import java.io.IOException;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
 
 public class ThemeMusicPlayer extends SoundPlayer {
 
