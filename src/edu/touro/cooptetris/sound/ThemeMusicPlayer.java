@@ -1,4 +1,4 @@
-package sound;
+package edu.touro.cooptetris.sound;
 
 import java.io.IOException;
 

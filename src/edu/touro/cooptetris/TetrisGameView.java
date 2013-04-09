@@ -8,7 +8,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
-import sound.*;
+import edu.touro.cooptetris.sound.*;
+
 
 public class TetrisGameView extends JComponent {
 
