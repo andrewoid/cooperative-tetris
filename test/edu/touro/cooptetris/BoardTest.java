@@ -26,11 +26,6 @@ public class BoardTest {
 
 	private LinePiece givenLinePiece() {
 		LinePiece linePiece = new LinePiece(20, 10);
-		/*
-		 * for (int i = 0; i < linePiece.getSquares().length; i++) { Square s =
-		 * linePiece.getSquares()[i]; s.setX(10 + Square.SIDE * i); s.setY(150 +
-		 * i * Square.SIDE); }
-		 */
 		return linePiece;
 	}
 
@@ -40,11 +35,6 @@ public class BoardTest {
 		givenFullRow();
 
 		LinePiece linePiece = givenLinePiece();
-		/*
-		 * for (int i = 0; i < linePiece.getSquares().length; i++) { Square s =
-		 * linePiece.getSquares()[i]; s.setX(20 + Square.SIDE * i); s.setY(10 +
-		 * i * Square.SIDE); }
-		 */
 
 		assertFalse(board.willCollideWithFloorLeft(linePiece));
 
@@ -101,6 +91,21 @@ public class BoardTest {
 		thenRowIsNotFull(3);
 		thenRowIsFull(2);
 	}
+	
+	@Test
+	public void testLandPiece(){
+		givenBoard();
+		givenFullRow();
+
+		LinePiece linePiece = givenLinePiece();
+		assertFalse(board.willCollideWithFloorRight(linePiece));
+
+		LinePiece SecondLinePiece=new LinePiece(30,10);
+		board.landPiece(SecondLinePiece);
+
+		assertTrue(board.willCollideWithFloorRight(linePiece));
+	}
+	
 
 	private void thenRowIsFull(int rowNumber) {
 		assertTrue(board.isRowFull(rowNumber));
