@@ -30,7 +30,6 @@ public class PieceView extends JComponent {
 	private int totalWidth;
 	private ThemeMusicPlayer themeMusicPlayer;
 	private CompleteLineMusicPlayer completeLinePlayer;
-	private RotateMusicPlayer rotatePlayer;
 	private LevelChangeMusicPlayer levelChangePlayer;
 	private HitFloorMusicPlayer hitFloorPlayer;
 
@@ -58,18 +57,15 @@ public class PieceView extends JComponent {
 
 		try {
 			themeMusicPlayer = new ThemeMusicPlayer();
-			rotatePlayer = new RotateMusicPlayer();
+			themeMusicPlayer.play();
 			levelChangePlayer = new LevelChangeMusicPlayer();
 			hitFloorPlayer = new HitFloorMusicPlayer();
 			completeLinePlayer = new CompleteLineMusicPlayer();
 		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -86,17 +82,18 @@ public class PieceView extends JComponent {
 
 	}
 
-	private void setBoardDimensions() {
-		boardWidth = Board.getNumColumns() * Square.SIDE;
-		boardMarginSide = (totalWidth - boardWidth) / 2;
-		boardMarginBottom = totalHeight / 4;
-		bottomY = (totalHeight - boardMarginBottom);
-		rightX = (totalWidth - boardMarginSide);
-		leftX = boardMarginSide;
+	public void drawBoard(Graphics g) {
+		g.drawLine(leftX, topY, leftX, bottomY);
+		g.drawLine(rightX, topY, rightX, bottomY);
+		g.drawLine(leftX, bottomY, rightX, bottomY);
 	}
 
 	public int getCurrLevel() {
 		return currLevel;
+	}
+
+	public HitFloorMusicPlayer getHitFloorPlayer() {
+		return hitFloorPlayer;
 	}
 
 	public int getScore() {
@@ -142,11 +139,13 @@ public class PieceView extends JComponent {
 		repaint();
 	}
 
-	public void drawBoard(Graphics g) {
-
-		g.drawLine(leftX, topY, leftX, bottomY);
-		g.drawLine(rightX, topY, rightX, bottomY);
-		g.drawLine(leftX, bottomY, rightX, bottomY);
+	private void setBoardDimensions() {
+		boardWidth = Board.getNumColumns() * Square.SIDE;
+		boardMarginSide = (totalWidth - boardWidth) / 2;
+		boardMarginBottom = totalHeight / 4;
+		bottomY = (totalHeight - boardMarginBottom);
+		rightX = (totalWidth - boardMarginSide);
+		leftX = boardMarginSide;
 	}
 
 	public void setScore(int score) {

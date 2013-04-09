@@ -25,7 +25,7 @@ public class ScoreLevelDisplay extends JPanel {
 		levelLabel = new JLabel(levelString + String.valueOf(level));
 
 		Border paddingBorder = BorderFactory.createEmptyBorder(15, 15, 15, 15);
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 2, true);
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 		Border compoundBorder = BorderFactory.createCompoundBorder(border,
 				paddingBorder);
 		scoreLabel.setBorder(compoundBorder);

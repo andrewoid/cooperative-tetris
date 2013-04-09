@@ -2,6 +2,10 @@ package edu.touro.cooptetris;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Piece {
 
@@ -14,6 +18,32 @@ public class Piece {
 		for (int i = 0; i < 4; i++) {
 			squares[i] = new Square(0, 0, Color.BLACK);
 		}
+	}
+
+	public boolean collidesWith(Piece p) {
+		Square[] currSquares = this.getSquares();
+		Square[] pSquares = p.getSquares();
+		for (Square currSquare : currSquares) {
+			for (Square pSquare : pSquares) {
+				if (currSquare.equals(pSquare)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public void drawPiece(Graphics g) {
+		for (Square s : squares) {
+			g.setColor(s.getColor());
+			int x = s.getX();
+			int y = -s.getY();
+			int side = s.getSide();
+			g.fillRect(x, y, side, side);
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, side, side);
+		}
+
 	}
 
 	public Square[] getSquares() {
@@ -43,6 +73,18 @@ public class Piece {
 	}
 
 	public void rotate() {
+		RotateMusicPlayer rotatePlayer;
+		try {
+			rotatePlayer = new RotateMusicPlayer();
+			rotatePlayer.play();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+
 		int rx = center.getX();
 		int ry = center.getY();
 		// (Rx + Ry - Py, -Rx + Ry + Px)
@@ -54,32 +96,6 @@ public class Piece {
 			s.setX(rx + ry - py);
 			s.setY(-rx + ry + px);
 		}
-	}
-
-	public boolean collidesWith(Piece p) {
-		Square[] currSquares = this.getSquares();
-		Square[] pSquares = p.getSquares();
-		for (Square currSquare : currSquares) {
-			for (Square pSquare : pSquares) {
-				if (currSquare.equals(pSquare)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	public void drawPiece(Graphics g) {
-		for (Square s : squares) {
-			g.setColor(s.getColor());
-			int x = s.getX();
-			int y = -s.getY();
-			int side = s.getSide();
-			g.fillRect(x, y, side, side);
-			g.setColor(Color.BLACK);
-			g.drawRect(x, y, side, side);
-		}
-
 	}
 
 }
