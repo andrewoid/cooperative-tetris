@@ -28,33 +28,36 @@ public class BoardTest {
 	}
 
 	private LinePiece givenLinePiece() {
-		LinePiece linePiece = new LinePiece(20, 37 * Square.SIDE);
+		LinePiece linePiece = new LinePiece(20, 27 * Square.SIDE);
 		return linePiece;
 	}
 
-	/*
-	 * @Test public void testCollidesWithFloorLeft() { givenBoard();
-	 * givenFullRow();
-	 * 
-	 * LinePiece linePiece = givenLinePiece();
-	 * 
-	 * assertFalse(board.willCollideWithFloorLeft(linePiece));
-	 * 
-	 * board.setSquareFull(new Square(10, 10, Color.BLACK));
-	 * assertTrue(board.willCollideWithFloorLeft(linePiece));
-	 * 
-	 * }
-	 * 
-	 * @Test public void testCollidesWithFloorRight() { givenBoard();
-	 * givenFullRow();
-	 * 
-	 * LinePiece linePiece = givenLinePiece();
-	 * assertFalse(board.willCollideWithFloorRight(linePiece));
-	 * 
-	 * board.setSquareFull(new Square(30, 40, Color.BLACK));
-	 * 
-	 * assertTrue(board.willCollideWithFloorRight(linePiece)); }
-	 */
+	@Test
+	public void testCollidesWithFloorLeft() {
+		givenBoard();
+		givenFullRow();
+
+		LinePiece linePiece = givenLinePiece();
+
+		assertFalse(board.willCollideWithFloorLeft(linePiece));
+
+		board.setSquareFull(new Square(10, 10, Color.BLACK));
+		assertTrue(board.willCollideWithFloorLeft(linePiece));
+	}
+
+	@Test
+	public void testCollidesWithFloorRight() {
+		givenBoard();
+		givenFullRow();
+
+		LinePiece linePiece = givenLinePiece();
+		assertFalse(board.willCollideWithFloorRight(linePiece));
+
+		board.setSquareFull(new Square(30, 40, Color.BLACK));
+
+		assertTrue(board.willCollideWithFloorRight(linePiece));
+	}
+
 	@Test
 	public void testCollidesWithFloorVertical() {
 		givenBoard();
