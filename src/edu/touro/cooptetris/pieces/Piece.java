@@ -37,13 +37,8 @@ public class Piece {
 
 	public void drawPiece(Graphics g) {
 		for (Square s : squares) {
-			g.setColor(s.getColor());
-			int x = s.getX();
-			int y = s.getY();
-			int side = s.getSide();
-			g.fillRect(x, y, side, side);
-			g.setColor(Color.BLACK);
-			g.drawRect(x, y, side, side);
+
+			s.draw(g);
 		}
 
 	}

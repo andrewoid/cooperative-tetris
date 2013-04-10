@@ -20,7 +20,7 @@ public class BoardTest {
 	}
 
 	private void givenFullRow() {
-		fullRow = new Square[Board.getNumColumns()];
+		fullRow = new Square[Board.NUM_COLUMNS];
 
 		for (int i = 0; i < fullRow.length; i++) {
 			fullRow[i] = new Square(0, 0, Color.BLACK);

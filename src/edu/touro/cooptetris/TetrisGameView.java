@@ -152,7 +152,7 @@ public class TetrisGameView extends JComponent {
 	}
 
 	private void setBoardDimensions() {
-		boardWidth = Board.getNumColumns() * Square.SIDE;
+		boardWidth = Board.NUM_COLUMNS * Square.SIDE;
 		boardMarginSide = (totalWidth - boardWidth) / 2;
 		boardMarginBottom = totalHeight / 4;
 		bottomY = (totalHeight - boardMarginBottom);
