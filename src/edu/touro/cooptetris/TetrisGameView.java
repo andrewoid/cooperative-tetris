@@ -1,13 +1,14 @@
 package edu.touro.cooptetris;
 
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
+
+import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
+import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
+import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
 
 public class TetrisGameView extends JComponent {
 
