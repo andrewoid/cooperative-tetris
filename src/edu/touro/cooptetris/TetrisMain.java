@@ -15,7 +15,7 @@ public class TetrisMain extends JFrame {
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
-		TetrisMain main = injector.getInstance(TetrisMain.class);
+		injector.getInstance(TetrisMain.class);
 	}
 
 	@Inject

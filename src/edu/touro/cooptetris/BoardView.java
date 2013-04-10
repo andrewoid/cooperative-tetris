@@ -63,16 +63,6 @@ public class BoardView extends JComponent {
 
 	}
 
-	private void setBoardDimensions() {
-		boardWidth = Board.NUM_COLUMNS * Square.SIDE;
-		boardMarginSide = (totalWidth - boardWidth) / 2;
-		boardMarginBottom = totalHeight / 4;
-		bottomY = (totalHeight - boardMarginBottom);
-		rightX = (totalWidth - boardMarginSide);
-		leftX = boardMarginSide;
-
-	}
-
 	@Override
 	protected void paintComponent(Graphics g) {
 
@@ -81,6 +71,16 @@ public class BoardView extends JComponent {
 		drawBoard(g);
 
 		repaint();
+	}
+
+	private void setBoardDimensions() {
+		boardWidth = Board.NUM_COLUMNS * Square.SIDE;
+		boardMarginSide = (totalWidth - boardWidth) / 2;
+		boardMarginBottom = totalHeight / 4;
+		bottomY = (totalHeight - boardMarginBottom);
+		rightX = (totalWidth - boardMarginSide);
+		leftX = boardMarginSide;
+
 	}
 
 }

@@ -16,6 +16,7 @@ import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
 public class TetrisGameView extends JComponent {
 
 	private Board board;
+	private BoardView boardView;
 
 	private static final long serialVersionUID = 1L;
 	private Piece p;
@@ -67,12 +68,13 @@ public class TetrisGameView extends JComponent {
 	}
 
 	@Inject
-	public TetrisGameView(Board board,
+	public TetrisGameView(Board board, BoardView boardView,
 			CompleteLineMusicPlayer completeLinePlayer,
 			LevelChangeMusicPlayer levelChangePlayer,
 			HitFloorMusicPlayer hitFloorPlayer) {
 		this();
 		this.board = board;
+		this.boardView = boardView;
 		this.completeLinePlayer = completeLinePlayer;
 		this.levelChangePlayer = levelChangePlayer;
 		this.hitFloorPlayer = hitFloorPlayer;
@@ -122,7 +124,7 @@ public class TetrisGameView extends JComponent {
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		drawBoard(g);
+		boardView.drawBoard(g);
 
 		for (Piece p : pieces) {
 			p.drawPiece(g);

@@ -2,9 +2,12 @@ package edu.touro.cooptetris;
 
 import java.util.ArrayList;
 
+import javax.inject.Singleton;
+
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 
+@Singleton
 public class Board {
 
 	public static final int NUM_ROWS = 30;
