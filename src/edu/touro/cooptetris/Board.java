@@ -11,7 +11,7 @@ import edu.touro.cooptetris.pieces.Square;
 public class Board {
 
 	public static final int NUM_ROWS = 30;
-	public static final int NUM_COLUMNS = 20;
+	public static final int NUM_COLUMNS = 25;
 
 	private ArrayList<Square[]> squares;
 

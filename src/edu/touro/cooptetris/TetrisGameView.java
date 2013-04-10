@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.swing.JComponent;
 
-import edu.touro.cooptetris.pieces.JPiece;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
@@ -27,23 +26,15 @@ public class TetrisGameView extends JComponent {
 	private ArrayList<Level> levels;
 	private int score;
 	private int currLevel;
-	private int boardMarginSide;
-	private int boardMarginBottom;
-	private int topY;
-	private int bottomY;
-	private int rightX;
-	private int leftX;
-	private int boardWidth;
-	private int totalHeight;
-	private int totalWidth;
+
 	// private ThemeMusicPlayer themeMusicPlayer;
 	private CompleteLineMusicPlayer completeLinePlayer;
 	private LevelChangeMusicPlayer levelChangePlayer;
 	private HitFloorMusicPlayer hitFloorPlayer;
 
+	private PieceFactory pieceFactory;
+
 	public TetrisGameView() {
-		this.totalHeight = 500;
-		this.totalWidth = 600;
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
@@ -52,13 +43,6 @@ public class TetrisGameView extends JComponent {
 		timer = new DropTimer(300);
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
-
-		setBoardDimensions();
-		x = boardMarginSide + (boardWidth / 2);
-		y = 0;
-		p = new JPiece(x, y);
-
-		pieces.add(p);
 
 		KeyboardListener keyListener = new KeyboardListener();
 		addKeyListener(keyListener);
@@ -71,19 +55,18 @@ public class TetrisGameView extends JComponent {
 	public TetrisGameView(Board board, BoardView boardView,
 			CompleteLineMusicPlayer completeLinePlayer,
 			LevelChangeMusicPlayer levelChangePlayer,
-			HitFloorMusicPlayer hitFloorPlayer) {
+			HitFloorMusicPlayer hitFloorPlayer, PieceFactory pieceFactory) {
 		this();
 		this.board = board;
 		this.boardView = boardView;
 		this.completeLinePlayer = completeLinePlayer;
 		this.levelChangePlayer = levelChangePlayer;
 		this.hitFloorPlayer = hitFloorPlayer;
-	}
+		this.pieceFactory = pieceFactory;
 
-	public void drawBoard(Graphics g) {
-		g.drawLine(leftX, topY, leftX, bottomY);
-		g.drawLine(rightX, topY, rightX, bottomY);
-		g.drawLine(leftX, bottomY, rightX, bottomY);
+		pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS * Square.SIDE
+				/ 2, 0));
+
 	}
 
 	public int getCurrLevel() {
@@ -133,33 +116,26 @@ public class TetrisGameView extends JComponent {
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
 			for (Piece p : pieces) {
+				p.moveDown();
 
-				if (board.willCollideWithFloorVertical(p)
-						|| board.willCollideWithLandedPieceVertical(p)) {
+				if (board.willCollideWithFloorVertical(p)) {
 					board.landPiece(p);
 					landed = true;
-				} else {
-					p.moveDown();
+				} else if (board.willCollideWithLandedPieceVertical(p)) {
+					p.moveUp();
+					board.landPiece(p);
+					landed = true;
 				}
 
 			}
 			if (landed) {
 				pieces.clear();
-				pieces.add(new JPiece(boardMarginSide + (boardWidth / 2), 0));
+				pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS
+						* Square.SIDE / 2, 0));
 			}
 
 		}
-
 		repaint();
-	}
-
-	private void setBoardDimensions() {
-		boardWidth = Board.NUM_COLUMNS * Square.SIDE;
-		boardMarginSide = (totalWidth - boardWidth) / 2;
-		boardMarginBottom = totalHeight / 4;
-		bottomY = (totalHeight - boardMarginBottom);
-		rightX = (totalWidth - boardMarginSide);
-		leftX = boardMarginSide;
 	}
 
 	public void setScore(int score) {

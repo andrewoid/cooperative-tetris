@@ -46,7 +46,13 @@ public class Piece {
 	public Square[] getSquares() {
 		return squares;
 	}
-
+	public void moveUp() {
+		for (Square s : squares) {
+			int side = s.getSide();
+			s.setY(s.getY() - side);
+			// if it is + side then it moves up
+		}
+	}
 	public void moveDown() {
 		for (Square s : squares) {
 			int side = s.getSide();
