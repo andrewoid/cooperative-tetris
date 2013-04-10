@@ -9,12 +9,13 @@ import javax.swing.JComponent;
 import edu.touro.cooptetris.pieces.JPiece;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
-
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
 import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
 import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
 
 public class TetrisGameView extends JComponent {
+
+	private Board board;
 
 	private static final long serialVersionUID = 1L;
 	private Piece p;
@@ -39,16 +40,6 @@ public class TetrisGameView extends JComponent {
 	private LevelChangeMusicPlayer levelChangePlayer;
 	private HitFloorMusicPlayer hitFloorPlayer;
 
-	@Inject
-	public TetrisGameView(CompleteLineMusicPlayer completeLinePlayer,
-			LevelChangeMusicPlayer levelChangePlayer,
-			HitFloorMusicPlayer hitFloorPlayer) {
-		this();
-		this.completeLinePlayer = completeLinePlayer;
-		this.levelChangePlayer = levelChangePlayer;
-		this.hitFloorPlayer = hitFloorPlayer;
-	}
-
 	public TetrisGameView() {
 		this.totalHeight = 500;
 		this.totalWidth = 600;
@@ -67,21 +58,24 @@ public class TetrisGameView extends JComponent {
 		p = new JPiece(x, y);
 
 		pieces.add(p);
-		for (int i = 0; i < 5; i++) {
-			p.moveDown();
-		}
 
-		// pieces.add(new TPiece());
-		// pieces.add(new LinePiece());
-		// pieces.add(new BoxPiece());
-		// pieces.add(new ZPiece());
-		// pieces.add(new SPiece());
-		// pieces.add(new LPiece());
 		KeyboardListener keyListener = new KeyboardListener();
 		addKeyListener(keyListener);
 		keyListener.setPiece(p);
 		setFocusable(true);
 
+	}
+
+	@Inject
+	public TetrisGameView(Board board,
+			CompleteLineMusicPlayer completeLinePlayer,
+			LevelChangeMusicPlayer levelChangePlayer,
+			HitFloorMusicPlayer hitFloorPlayer) {
+		this();
+		this.board = board;
+		this.completeLinePlayer = completeLinePlayer;
+		this.levelChangePlayer = levelChangePlayer;
+		this.hitFloorPlayer = hitFloorPlayer;
 	}
 
 	public void drawBoard(Graphics g) {
@@ -135,7 +129,23 @@ public class TetrisGameView extends JComponent {
 		}
 
 		if (timer.isTimeToDrop()) {
-			pieces.get(0).moveDown();
+			boolean landed = false;
+			for (Piece p : pieces) {
+
+				if (board.willCollideWithFloorVertical(p)
+						|| board.willCollideWithLandedPieceVertical(p)) {
+					board.landPiece(p);
+					landed = true;
+				} else {
+					p.moveDown();
+				}
+
+			}
+			if (landed) {
+				pieces.clear();
+				pieces.add(new JPiece(boardMarginSide + (boardWidth / 2), 0));
+			}
+
 		}
 
 		repaint();

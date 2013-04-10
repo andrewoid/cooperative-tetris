@@ -7,8 +7,9 @@ import edu.touro.cooptetris.pieces.Square;
 
 public class Board {
 
-	private static final int NUM_ROWS = 150;
-	private static final int NUM_COLUMNS = 10;
+	// TODO make these public and remove the static getters
+	private static final int NUM_ROWS = 30;
+	private static final int NUM_COLUMNS = 20;
 
 	public static int getNumColumns() {
 		return NUM_COLUMNS;
@@ -22,8 +23,8 @@ public class Board {
 
 	public Board() {
 		squares = new ArrayList<Square[]>();
-		for (int i = 0; i < NUM_ROWS; i++) {
-			squares.add(new Square[NUM_COLUMNS]);
+		for (int i = 0; i < NUM_ROWS + 1; i++) {
+			squares.add(new Square[NUM_COLUMNS + 1]);
 		}
 	}
 
@@ -38,6 +39,12 @@ public class Board {
 			}
 		}
 		return true;
+	}
+
+	public void landPiece(Piece piece) {
+		for (Square square : piece.getSquares()) {
+			this.setSquareFull(square);
+		}
 	}
 
 	public void removeRow(int rowNumber) {
@@ -99,23 +106,22 @@ public class Board {
 	public boolean willCollideWithFloorVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			int colNumber = square.getX() / Square.SIDE;
-
-			if (rowNumber == 0) {
-				return true;
-			}
-
-			if (squares.get(rowNumber - 1)[colNumber] != null) {
+			if (rowNumber == NUM_ROWS) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public void landPiece(Piece piece) {
+	public boolean willCollideWithLandedPieceVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
-			this.setSquareFull(square);
+			int rowNumber = square.getY() / Square.SIDE;
+			int colNumber = square.getX() / Square.SIDE;
+			if (squares.get(rowNumber)[colNumber] != null) {
+				return true;
+			}
 		}
+		return false;
 	}
 
 }

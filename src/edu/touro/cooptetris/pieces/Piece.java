@@ -9,7 +9,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import edu.touro.cooptetris.sound.RotateMusicPlayer;
 
-
 public class Piece {
 
 	protected Square[] squares;
@@ -40,7 +39,7 @@ public class Piece {
 		for (Square s : squares) {
 			g.setColor(s.getColor());
 			int x = s.getX();
-			int y = -s.getY();
+			int y = s.getY();
 			int side = s.getSide();
 			g.fillRect(x, y, side, side);
 			g.setColor(Color.BLACK);
@@ -56,7 +55,7 @@ public class Piece {
 	public void moveDown() {
 		for (Square s : squares) {
 			int side = s.getSide();
-			s.setY(s.getY() - side);
+			s.setY(s.getY() + side);
 			// if it is + side then it moves up
 		}
 	}
