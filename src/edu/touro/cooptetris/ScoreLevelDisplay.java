@@ -18,11 +18,11 @@ public class ScoreLevelDisplay extends JPanel {
 	private String scoreString;
 	private String levelString;
 
-	public ScoreLevelDisplay(int score, int level) {
+	public ScoreLevelDisplay() {
 		scoreString = "Score: ";
 		levelString = "Level: ";
-		scoreLabel = new JLabel(scoreString + String.valueOf(score));
-		levelLabel = new JLabel(levelString + String.valueOf(level));
+		scoreLabel = new JLabel(scoreString + String.valueOf(0));
+		levelLabel = new JLabel(levelString + String.valueOf(1));
 
 		Border paddingBorder = BorderFactory.createEmptyBorder(15, 15, 15, 15);
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);

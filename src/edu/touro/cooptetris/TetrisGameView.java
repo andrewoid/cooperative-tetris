@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.inject.Inject;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
@@ -13,12 +14,12 @@ import sound.*;
 public class TetrisGameView extends JComponent {
 
 	private static final long serialVersionUID = 1L;
-	private final Piece p;
-	private final ArrayList<Piece> pieces;
-	private final int x;
-	private final int y;
-	private final DropTimer timer;
-	private final ArrayList<Level> levels;
+	private Piece p;
+	private ArrayList<Piece> pieces;
+	private int x;
+	private int y;
+	private DropTimer timer;
+	private ArrayList<Level> levels;
 	private int score;
 	private int currLevel;
 	private int boardMarginSide;
@@ -30,14 +31,24 @@ public class TetrisGameView extends JComponent {
 	private int boardWidth;
 	private int totalHeight;
 	private int totalWidth;
-	private ThemeMusicPlayer themeMusicPlayer;
+	// private ThemeMusicPlayer themeMusicPlayer;
 	private CompleteLineMusicPlayer completeLinePlayer;
 	private LevelChangeMusicPlayer levelChangePlayer;
 	private HitFloorMusicPlayer hitFloorPlayer;
 
-	public TetrisGameView(int totalHeight, int totalWidth) {
-		this.totalHeight = totalHeight;
-		this.totalWidth = totalWidth;
+	@Inject
+	public TetrisGameView(CompleteLineMusicPlayer completeLinePlayer,
+			LevelChangeMusicPlayer levelChangePlayer,
+			HitFloorMusicPlayer hitFloorPlayer) {
+		this();
+		this.completeLinePlayer = completeLinePlayer;
+		this.levelChangePlayer = levelChangePlayer;
+		this.hitFloorPlayer = hitFloorPlayer;
+	}
+
+	public TetrisGameView() {
+		this.totalHeight = 500;
+		this.totalWidth = 600;
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
@@ -55,20 +66,6 @@ public class TetrisGameView extends JComponent {
 		pieces.add(p);
 		for (int i = 0; i < 5; i++) {
 			p.moveDown();
-		}
-
-		try {
-			themeMusicPlayer = new ThemeMusicPlayer();
-			themeMusicPlayer.play();
-			levelChangePlayer = new LevelChangeMusicPlayer();
-			hitFloorPlayer = new HitFloorMusicPlayer();
-			completeLinePlayer = new CompleteLineMusicPlayer();
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
 		}
 
 		// pieces.add(new TPiece());
