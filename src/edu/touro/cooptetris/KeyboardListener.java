@@ -3,6 +3,8 @@ package edu.touro.cooptetris;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import edu.touro.cooptetris.pieces.Piece;
+
 public class KeyboardListener implements KeyListener {
 
 	private Piece piece;

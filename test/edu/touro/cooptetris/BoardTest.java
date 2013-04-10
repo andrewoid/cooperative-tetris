@@ -7,6 +7,9 @@ import java.awt.Color;
 
 import org.junit.Test;
 
+import edu.touro.cooptetris.pieces.LinePiece;
+import edu.touro.cooptetris.pieces.Square;
+
 public class BoardTest {
 
 	private Board board;

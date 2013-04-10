@@ -1,4 +1,4 @@
-package edu.touro.cooptetris;
+package edu.touro.cooptetris.pieces;
 
 import java.awt.Color;
 

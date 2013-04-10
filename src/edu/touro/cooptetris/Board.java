@@ -2,6 +2,9 @@ package edu.touro.cooptetris;
 
 import java.util.ArrayList;
 
+import edu.touro.cooptetris.pieces.Piece;
+import edu.touro.cooptetris.pieces.Square;
+
 public class Board {
 
 	private static final int NUM_ROWS = 150;
@@ -92,7 +95,6 @@ public class Board {
 		}
 		return false;
 	}
-	
 
 	public boolean willCollideWithFloorVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
@@ -109,10 +111,10 @@ public class Board {
 		}
 		return false;
 	}
-	
-	public void landPiece(Piece piece){
-		for(Square square: piece.getSquares()){
-			this.setSquareFull(square); 
+
+	public void landPiece(Piece piece) {
+		for (Square square : piece.getSquares()) {
+			this.setSquareFull(square);
 		}
 	}
 

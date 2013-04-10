@@ -1,4 +1,4 @@
-package edu.touro.cooptetris;
+package edu.touro.cooptetris.pieces;
 
 import org.junit.Assert;
 import org.junit.Test;

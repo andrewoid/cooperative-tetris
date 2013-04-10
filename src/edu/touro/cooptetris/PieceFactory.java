@@ -2,6 +2,15 @@ package edu.touro.cooptetris;
 
 import java.util.Random;
 
+import edu.touro.cooptetris.pieces.BoxPiece;
+import edu.touro.cooptetris.pieces.JPiece;
+import edu.touro.cooptetris.pieces.LPiece;
+import edu.touro.cooptetris.pieces.LinePiece;
+import edu.touro.cooptetris.pieces.Piece;
+import edu.touro.cooptetris.pieces.SPiece;
+import edu.touro.cooptetris.pieces.TPiece;
+import edu.touro.cooptetris.pieces.ZPiece;
+
 public class PieceFactory {
 
 	private Random random;
