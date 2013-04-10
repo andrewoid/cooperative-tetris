@@ -14,16 +14,12 @@ import edu.touro.cooptetris.pieces.ZPiece;
 public class PieceFactory {
 
 	private Random random;
-	private int x;
-	private int y;
 
-	public PieceFactory(int x, int y) {
+	public PieceFactory() {
 		random = new Random();
-		this.x=x;
-		this.y=y;
 	}
 
-	public Piece getRandomPiece() {
+	public Piece getRandomPiece(int x, int y) {
 		int r = random.nextInt(7);
 		switch (r) {
 		case 0:

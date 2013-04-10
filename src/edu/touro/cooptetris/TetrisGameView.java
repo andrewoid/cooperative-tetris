@@ -10,6 +10,10 @@ import edu.touro.cooptetris.pieces.JPiece;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 
+import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
+import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
+import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
+
 public class TetrisGameView extends JComponent {
 
 	private static final long serialVersionUID = 1L;
