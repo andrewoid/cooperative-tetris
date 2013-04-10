@@ -8,10 +8,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
-import sound.CompleteLineMusicPlayer;
-import sound.HitFloorMusicPlayer;
-import sound.LevelChangeMusicPlayer;
-import sound.ThemeMusicPlayer;
+import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
+import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
+import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
+import edu.touro.cooptetris.sound.ThemeMusicPlayer;
 
 public class PieceView extends JComponent {
 

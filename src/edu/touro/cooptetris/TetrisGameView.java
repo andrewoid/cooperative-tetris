@@ -9,8 +9,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 
-import sound.*;
-
 public class TetrisGameView extends JComponent {
 
 	private static final long serialVersionUID = 1L;

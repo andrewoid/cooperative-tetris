@@ -1,4 +1,4 @@
-package sound;
+package edu.touro.cooptetris;
 
 import java.io.IOException;
 
@@ -6,10 +6,9 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import edu.touro.cooptetris.sound.SoundPlayer;
 
 public class ThemeMusicPlayer extends SoundPlayer {
-
-	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		try {
@@ -60,16 +59,17 @@ public class ThemeMusicPlayer extends SoundPlayer {
 		clip.stop();
 	}
 
+	@Override
+	public void play() {
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+	}
+
 	public void restart() {
 		clip.setMicrosecondPosition(0);
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 	public void resume() {
-		clip.loop(Clip.LOOP_CONTINUOUSLY);
-	}
-
-	public void play() {
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 

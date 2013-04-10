@@ -7,7 +7,8 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import sound.RotateMusicPlayer;
+import edu.touro.cooptetris.sound.RotateMusicPlayer;
+
 
 public class Piece {
 
