@@ -1,5 +1,6 @@
 package edu.touro.cooptetris;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import edu.touro.cooptetris.pieces.Piece;
@@ -7,22 +8,15 @@ import edu.touro.cooptetris.pieces.Square;
 
 public class Board {
 
-	private static final int NUM_ROWS = 150;
-	private static final int NUM_COLUMNS = 10;
-
-	public static int getNumColumns() {
-		return NUM_COLUMNS;
-	}
-
-	public static int getNumRows() {
-		return NUM_ROWS;
-	}
+	public static final int NUM_ROWS = 150;
+	public static final int NUM_COLUMNS = 10;
 
 	private ArrayList<Square[]> squares;
 
 	public Board() {
 		squares = new ArrayList<Square[]>();
 		for (int i = 0; i < NUM_ROWS; i++) {
+
 			squares.add(new Square[NUM_COLUMNS]);
 		}
 	}

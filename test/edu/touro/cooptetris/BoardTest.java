@@ -20,7 +20,7 @@ public class BoardTest {
 	}
 
 	private void givenFullRow() {
-		fullRow = new Square[Board.getNumColumns()];
+		fullRow = new Square[Board.NUM_COLUMNS];
 
 		for (int i = 0; i < fullRow.length; i++) {
 			fullRow[i] = new Square(0, 0, Color.BLACK);
@@ -94,21 +94,20 @@ public class BoardTest {
 		thenRowIsNotFull(3);
 		thenRowIsFull(2);
 	}
-	
+
 	@Test
-	public void testLandPiece(){
+	public void testLandPiece() {
 		givenBoard();
 		givenFullRow();
 
 		LinePiece linePiece = givenLinePiece();
 		assertFalse(board.willCollideWithFloorRight(linePiece));
 
-		LinePiece SecondLinePiece=new LinePiece(30,10);
+		LinePiece SecondLinePiece = new LinePiece(30, 10);
 		board.landPiece(SecondLinePiece);
 
 		assertTrue(board.willCollideWithFloorRight(linePiece));
 	}
-	
 
 	private void thenRowIsFull(int rowNumber) {
 		assertTrue(board.isRowFull(rowNumber));

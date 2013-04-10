@@ -1,6 +1,7 @@
 package edu.touro.cooptetris.pieces;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 public class Square {
 
@@ -73,6 +74,13 @@ public class Square {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public void draw(Graphics g) {
+		g.setColor(color);
+		g.fillRect(x, y, SIDE, SIDE);
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, SIDE, SIDE);
 	}
 
 }
