@@ -12,6 +12,7 @@ import edu.touro.cooptetris.pieces.Square;
 
 public class BoardView extends JComponent {
 
+	private static final long serialVersionUID = 1L;
 	private Board board;
 	private ArrayList<Square[]> squares;
 	private int boardMarginSide;

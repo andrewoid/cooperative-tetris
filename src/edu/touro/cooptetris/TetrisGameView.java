@@ -16,22 +16,17 @@ public class TetrisGameView extends JComponent {
 
 	private Board board;
 	private BoardView boardView;
-
 	private static final long serialVersionUID = 1L;
 	private Piece p;
 	private ArrayList<Piece> pieces;
-	private int x;
-	private int y;
 	private DropTimer timer;
 	private ArrayList<Level> levels;
 	private int score;
 	private int currLevel;
-
 	// private ThemeMusicPlayer themeMusicPlayer;
 	private CompleteLineMusicPlayer completeLinePlayer;
 	private LevelChangeMusicPlayer levelChangePlayer;
 	private HitFloorMusicPlayer hitFloorPlayer;
-
 	private PieceFactory pieceFactory;
 
 	public TetrisGameView() {

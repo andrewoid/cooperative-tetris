@@ -2,14 +2,10 @@ package edu.touro.cooptetris.sound;
 
 import java.io.IOException;
 
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-
 public class HitFloorMusicPlayer extends SoundPlayer {
-
-	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
 		try {
@@ -27,7 +23,7 @@ public class HitFloorMusicPlayer extends SoundPlayer {
 
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}

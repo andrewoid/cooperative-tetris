@@ -9,8 +9,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class ThemeMusicPlayer extends SoundPlayer {
 
-	private static final long serialVersionUID = 1L;
-
 	public static void main(String[] args) {
 		try {
 			ThemeMusicPlayer testPlayer = new ThemeMusicPlayer();
