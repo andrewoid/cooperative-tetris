@@ -28,6 +28,7 @@ public class TetrisGameView extends JComponent {
 	private LevelChangeMusicPlayer levelChangePlayer;
 	private HitFloorMusicPlayer hitFloorPlayer;
 	private PieceFactory pieceFactory;
+	private KeyboardListener keyListener;
 
 	public TetrisGameView() {
 		levels = new ArrayList<Level>();
@@ -39,7 +40,7 @@ public class TetrisGameView extends JComponent {
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
 
-		KeyboardListener keyListener = new KeyboardListener();
+		keyListener = new KeyboardListener();
 		addKeyListener(keyListener);
 		keyListener.setPiece(p);
 		setFocusable(true);
@@ -61,6 +62,7 @@ public class TetrisGameView extends JComponent {
 
 		pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS * Square.SIDE
 				/ 2, 0));
+		keyListener.setPiece(pieces.get(pieces.size() - 1));
 
 	}
 
@@ -127,6 +129,7 @@ public class TetrisGameView extends JComponent {
 				pieces.clear();
 				pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS
 						* Square.SIDE / 2, 0));
+				keyListener.setPiece(pieces.get(pieces.size() - 1));
 			}
 
 		}
