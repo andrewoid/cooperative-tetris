@@ -1,5 +1,6 @@
 package edu.touro.cooptetris;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -12,10 +13,9 @@ import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
 import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
 import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
 
-public class TetrisGameView extends JComponent {
+public class PiecesAndBoardView extends JComponent {
 
 	private Board board;
-	private BoardView boardView;
 	private static final long serialVersionUID = 1L;
 	private Piece p;
 	private ArrayList<Piece> pieces;
@@ -30,7 +30,7 @@ public class TetrisGameView extends JComponent {
 	private PieceFactory pieceFactory;
 	private KeyboardListener keyListener;
 
-	public TetrisGameView() {
+	public PiecesAndBoardView() {
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
@@ -48,13 +48,12 @@ public class TetrisGameView extends JComponent {
 	}
 
 	@Inject
-	public TetrisGameView(Board board, BoardView boardView,
+	public PiecesAndBoardView(Board board,
 			CompleteLineMusicPlayer completeLinePlayer,
 			LevelChangeMusicPlayer levelChangePlayer,
 			HitFloorMusicPlayer hitFloorPlayer, PieceFactory pieceFactory) {
 		this();
 		this.board = board;
-		this.boardView = boardView;
 		this.completeLinePlayer = completeLinePlayer;
 		this.levelChangePlayer = levelChangePlayer;
 		this.hitFloorPlayer = hitFloorPlayer;
@@ -104,12 +103,19 @@ public class TetrisGameView extends JComponent {
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		boardView.drawBoard(g);
+		clearScreen(g);
+
+		board.draw(g);
 
 		for (Piece p : pieces) {
 			p.drawPiece(g);
 		}
 
+		movePieces();
+		repaint();
+	}
+
+	private void movePieces() {
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
 			for (Piece p : pieces) {
@@ -133,7 +139,11 @@ public class TetrisGameView extends JComponent {
 			}
 
 		}
-		repaint();
+	}
+
+	private void clearScreen(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
 
 	public void setScore(int score) {

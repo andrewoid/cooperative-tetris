@@ -48,19 +48,7 @@ public class BoardView extends JComponent {
 	}
 
 	public void drawBoard(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		g.drawLine(leftX, topY, leftX, bottomY);
-		g.drawLine(rightX, topY, rightX, bottomY);
-		g.drawLine(leftX, bottomY, rightX, bottomY);
-		for (Square[] row : squares) {
-			for (Square s : row) {
-				if (s != null) {
-					s.draw(g);
-				}
-
-			}
-		}
+		
 
 	}
 

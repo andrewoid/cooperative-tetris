@@ -19,7 +19,7 @@ public class TetrisMain extends JFrame {
 	}
 
 	@Inject
-	public TetrisMain(TetrisGameView gameView,
+	public TetrisMain(PiecesAndBoardView gameView,
 			ScoreLevelDisplay scoreLevelDisplay) {
 		int height = 600, width = 500;
 		setTitle("piece GUI");

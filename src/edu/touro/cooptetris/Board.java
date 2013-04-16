@@ -1,5 +1,7 @@
 package edu.touro.cooptetris;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.inject.Singleton;
@@ -118,6 +120,16 @@ public class Board {
 			}
 		}
 		return false;
+	}
+
+	public void draw(Graphics g) {
+		for (Square[] row : squares) {
+			for (Square s : row) {
+				if (s != null) {
+					s.draw(g);
+				}
+			}
+		}
 	}
 
 }
