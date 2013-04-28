@@ -1,6 +1,5 @@
 package edu.touro.cooptetris;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -99,6 +98,14 @@ public class Board {
 			}
 		}
 		return false;
+	}
+
+	public boolean isFull() {
+		if (squares.get(0)[NUM_COLUMNS / 2] != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public boolean willCollideWithFloorVertical(Piece piece) {

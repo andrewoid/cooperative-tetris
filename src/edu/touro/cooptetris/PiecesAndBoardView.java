@@ -112,6 +112,7 @@ public class PiecesAndBoardView extends JComponent {
 		}
 
 		movePieces();
+
 		repaint();
 	}
 
@@ -133,9 +134,11 @@ public class PiecesAndBoardView extends JComponent {
 			}
 			if (landed) {
 				pieces.clear();
-				pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS
-						* Square.SIDE / 2, 0));
-				keyListener.setPiece(pieces.get(pieces.size() - 1));
+				if (!board.isFull()) {
+					pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS
+							* Square.SIDE / 2, 0));
+					keyListener.setPiece(pieces.get(pieces.size() - 1));
+				}
 			}
 
 		}
