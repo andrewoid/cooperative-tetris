@@ -1,4 +1,4 @@
-package edu.touro.coopptetris.net;
+package edu.touro.cooptetris.net;
 
 import java.io.IOException;
 import java.io.InputStream;
