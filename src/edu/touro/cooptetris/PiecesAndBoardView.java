@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
 import edu.touro.cooptetris.pieces.Piece;
@@ -37,7 +38,8 @@ public class PiecesAndBoardView extends JComponent {
 		}
 		currLevel = 1;
 		timer = new DropTimer(300);
-		setSize(800, 600);
+		setSize(165, Board.NUM_ROWS * Square.SIDE);
+		setBorder(BorderFactory.createLineBorder(Color.GREEN));
 		pieces = new ArrayList<Piece>();
 
 		keyListener = new KeyboardListener();
@@ -146,7 +148,7 @@ public class PiecesAndBoardView extends JComponent {
 
 	private void clearScreen(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.fillRect(0, 0, 165, this.getHeight());
 	}
 
 	public void setScore(int score) {
