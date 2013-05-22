@@ -13,8 +13,8 @@ import edu.touro.cooptetris.pieces.Square;
 @Singleton
 public class Board {
 
-	public static final int NUM_ROWS = 30;
-	public static final int NUM_COLUMNS = 25;
+	public static final int NUM_ROWS = 20;
+	public static final int NUM_COLUMNS = 11;
 
 	private List<Square[]> squares;
 
