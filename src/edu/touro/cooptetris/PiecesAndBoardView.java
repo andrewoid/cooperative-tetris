@@ -40,9 +40,6 @@ public class PiecesAndBoardView extends JComponent {
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
 
-		keyListener = new KeyboardListener();
-		addKeyListener(keyListener);
-		keyListener.setPiece(p);
 		setFocusable(true);
 
 	}
@@ -58,6 +55,10 @@ public class PiecesAndBoardView extends JComponent {
 		this.levelChangePlayer = levelChangePlayer;
 		this.hitFloorPlayer = hitFloorPlayer;
 		this.pieceFactory = pieceFactory;
+
+		keyListener = new KeyboardListener(board);
+		addKeyListener(keyListener);
+		keyListener.setPiece(p);
 
 		pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS * Square.SIDE
 				/ 2, 0));
