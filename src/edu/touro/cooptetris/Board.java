@@ -43,7 +43,7 @@ public class Board {
 	public void landPiece(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			this.setSquareFull(square);
-			
+
 		}
 
 	}
@@ -143,7 +143,7 @@ public class Board {
 	public boolean willCollideWithFloorVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			if (rowNumber == NUM_ROWS-1) {
+			if (rowNumber == NUM_ROWS) {
 				return true;
 			}
 		}
@@ -154,9 +154,9 @@ public class Board {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
 			int colNumber = square.getX() / Square.SIDE;
-			if (squares.get(rowNumber)[colNumber] != null) {
-				return true;
-			}
+				if (squares.get(rowNumber)[colNumber] != null) {
+					return true;
+				}
 		}
 		return false;
 	}

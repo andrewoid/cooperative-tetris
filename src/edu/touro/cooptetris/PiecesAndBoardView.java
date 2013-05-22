@@ -120,7 +120,7 @@ public class PiecesAndBoardView extends JComponent {
 	private void movePieces() {
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
-			for (Piece p : pieces) {
+			/*for (Piece p : pieces) {
 				p.moveDown();
 
 				if (board.willCollideWithFloorVertical(p)) {
@@ -132,6 +132,15 @@ public class PiecesAndBoardView extends JComponent {
 					landed = true;
 				}
 
+			}*/
+			for(Piece p:pieces){
+				if(!board.willCollideWithFloorVertical(p)&&!board.willCollideWithLandedPieceVertical(p)){
+					p.moveDown();
+				}
+				else{
+					board.landPiece(p);
+					landed=true;
+				}
 			}
 			if (landed) {
 				pieces.clear();
