@@ -8,6 +8,11 @@ import edu.touro.cooptetris.pieces.Piece;
 public class KeyboardListener implements KeyListener {
 
 	private Piece piece;
+	private Board board;
+
+	public KeyboardListener(Board board) {
+		this.board = board;
+	}
 
 	@Override
 	public void keyPressed(KeyEvent event) {
@@ -17,12 +22,16 @@ public class KeyboardListener implements KeyListener {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_KP_LEFT:
 			case KeyEvent.VK_A:
-				piece.moveLeft();
+				if (!board.willCollideWithFloorLeft(piece)) {
+					piece.moveLeft();
+				}
 				break;
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_KP_RIGHT:
 			case KeyEvent.VK_D:
-				piece.moveRight();
+				if (!board.willCollideWithFloorRight(piece)) {
+					piece.moveRight();
+				}
 				break;
 			case KeyEvent.VK_UP:
 			case KeyEvent.VK_KP_UP:
@@ -32,7 +41,10 @@ public class KeyboardListener implements KeyListener {
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_KP_DOWN:
 			case KeyEvent.VK_S:
-				piece.moveDown();
+				if (!board.willCollideWithFloorVertical(piece)
+						&& !board.willCollideWithLandedPieceVertical(piece)) {
+					piece.moveDown();
+				}
 				break;
 			default:
 				break;
