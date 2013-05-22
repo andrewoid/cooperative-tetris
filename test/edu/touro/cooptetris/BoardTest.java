@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 import edu.touro.cooptetris.pieces.LinePiece;
@@ -120,6 +122,32 @@ public class BoardTest {
 
 	private void whenRowIsRemoved(int rowNumber) {
 		board.removeRow(rowNumber);
+	}
+
+	@Test
+	public void testRemoveNoRowsWhenBoardIsEmpty() {
+		givenBoard();
+		whenFullRowsAreRemoved();
+		thenBoardHasCorrectNumberOfRows();
+	}
+
+	@Test
+	public void testRemoveFullRows() {
+		givenBoard();
+		whenRowIsFull(2);
+		whenRowIsFull(3);
+		whenFullRowsAreRemoved();
+		thenRowIsNotFull(2);
+		thenRowIsNotFull(3);
+		thenBoardHasCorrectNumberOfRows();
+	}
+
+	private void whenFullRowsAreRemoved() {
+		board.removeFullRows();
+	}
+
+	private void thenBoardHasCorrectNumberOfRows() {
+		Assert.assertEquals(Board.NUM_ROWS, board.getNumRows());
 	}
 
 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.swing.JComponent;
@@ -14,7 +15,7 @@ public class BoardView extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 	private Board board;
-	private ArrayList<Square[]> squares;
+	private List<Square[]> squares;
 	private int boardMarginSide;
 	private int boardMarginBottom;
 	private int topY;
@@ -48,7 +49,6 @@ public class BoardView extends JComponent {
 	}
 
 	public void drawBoard(Graphics g) {
-		
 
 	}
 
