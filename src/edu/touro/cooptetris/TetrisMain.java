@@ -30,8 +30,7 @@ public class TetrisMain extends JFrame {
 		add(gameView, BorderLayout.CENTER);
 		add(scoreLevelDisplay, BorderLayout.EAST);
 		setVisible(true);
-		System.out.println(this.getWidth() + "w " + this.getHeight()
-				+ "in main");
+
 	}
 
 }

@@ -43,8 +43,8 @@ public class PiecesAndBoardView extends JComponent {
 		}
 		currLevel = 1;
 		timer = new DropTimer(300);
-		setSize(173, Board.NUM_ROWS * Square.SIDE);
-		setBorder(BorderFactory.createLineBorder(Color.GREEN));
+		setSize(180, Board.NUM_ROWS * Square.SIDE);
+		setBorder(BorderFactory.createLineBorder(Color.GREEN, 7));
 		pieces = new ArrayList<Piece>();
 		setFocusable(true);
 
@@ -176,7 +176,7 @@ public class PiecesAndBoardView extends JComponent {
 
 	private void clearScreen(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, 173, this.getHeight());
+		g.fillRect(0, 0, 180, this.getHeight());
 	}
 
 	public void setScore(int score) {
