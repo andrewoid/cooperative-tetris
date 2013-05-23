@@ -21,7 +21,7 @@ public class TetrisMain extends JFrame {
 	@Inject
 	public TetrisMain(PiecesAndBoardView gameView,
 			ScoreLevelDisplay scoreLevelDisplay) {
-		int height = scoreLevelDisplay.getHeight(), width = 273;
+		int height = scoreLevelDisplay.getHeight() + 30, width = 273;
 		setResizable(false);
 		setTitle("piece GUI");
 		setSize(width, height);

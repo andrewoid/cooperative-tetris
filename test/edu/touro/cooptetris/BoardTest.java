@@ -143,6 +143,7 @@ public class BoardTest {
 	}
 
 	private void whenFullRowsAreRemoved() {
+		givenBoard();
 		board.removeFullRows();
 	}
 

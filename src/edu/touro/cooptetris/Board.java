@@ -143,7 +143,7 @@ public class Board {
 	public boolean willCollideWithFloorVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			if (rowNumber == NUM_ROWS) {
+			if (rowNumber == NUM_ROWS - 1) {
 				return true;
 			}
 		}
@@ -154,7 +154,7 @@ public class Board {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
 			int colNumber = square.getX() / Square.SIDE;
-			if (squares.get(rowNumber)[colNumber] != null) {
+			if (squares.get(rowNumber + 1)[colNumber] != null) {
 				return true;
 			}
 		}
