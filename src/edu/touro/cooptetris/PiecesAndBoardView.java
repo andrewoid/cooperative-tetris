@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
@@ -38,10 +43,9 @@ public class PiecesAndBoardView extends JComponent {
 		}
 		currLevel = 1;
 		timer = new DropTimer(300);
-		setSize(165, Board.NUM_ROWS * Square.SIDE);
+		setSize(173, Board.NUM_ROWS * Square.SIDE);
 		setBorder(BorderFactory.createLineBorder(Color.GREEN));
 		pieces = new ArrayList<Piece>();
-
 		setFocusable(true);
 
 	}
@@ -120,28 +124,27 @@ public class PiecesAndBoardView extends JComponent {
 	}
 
 	private void movePieces() {
+
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
-			/*for (Piece p : pieces) {
-				p.moveDown();
+			/*
+			 * for (Piece p : pieces) { p.moveDown();
+			 * 
+			 * if (board.willCollideWithFloorVertical(p)) { board.landPiece(p);
+			 * landed = true; } else if
+			 * (board.willCollideWithLandedPieceVertical(p)) { p.moveUp();
+			 * board.landPiece(p); landed = true; }
+			 * 
+			 * }
+			 */
+			for (Piece p : pieces) {
 
-				if (board.willCollideWithFloorVertical(p)) {
-					board.landPiece(p);
-					landed = true;
-				} else if (board.willCollideWithLandedPieceVertical(p)) {
-					p.moveUp();
-					board.landPiece(p);
-					landed = true;
-				}
-
-			}*/
-			for(Piece p:pieces){
-				if(!board.willCollideWithFloorVertical(p)&&!board.willCollideWithLandedPieceVertical(p)){
+				if (!board.willCollideWithFloorVertical(p)
+						&& !board.willCollideWithLandedPieceVertical(p)) {
 					p.moveDown();
-				}
-				else{
+				} else {
 					board.landPiece(p);
-					landed=true;
+					landed = true;
 				}
 			}
 			if (landed) {
@@ -150,15 +153,30 @@ public class PiecesAndBoardView extends JComponent {
 					pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS
 							* Square.SIDE / 2, 0));
 					keyListener.setPiece(pieces.get(pieces.size() - 1));
+				} else {
+					displayGameOver();
 				}
 			}
 
 		}
 	}
 
+	public void displayGameOver() {
+		String message = "Game over! Score is " + getScore() + "\n"
+				+ "Do you want to play again?";
+		int gameOver = JOptionPane.showConfirmDialog(null, message);
+		if (gameOver == 0) {
+			Injector injector = Guice.createInjector(new Module[0]);
+			injector.getInstance(TetrisMain.class);
+		}
+		if (gameOver == 1) {
+			System.exit(0);
+		}
+	}
+
 	private void clearScreen(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, 165, this.getHeight());
+		g.fillRect(0, 0, 173, this.getHeight());
 	}
 
 	public void setScore(int score) {

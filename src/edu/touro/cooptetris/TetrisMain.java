@@ -21,15 +21,17 @@ public class TetrisMain extends JFrame {
 	@Inject
 	public TetrisMain(PiecesAndBoardView gameView,
 			ScoreLevelDisplay scoreLevelDisplay) {
-		int height = scoreLevelDisplay.getHeight(), width = 265;
+		int height = scoreLevelDisplay.getHeight(), width = 273;
 		setResizable(false);
 		setTitle("piece GUI");
-		setSize(height, width);
+		setSize(width, height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		add(gameView, BorderLayout.CENTER);
 		add(scoreLevelDisplay, BorderLayout.EAST);
 		setVisible(true);
+		System.out.println(this.getWidth() + "w " + this.getHeight()
+				+ "in main");
 	}
 
 }

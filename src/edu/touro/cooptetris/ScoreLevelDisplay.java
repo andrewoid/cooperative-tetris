@@ -23,7 +23,7 @@ public class ScoreLevelDisplay extends JPanel {
 		levelString = "Level: ";
 		scoreLabel = new JLabel(scoreString + String.valueOf(0));
 		levelLabel = new JLabel(levelString + String.valueOf(1));
-		setSize(100, 400);
+		setSize(100, 300);
 		Border paddingBorder = BorderFactory.createEmptyBorder(15, 15, 15, 15);
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 		Border compoundBorder = BorderFactory.createCompoundBorder(border,
@@ -33,16 +33,13 @@ public class ScoreLevelDisplay extends JPanel {
 		Font font = new Font("Calibri", Font.BOLD, 18);
 		scoreLabel.setFont(font);
 		levelLabel.setFont(font);
-		setLayout(new GridLayout(5, 2));
+		setLayout(new GridLayout(5, 1));
 		add(new JLabel());
-		add(new JLabel());
-
 		add(scoreLabel);
-		add(new JLabel());
-		add(new JLabel());
 		add(new JLabel());
 		add(levelLabel);
 		add(new JLabel());
+
 		setVisible(true);
 	}
 

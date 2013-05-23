@@ -154,9 +154,9 @@ public class Board {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
 			int colNumber = square.getX() / Square.SIDE;
-				if (squares.get(rowNumber)[colNumber] != null) {
-					return true;
-				}
+			if (squares.get(rowNumber)[colNumber] != null) {
+				return true;
+			}
 		}
 		return false;
 	}
