@@ -43,8 +43,9 @@ public class PiecesAndBoardView extends JComponent {
 		}
 		currLevel = 1;
 		timer = new DropTimer(300);
-		setSize(180, Board.NUM_ROWS * Square.SIDE);
-		setBorder(BorderFactory.createLineBorder(Color.GREEN, 7));
+		setSize(Board.NUM_COLUMNS * Square.SIDE + 15, Board.NUM_ROWS
+				* Square.SIDE);
+		setBorder(BorderFactory.createMatteBorder(0, 7, 0, 7, Color.GREEN));
 		pieces = new ArrayList<Piece>();
 		setFocusable(true);
 
@@ -127,16 +128,7 @@ public class PiecesAndBoardView extends JComponent {
 
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
-			/*
-			 * for (Piece p : pieces) { p.moveDown();
-			 * 
-			 * if (board.willCollideWithFloorVertical(p)) { board.landPiece(p);
-			 * landed = true; } else if
-			 * (board.willCollideWithLandedPieceVertical(p)) { p.moveUp();
-			 * board.landPiece(p); landed = true; }
-			 * 
-			 * }
-			 */
+
 			for (Piece p : pieces) {
 
 				if (!board.willCollideWithFloorVertical(p)
@@ -145,6 +137,7 @@ public class PiecesAndBoardView extends JComponent {
 				} else {
 					board.landPiece(p);
 					landed = true;
+					setScore(getScore() + 1);
 				}
 			}
 			if (landed) {
@@ -166,8 +159,10 @@ public class PiecesAndBoardView extends JComponent {
 				+ "Do you want to play again?";
 		int gameOver = JOptionPane.showConfirmDialog(null, message);
 		if (gameOver == 0) {
+			this.setEnabled(false);
 			Injector injector = Guice.createInjector(new Module[0]);
 			injector.getInstance(TetrisMain.class);
+
 		}
 		if (gameOver == 1) {
 			System.exit(0);
@@ -176,10 +171,11 @@ public class PiecesAndBoardView extends JComponent {
 
 	private void clearScreen(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, 180, this.getHeight());
+		g.fillRect(0, 0, Board.NUM_COLUMNS * Square.SIDE + 15, this.getHeight());
 	}
 
 	public void setScore(int score) {
 		this.score = score;
+		ScoreLevelDisplay.setScore(score);
 	}
 }

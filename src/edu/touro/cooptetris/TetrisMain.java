@@ -9,6 +9,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
+import edu.touro.cooptetris.pieces.Square;
+
 public class TetrisMain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -21,9 +23,11 @@ public class TetrisMain extends JFrame {
 	@Inject
 	public TetrisMain(PiecesAndBoardView gameView,
 			ScoreLevelDisplay scoreLevelDisplay) {
-		int height = scoreLevelDisplay.getHeight() + 30, width = 273;
+		int height = scoreLevelDisplay.getHeight() + 30, width = 100
+				+ Board.NUM_COLUMNS * Square.SIDE + 15;
+		setLocationRelativeTo(getRootPane());
 		setResizable(false);
-		setTitle("piece GUI");
+		setTitle("Single Player Tetris");
 		setSize(width, height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
