@@ -103,6 +103,7 @@ public class PiecesAndBoardView extends JComponent {
 		completeLinePlayer.play();
 		if (score > currLevel * 4000) {
 			currLevel++;
+			ScoreLevelDisplay.setLevel(currLevel);
 			levelChangePlayer.play();
 		}
 	}

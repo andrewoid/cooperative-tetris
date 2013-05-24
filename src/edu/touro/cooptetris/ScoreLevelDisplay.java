@@ -14,17 +14,16 @@ public class ScoreLevelDisplay extends JPanel {
 	private static final long serialVersionUID = -4724424751560236726L;
 
 	private static JLabel scoreLabel;
-	private JLabel levelLabel;
+	private static JLabel levelLabel;
 	private static String scoreString;
-	private String levelString;
-	private final int WIDTH = 100;
+	private static String levelString;
 
 	public ScoreLevelDisplay() {
 		scoreString = "Score: ";
 		levelString = "Level: ";
 		scoreLabel = new JLabel(scoreString + String.valueOf(0));
 		levelLabel = new JLabel(levelString + String.valueOf(1));
-		setSize(WIDTH, 300);
+		setSize(100, 300);
 		Border paddingBorder = BorderFactory.createEmptyBorder(15, 15, 15, 15);
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 		Border compoundBorder = BorderFactory.createCompoundBorder(border,
@@ -46,9 +45,10 @@ public class ScoreLevelDisplay extends JPanel {
 
 	public static void setScore(int score) {
 		scoreLabel.setText(scoreString + String.valueOf(score));
+
 	}
 
-	public void setLevel(int level) {
+	public static void setLevel(int level) {
 		levelLabel.setText(levelString + String.valueOf(level));
 	}
 
