@@ -8,6 +8,11 @@ import edu.touro.cooptetris.pieces.Piece;
 public class KeyboardListener implements KeyListener {
 
 	private Piece piece;
+	private PiecesAndBoardView view;
+
+	public KeyboardListener(PiecesAndBoardView view) {
+		this.view = view;
+	}
 
 	@Override
 	public void keyPressed(KeyEvent event) {
@@ -34,6 +39,8 @@ public class KeyboardListener implements KeyListener {
 			case KeyEvent.VK_S:
 				piece.moveDown();
 				break;
+			case KeyEvent.VK_P:
+				view.pauseAndUnPauseGame();
 			default:
 				break;
 

@@ -40,7 +40,7 @@ public class PiecesAndBoardView extends JComponent {
 		setSize(800, 600);
 		pieces = new ArrayList<Piece>();
 
-		keyListener = new KeyboardListener();
+		keyListener = new KeyboardListener(this);
 		addKeyListener(keyListener);
 		keyListener.setPiece(p);
 		setFocusable(true);
@@ -151,5 +151,9 @@ public class PiecesAndBoardView extends JComponent {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public void pauseAndUnPauseGame() {
+		timer.pauseAndUnPause();
 	}
 }

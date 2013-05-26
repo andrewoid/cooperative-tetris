@@ -4,15 +4,19 @@ public class DropTimer {
 
 	private int timeIncrement;
 	private long lastTime;
+	private boolean paused;
 
 	public DropTimer(int timeIncrement) {
 		lastTime = System.currentTimeMillis();
 		this.timeIncrement = timeIncrement;
+		paused = false;
 	}
 
-
-
 	public boolean isTimeToDrop() {
+		if (paused) {
+			return false;
+		}
+
 		long currTime = System.currentTimeMillis();
 		if (currTime - lastTime > timeIncrement) {
 			lastTime = currTime;
@@ -20,6 +24,10 @@ public class DropTimer {
 		} else {
 			return false;
 		}
+	}
+
+	public void pauseAndUnPause() {
+		paused = !paused;
 	}
 
 	public void setTimeIncrement(int timeIncrement) {
