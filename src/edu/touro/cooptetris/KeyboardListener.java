@@ -9,15 +9,20 @@ public class KeyboardListener implements KeyListener {
 
 	private Piece piece;
 	private PiecesAndBoardView view;
+	private boolean paused;
 
 	public KeyboardListener(PiecesAndBoardView view) {
 		this.view = view;
+		paused = false;
 	}
 
 	@Override
 	public void keyPressed(KeyEvent event) {
 
-		if (piece != null) {
+		if (event.getKeyCode() == KeyEvent.VK_P) {
+			paused = !paused;
+			view.pauseAndUnPauseGame();
+		} else if (piece != null && !paused) {
 			switch (event.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_KP_LEFT:
@@ -39,15 +44,14 @@ public class KeyboardListener implements KeyListener {
 			case KeyEvent.VK_S:
 				piece.moveDown();
 				break;
-			case KeyEvent.VK_P:
-				view.pauseAndUnPauseGame();
 			default:
 				break;
 
 			}
-		} else {
-			System.out.println("piece is null");
-		}
+
+		} // else {
+			// System.out.println("piece is null");
+		// }
 
 	}
 

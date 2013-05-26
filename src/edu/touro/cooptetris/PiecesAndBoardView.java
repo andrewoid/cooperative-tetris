@@ -12,6 +12,7 @@ import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
 import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
 import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
+import edu.touro.cooptetris.sound.ThemeMusicPlayer;
 
 public class PiecesAndBoardView extends JComponent {
 
@@ -155,5 +156,6 @@ public class PiecesAndBoardView extends JComponent {
 
 	public void pauseAndUnPauseGame() {
 		timer.pauseAndUnPause();
+		// themeMusicPlayer.pause();
 	}
 }
