@@ -46,6 +46,7 @@ public class Piece {
 	public Square[] getSquares() {
 		return squares;
 	}
+
 	public void moveUp() {
 		for (Square s : squares) {
 			int side = s.getSide();
@@ -53,6 +54,7 @@ public class Piece {
 			// if it is + side then it moves up
 		}
 	}
+
 	public void moveDown() {
 		for (Square s : squares) {
 			int side = s.getSide();
@@ -98,6 +100,21 @@ public class Piece {
 			int py = s.getY();
 			s.setX(rx + ry - py);
 			s.setY(-rx + ry + px);
+		}
+	}
+
+	public void unrotate() {
+		// (Px, Py) rotated 90 degrees counterclockwise around (Rx, Ry) gives
+		// (Rx - (Py - Ry), Ry + (Px - Rx))
+
+		int rx = center.getX();
+		int ry = center.getY();
+
+		for (Square s : squares) {
+			int px = s.getX();
+			int py = s.getY();
+			s.setX(rx - (py - ry));
+			s.setY(ry + (px - rx));
 		}
 	}
 
