@@ -40,4 +40,22 @@ public class JPieceTest {
 		assertEquals(0, squares[3].getY());
 
 	}
+
+	@Test
+	public void testUnrotate() {
+		JPiece j = new JPiece(0, 0);
+		j.rotate();
+		j.unrotate();
+		Square[] squares = j.getSquares();
+
+		assertEquals(0, squares[0].getX());
+		assertEquals(0, squares[0].getY());
+		assertEquals(0, squares[1].getX());
+		assertEquals(Square.SIDE, squares[1].getY());
+		assertEquals(0, squares[2].getX());
+		assertEquals(2 * Square.SIDE, squares[2].getY());
+		assertEquals(-Square.SIDE, squares[3].getX());
+
+		assertEquals(2 * Square.SIDE, squares[3].getY());
+	}
 }
