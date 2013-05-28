@@ -183,4 +183,18 @@ public class Board {
 		return squares.size();
 	}
 
+	public boolean onBoard(Piece p) {
+		for (Square square : p.getSquares()) {
+			int rowNumber = square.getY() / Square.SIDE;
+			int colNumber = square.getX() / Square.SIDE;
+
+			if (rowNumber < 0 || rowNumber >= NUM_ROWS) {
+				return false;
+			}
+			if (colNumber < 0 || colNumber >= NUM_COLUMNS) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

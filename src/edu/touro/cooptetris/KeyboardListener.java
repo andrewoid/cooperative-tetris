@@ -37,6 +37,9 @@ public class KeyboardListener implements KeyListener {
 			case KeyEvent.VK_KP_UP:
 			case KeyEvent.VK_W:
 				piece.rotate();
+				if(!board.onBoard(piece)){
+					piece.unrotate();
+				}
 				break;
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_KP_DOWN:
