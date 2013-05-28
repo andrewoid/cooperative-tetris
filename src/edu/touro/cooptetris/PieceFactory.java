@@ -8,6 +8,7 @@ import edu.touro.cooptetris.pieces.LPiece;
 import edu.touro.cooptetris.pieces.LinePiece;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.SPiece;
+import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.pieces.TPiece;
 import edu.touro.cooptetris.pieces.ZPiece;
 
@@ -21,6 +22,7 @@ public class PieceFactory {
 
 	public Piece getRandomPiece(int x, int y) {
 		int r = random.nextInt(7);
+		y-=4*Square.SIDE;
 		switch (r) {
 		case 0:
 			return new BoxPiece(x, y);

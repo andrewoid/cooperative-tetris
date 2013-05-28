@@ -89,7 +89,9 @@ public class Board {
 		int rowNumber = square.getY() / Square.SIDE;
 		int colNumber = square.getX() / Square.SIDE;
 
-		squares.get(rowNumber)[colNumber] = square;
+		if (rowNumber >= 0) {
+			squares.get(rowNumber)[colNumber] = square;
+		}
 	}
 
 	public void setSquares(ArrayList<Square[]> squares) {
@@ -109,8 +111,10 @@ public class Board {
 				return true;
 			}
 
-			if (squares.get(rowNumber)[colNumber - 1] != null) {
-				return true;
+			if (rowNumber >= 0) {
+				if (squares.get(rowNumber)[colNumber - 1] != null) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -125,8 +129,10 @@ public class Board {
 				return true;
 			}
 
-			if (squares.get(rowNumber)[colNumber + 1] != null) {
-				return true;
+			if (rowNumber >= 0) {
+				if (squares.get(rowNumber)[colNumber + 1] != null) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -154,8 +160,10 @@ public class Board {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
 			int colNumber = square.getX() / Square.SIDE;
-			if (squares.get(rowNumber + 1)[colNumber] != null) {
-				return true;
+			if (rowNumber >= 0) {
+				if (squares.get(rowNumber + 1)[colNumber] != null) {
+					return true;
+				}
 			}
 		}
 		return false;
