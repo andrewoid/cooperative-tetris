@@ -46,6 +46,7 @@ public class Piece {
 	public Square[] getSquares() {
 		return squares;
 	}
+
 	public void moveUp() {
 		for (Square s : squares) {
 			int side = s.getSide();
@@ -53,6 +54,7 @@ public class Piece {
 			// if it is + side then it moves up
 		}
 	}
+
 	public void moveDown() {
 		for (Square s : squares) {
 			int side = s.getSide();
@@ -100,5 +102,4 @@ public class Piece {
 			s.setY(-rx + ry + px);
 		}
 	}
-
 }
