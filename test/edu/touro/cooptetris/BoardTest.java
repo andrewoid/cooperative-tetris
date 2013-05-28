@@ -30,7 +30,7 @@ public class BoardTest {
 	}
 
 	private LinePiece givenLinePiece() {
-		LinePiece linePiece = new LinePiece(20, 27 * Square.SIDE);
+		LinePiece linePiece = new LinePiece(15, 16 * Square.SIDE);
 		return linePiece;
 	}
 
@@ -43,7 +43,7 @@ public class BoardTest {
 
 		assertFalse(board.willCollideWithFloorLeft(linePiece));
 
-		board.setSquareFull(new Square(10, 10, Color.BLACK));
+		board.setSquareFull(new Square(0, 16*Square.SIDE, Color.BLACK));
 		assertTrue(board.willCollideWithFloorLeft(linePiece));
 	}
 
@@ -55,7 +55,7 @@ public class BoardTest {
 		LinePiece linePiece = givenLinePiece();
 		assertFalse(board.willCollideWithFloorRight(linePiece));
 
-		board.setSquareFull(new Square(30, 40, Color.BLACK));
+		board.setSquareFull(new Square(2*Square.SIDE, 16*Square.SIDE, Color.BLACK));
 
 		assertTrue(board.willCollideWithFloorRight(linePiece));
 	}
@@ -66,7 +66,7 @@ public class BoardTest {
 		givenFullRow();
 
 		LinePiece linePiece = givenLinePiece();
-
+		linePiece.moveDown();
 		assertTrue(board.willCollideWithFloorVertical(linePiece));
 
 	}
