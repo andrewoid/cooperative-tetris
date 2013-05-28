@@ -22,22 +22,21 @@ public class PieceFactory {
 
 	public Piece getRandomPiece(int x, int y) {
 		int r = random.nextInt(7);
-		y-=4*Square.SIDE;
 		switch (r) {
 		case 0:
-			return new BoxPiece(x, y);
+			return new BoxPiece(x, y-2*Square.SIDE);
 		case 1:
-			return new JPiece(x, y);
+			return new JPiece(x, y-3*Square.SIDE);
 		case 2:
-			return new LPiece(x, y);
+			return new LPiece(x, y-3*Square.SIDE);
 		case 3:
-			return new SPiece(x, y);
+			return new SPiece(x, y-2*Square.SIDE);
 		case 4:
-			return new TPiece(x, y);
+			return new TPiece(x, y-2*Square.SIDE);
 		case 5:
-			return new ZPiece(x, y);
+			return new ZPiece(x, y-2*Square.SIDE);
 		case 6:
-			return new LinePiece(x, y);
+			return new LinePiece(x, y-4*Square.SIDE);
 		}
 
 		throw new IllegalStateException("Piece not found");
