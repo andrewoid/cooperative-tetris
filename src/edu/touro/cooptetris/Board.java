@@ -197,4 +197,17 @@ public class Board {
 		}
 		return true;
 	}
+
+	public boolean collidedWithPiece(Piece p) {
+		for (Square square : p.getSquares()) {
+			int rowNumber = square.getY() / Square.SIDE;
+			int colNumber = square.getX() / Square.SIDE;
+			if (rowNumber >= 0) {
+				if (squares.get(rowNumber)[colNumber] != null) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
