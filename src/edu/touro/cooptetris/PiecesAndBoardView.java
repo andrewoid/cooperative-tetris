@@ -7,11 +7,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
 
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
@@ -27,7 +22,7 @@ public class PiecesAndBoardView extends JComponent {
 	private ArrayList<Piece> pieces;
 	private DropTimer timer;
 	private ArrayList<Level> levels;
-	private int score;
+	private static int score;
 	private int currLevel;
 	// private ThemeMusicPlayer themeMusicPlayer;
 	private CompleteLineMusicPlayer completeLinePlayer;
@@ -35,6 +30,7 @@ public class PiecesAndBoardView extends JComponent {
 	private HitFloorMusicPlayer hitFloorPlayer;
 	private PieceFactory pieceFactory;
 	private KeyboardListener keyListener;
+	private GameStateListener gameStateListener;
 
 	public PiecesAndBoardView() {
 		levels = new ArrayList<Level>();
@@ -73,6 +69,10 @@ public class PiecesAndBoardView extends JComponent {
 
 	}
 
+	public void setOnGameStateListener(GameStateListener gameStateListener) {
+		this.gameStateListener = gameStateListener;
+	}
+
 	public int getCurrLevel() {
 		return currLevel;
 	}
@@ -81,7 +81,7 @@ public class PiecesAndBoardView extends JComponent {
 		return hitFloorPlayer;
 	}
 
-	public int getScore() {
+	public static int getScore() {
 		return score;
 	}
 
@@ -137,6 +137,8 @@ public class PiecesAndBoardView extends JComponent {
 					p.moveDown();
 				} else {
 					board.landPiece(p);
+					//board.checkFullRowsOfPiece(p);
+					board.removeFullRows();
 					landed = true;
 					setScore(getScore() + 1);
 				}
@@ -156,18 +158,9 @@ public class PiecesAndBoardView extends JComponent {
 	}
 
 	public void displayGameOver() {
-		String message = "Game over! Score is " + getScore() + "\n"
-				+ "Do you want to play again?";
-		int gameOver = JOptionPane.showConfirmDialog(null, message);
-		if (gameOver == 0) {
-			this.setEnabled(false);
-			Injector injector = Guice.createInjector(new Module[0]);
-			injector.getInstance(TetrisMain.class);
 
-		}
-		if (gameOver == 1) {
-			System.exit(0);
-		}
+		gameStateListener.onGameOver();
+
 	}
 
 	private void clearScreen(Graphics g) {
@@ -179,4 +172,5 @@ public class PiecesAndBoardView extends JComponent {
 		this.score = score;
 		ScoreLevelDisplay.setScore(score);
 	}
+
 }

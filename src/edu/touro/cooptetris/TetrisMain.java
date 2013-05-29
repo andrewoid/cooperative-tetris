@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.inject.Inject;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -11,7 +12,7 @@ import com.google.inject.Module;
 
 import edu.touro.cooptetris.pieces.Square;
 
-public class TetrisMain extends JFrame {
+public class TetrisMain extends JFrame implements GameStateListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +24,7 @@ public class TetrisMain extends JFrame {
 	@Inject
 	public TetrisMain(PiecesAndBoardView gameView,
 			ScoreLevelDisplay scoreLevelDisplay) {
+		gameView.setOnGameStateListener(this);
 		int height = scoreLevelDisplay.getHeight() + 30, width = 100
 				+ Board.NUM_COLUMNS * Square.SIDE + 15;
 		setLocationRelativeTo(getRootPane());
@@ -35,6 +37,22 @@ public class TetrisMain extends JFrame {
 		add(scoreLevelDisplay, BorderLayout.EAST);
 		setVisible(true);
 
+	}
+
+	@Override
+	public void onGameOver() {
+		String message = "Game over! Score is " + PiecesAndBoardView.getScore()
+				+ ".\n" + "Do you want to play again?";
+		int gameOver = JOptionPane.showConfirmDialog(null, message);
+		if (gameOver == 0) {
+
+			Injector injector = Guice.createInjector(new Module[0]);
+			injector.getInstance(TetrisMain.class);
+
+		}
+		if (gameOver == 1) {
+			System.exit(0);
+		}
 	}
 
 }
