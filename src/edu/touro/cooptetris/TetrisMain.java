@@ -45,7 +45,10 @@ public class TetrisMain extends JFrame implements GameStateListener {
 				+ ".\n" + "Do you want to play again?";
 		int gameOver = JOptionPane.showConfirmDialog(null, message);
 		if (gameOver == 0) {
-
+			pabv.getBoard().removeAll();
+			pabv.setScore(0);
+			pabv.setCurrLevel(0);
+			pabv.repaint();
 		}
 		if (gameOver == 1) {
 			System.exit(0);

@@ -27,6 +27,10 @@ public class Board {
 		}
 	}
 
+	public void removeAll() {
+		squares = new ArrayList<Square[]>();
+	}
+
 	public List<Square[]> getSquares() {
 		return squares;
 	}
@@ -47,10 +51,11 @@ public class Board {
 		}
 
 	}
-	public void checkFullRowsOfPiece(Piece p){
+
+	public void checkFullRowsOfPiece(Piece p) {
 		for (Square square : p.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			if(isRowFull(rowNumber)){
+			if (isRowFull(rowNumber)) {
 				this.removeRow(rowNumber);
 			}
 		}
