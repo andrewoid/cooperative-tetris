@@ -11,10 +11,16 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 
 import edu.touro.cooptetris.pieces.Square;
+import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
+import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
+import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
 
 public class TetrisMain extends JFrame implements GameStateListener {
 
 	private static final long serialVersionUID = 1L;
+	private CompleteLineMusicPlayer completeLinePlayer;
+	private LevelChangeMusicPlayer levelChangePlayer;
+	private HitFloorMusicPlayer hitFloorPlayer;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
@@ -23,7 +29,13 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Inject
 	public TetrisMain(PiecesAndBoardView gameView,
-			ScoreLevelDisplay scoreLevelDisplay) {
+			ScoreLevelDisplay scoreLevelDisplay,
+			CompleteLineMusicPlayer completeLinePlayer,
+			LevelChangeMusicPlayer levelChangePlayer,
+			HitFloorMusicPlayer hitFloorPlayer) {
+		this.completeLinePlayer = completeLinePlayer;
+		this.levelChangePlayer = levelChangePlayer;
+		this.hitFloorPlayer = hitFloorPlayer;
 		gameView.setOnGameStateListener(this);
 		int height = scoreLevelDisplay.getHeight() + 30, width = 100
 				+ Board.NUM_COLUMNS * Square.SIDE + 15;
@@ -55,4 +67,18 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		}
 	}
 
+	@Override
+	public void onCompleteLine() {
+		completeLinePlayer.play();
+	}
+
+	@Override
+	public void onLevelChange() {
+		levelChangePlayer.play();
+	}
+
+	@Override
+	public void onHitFloor() {
+		hitFloorPlayer.play();
+	}
 }
