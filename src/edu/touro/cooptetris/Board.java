@@ -53,13 +53,16 @@ public class Board {
 
 	}
 
-	public void checkFullRowsOfPiece(Piece p) {
+	public int checkFullRowsOfPiece(Piece p) {
+		int rowsFull = 0;
 		for (Square square : p.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
 			if (isRowFull(rowNumber)) {
 				this.removeRow(rowNumber);
+				rowsFull++;
 			}
 		}
+		return rowsFull;
 	}
 
 	public void removeFullRows() {
@@ -92,8 +95,8 @@ public class Board {
 
 	public void removeRow(int rowNumber) {
 		squares.remove(rowNumber);
-		for (int i=0;i<rowNumber;i++) {
-			Square[] rowSquares=squares.get(i);
+		for (int i = 0; i < rowNumber; i++) {
+			Square[] rowSquares = squares.get(i);
 			for (Square square : rowSquares) {
 				if (square != null) {
 					square.setY(square.getY() + Square.SIDE);
