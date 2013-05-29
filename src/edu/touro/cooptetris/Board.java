@@ -188,10 +188,10 @@ public class Board {
 			int rowNumber = square.getY() / Square.SIDE;
 			int colNumber = square.getX() / Square.SIDE;
 
-			if (rowNumber < 0 || rowNumber >= NUM_ROWS) {
+			if (square.getX() < 0 || rowNumber >= NUM_ROWS) {
 				return false;
 			}
-			if (colNumber < 0 || colNumber >= NUM_COLUMNS) {
+			if (square.getY() < 0 || colNumber >= NUM_COLUMNS) {
 				return false;
 			}
 		}
