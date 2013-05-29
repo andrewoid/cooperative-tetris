@@ -10,6 +10,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
+import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
 import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
@@ -21,6 +22,8 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	private CompleteLineMusicPlayer completeLinePlayer;
 	private LevelChangeMusicPlayer levelChangePlayer;
 	private HitFloorMusicPlayer hitFloorPlayer;
+	private GameController gameController;
+	private KeyboardListener keyboardListener;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
@@ -32,11 +35,16 @@ public class TetrisMain extends JFrame implements GameStateListener {
 			ScoreLevelDisplay scoreLevelDisplay,
 			CompleteLineMusicPlayer completeLinePlayer,
 			LevelChangeMusicPlayer levelChangePlayer,
-			HitFloorMusicPlayer hitFloorPlayer) {
+			HitFloorMusicPlayer hitFloorPlayer, GameController gameController) {
 		this.completeLinePlayer = completeLinePlayer;
 		this.levelChangePlayer = levelChangePlayer;
 		this.hitFloorPlayer = hitFloorPlayer;
-		gameView.setOnGameStateListener(this);
+		this.gameController = gameController;
+		this.keyboardListener = new KeyboardListener(gameController.getBoard());
+
+		addKeyListener(keyboardListener);
+
+		gameController.setGameStateListener(this);
 		int height = scoreLevelDisplay.getHeight() + 30, width = 100
 				+ Board.NUM_COLUMNS * Square.SIDE + 15;
 		setLocationRelativeTo(getRootPane());
@@ -52,13 +60,13 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	}
 
 	@Override
-	public void onGameOver(PiecesAndBoardView pabv) {
-		String message = "Game over! Score is " + PiecesAndBoardView.getScore()
+	public void onGameOver() {
+		String message = "Game over! Score is " + gameController.getScore()
 				+ ".\n" + "Do you want to play again?";
 		int gameOver = JOptionPane.showConfirmDialog(null, message);
 		if (gameOver == 0) {
-			pabv.setScore(0);
-			pabv.setCurrLevel(1);
+			gameController.setScore(0);
+			gameController.setCurrLevel(1);
 			this.dispose();
 			Injector injector = Guice.createInjector(new Module[0]);
 			injector.getInstance(TetrisMain.class);
@@ -81,5 +89,10 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	@Override
 	public void onHitFloor() {
 		hitFloorPlayer.play();
+	}
+
+	@Override
+	public void onNewPiece(Piece piece) {
+		keyboardListener.setPiece(piece);
 	}
 }
