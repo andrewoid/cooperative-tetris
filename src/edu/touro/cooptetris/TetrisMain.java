@@ -52,15 +52,16 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	}
 
 	@Override
-	public void onGameOver() {
+	public void onGameOver(PiecesAndBoardView pabv) {
 		String message = "Game over! Score is " + PiecesAndBoardView.getScore()
 				+ ".\n" + "Do you want to play again?";
 		int gameOver = JOptionPane.showConfirmDialog(null, message);
 		if (gameOver == 0) {
-
+			pabv.setScore(0);
+			pabv.setCurrLevel(1);
+			this.dispose();
 			Injector injector = Guice.createInjector(new Module[0]);
 			injector.getInstance(TetrisMain.class);
-
 		}
 		if (gameOver == 1) {
 			System.exit(0);

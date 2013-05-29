@@ -14,6 +14,7 @@ import edu.touro.cooptetris.pieces.Square;
 public class PiecesAndBoardView extends JComponent {
 
 	private Board board;
+
 	private static final long serialVersionUID = 1L;
 	private Piece p;
 	private ArrayList<Piece> pieces;
@@ -21,6 +22,11 @@ public class PiecesAndBoardView extends JComponent {
 	private ArrayList<Level> levels;
 	private static int score;
 	private int currLevel;
+
+	public void setCurrLevel(int currLevel) {
+		this.currLevel = currLevel;
+	}
+
 	// private ThemeMusicPlayer themeMusicPlayer;
 	private PieceFactory pieceFactory;
 	private KeyboardListener keyListener;
@@ -59,6 +65,10 @@ public class PiecesAndBoardView extends JComponent {
 
 	public void setOnGameStateListener(GameStateListener gameStateListener) {
 		this.gameStateListener = gameStateListener;
+	}
+
+	public Board getBoard() {
+		return board;
 	}
 
 	public int getCurrLevel() {
@@ -122,8 +132,7 @@ public class PiecesAndBoardView extends JComponent {
 				} else {
 					board.landPiece(p);
 					gameStateListener.onHitFloor();
-					// board.checkFullRowsOfPiece(p);
-					board.removeFullRows();
+					board.checkFullRowsOfPiece(p);
 					landed = true;
 					setScore(getScore() + 1);
 				}
@@ -136,6 +145,7 @@ public class PiecesAndBoardView extends JComponent {
 					keyListener.setPiece(pieces.get(pieces.size() - 1));
 				} else {
 					displayGameOver();
+
 				}
 			}
 
@@ -144,7 +154,7 @@ public class PiecesAndBoardView extends JComponent {
 
 	public void displayGameOver() {
 
-		gameStateListener.onGameOver();
+		gameStateListener.onGameOver(this);
 
 	}
 
@@ -154,7 +164,7 @@ public class PiecesAndBoardView extends JComponent {
 	}
 
 	public void setScore(int score) {
-		this.score = score;
+		PiecesAndBoardView.score = score;
 		ScoreLevelDisplay.setScore(score);
 	}
 

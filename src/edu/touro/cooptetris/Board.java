@@ -3,6 +3,7 @@ package edu.touro.cooptetris;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -19,12 +20,16 @@ public class Board {
 	private List<Square[]> squares;
 
 	public Board() {
-		squares = new ArrayList<Square[]>();
+		squares = new LinkedList<Square[]>();
 
 		for (int i = 0; i < NUM_ROWS; i++) {
 			squares.add(new Square[NUM_COLUMNS]);
 
 		}
+	}
+
+	public void removeAll() {
+		squares = new ArrayList<Square[]>();
 	}
 
 	public List<Square[]> getSquares() {
@@ -47,13 +52,17 @@ public class Board {
 		}
 
 	}
-	public void checkFullRowsOfPiece(Piece p){
+
+	public int checkFullRowsOfPiece(Piece p) {
+		int rowsFull = 0;
 		for (Square square : p.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			if(isRowFull(rowNumber)){
+			if (isRowFull(rowNumber)) {
 				this.removeRow(rowNumber);
+				rowsFull++;
 			}
 		}
+		return rowsFull;
 	}
 
 	public void removeFullRows() {
@@ -86,7 +95,15 @@ public class Board {
 
 	public void removeRow(int rowNumber) {
 		squares.remove(rowNumber);
-		squares.add(new Square[NUM_COLUMNS]);
+		for (int i = 0; i < rowNumber; i++) {
+			Square[] rowSquares = squares.get(i);
+			for (Square square : rowSquares) {
+				if (square != null) {
+					square.setY(square.getY() + Square.SIDE);
+				}
+			}
+		}
+		squares.add(0, new Square[NUM_COLUMNS]);
 	}
 
 	public void setSquareEmpty(int rowNumber, int colNumber) {

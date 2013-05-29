@@ -18,18 +18,22 @@ public class ScoreLevelDisplay extends JPanel {
 	private static JTextArea levelTextArea;
 	private static String scoreString;
 	private static String levelString;
+	private JLabel nextPieceString;
 
 	public ScoreLevelDisplay() {
 		setSize(100, 300);
 
+		nextPieceString=new JLabel("Next Piece: ");
 		scoreString = "Score: ";
 		levelString = "Level: ";
 		scoreTextArea = new JTextArea(scoreString + String.valueOf(0));
 		scoreTextArea.setSize(94, 30);
 		scoreTextArea.setLineWrap(true);
+		scoreTextArea.setEnabled(false);
 		levelTextArea = new JTextArea(levelString + String.valueOf(1));
 		levelTextArea.setSize(94, 30);
 		levelTextArea.setLineWrap(true);
+		levelTextArea.setEnabled(false);
 		Border paddingBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 		Border compoundBorder = BorderFactory.createCompoundBorder(border,
@@ -40,6 +44,8 @@ public class ScoreLevelDisplay extends JPanel {
 		scoreTextArea.setFont(font);
 		levelTextArea.setFont(font);
 		setLayout(new GridLayout(10, 1));
+		add(nextPieceString);
+		add(new JLabel());
 		add(new JLabel());
 		add(scoreTextArea);
 		add(new JLabel());
