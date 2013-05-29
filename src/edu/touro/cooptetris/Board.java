@@ -47,6 +47,14 @@ public class Board {
 		}
 
 	}
+	public void checkFullRowsOfPiece(Piece p){
+		for (Square square : p.getSquares()) {
+			int rowNumber = square.getY() / Square.SIDE;
+			if(isRowFull(rowNumber)){
+				this.removeRow(rowNumber);
+			}
+		}
+	}
 
 	public void removeFullRows() {
 		Iterator<Square[]> i = squares.iterator();
