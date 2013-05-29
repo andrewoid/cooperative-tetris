@@ -69,7 +69,7 @@ public class PiecesAndBoardView extends JComponent {
 		addKeyListener(keyListener);
 		keyListener.setPiece(p);
 
-		pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS * Square.SIDE
+		pieces.add(pieceFactory.getNextPiece(Board.NUM_COLUMNS * Square.SIDE
 				/ 2, 0));
 		keyListener.setPiece(pieces.get(pieces.size() - 1));
 

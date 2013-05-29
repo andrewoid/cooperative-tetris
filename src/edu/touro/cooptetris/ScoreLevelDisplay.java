@@ -8,7 +8,17 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
+
+import edu.touro.cooptetris.pieces.BoxPiece;
+import edu.touro.cooptetris.pieces.JPiece;
+import edu.touro.cooptetris.pieces.LPiece;
+import edu.touro.cooptetris.pieces.LinePiece;
+import edu.touro.cooptetris.pieces.SPiece;
+import edu.touro.cooptetris.pieces.Square;
+import edu.touro.cooptetris.pieces.TPiece;
+import edu.touro.cooptetris.pieces.ZPiece;
 
 public class ScoreLevelDisplay extends JPanel {
 
@@ -18,12 +28,10 @@ public class ScoreLevelDisplay extends JPanel {
 	private static JTextArea levelTextArea;
 	private static String scoreString;
 	private static String levelString;
-	private JLabel nextPieceString;
 
 	public ScoreLevelDisplay() {
 		setSize(100, 300);
 
-		nextPieceString=new JLabel("Next Piece: ");
 		scoreString = "Score: ";
 		levelString = "Level: ";
 		scoreTextArea = new JTextArea(scoreString + String.valueOf(0));
@@ -44,8 +52,6 @@ public class ScoreLevelDisplay extends JPanel {
 		scoreTextArea.setFont(font);
 		levelTextArea.setFont(font);
 		setLayout(new GridLayout(10, 1));
-		add(nextPieceString);
-		add(new JLabel());
 		add(new JLabel());
 		add(scoreTextArea);
 		add(new JLabel());

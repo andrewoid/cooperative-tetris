@@ -9,7 +9,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import edu.touro.cooptetris.sound.RotateMusicPlayer;
 
-public class Piece {
+public abstract class Piece {
 
 	protected Square[] squares;
 	protected Square center;
@@ -108,4 +108,5 @@ public class Piece {
 		rotate();
 		rotate();
 	}
+	public abstract void setLocation(int x, int y);
 }

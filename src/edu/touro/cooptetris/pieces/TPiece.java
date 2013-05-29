@@ -6,18 +6,22 @@ public class TPiece extends Piece {
 
 	public TPiece(int x, int y) {
 		super();
-		int side = Square.SIDE;
-		for (int i = 0; i < 3; i++) {
-			Square s = squares[i];
-			s.setX(i * side + x);
-			s.setY(y);
-			s.setColor(Color.YELLOW);
+		setLocation(x,y);
+		for (Square square : squares) {
+			square.setColor(Color.YELLOW);
 		}
-		Square s = squares[3];
-		s.setX(1 * side + x);
-		s.setY(1 * side + y);
-		s.setColor(Color.YELLOW);
+		
 		center = squares[1];
 	}
 
+	public void setLocation(int x, int y){
+		for (int i = 0; i < 3; i++) {
+			Square s = squares[i];
+			s.setX(i * Square.SIDE + x);
+			s.setY(y);
+		}
+		Square s = squares[3];
+		s.setX(1 * Square.SIDE + x);
+		s.setY(1 * Square.SIDE + y);
+	}
 }
