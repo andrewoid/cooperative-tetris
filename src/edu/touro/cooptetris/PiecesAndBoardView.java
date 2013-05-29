@@ -10,9 +10,6 @@ import javax.swing.JComponent;
 
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
-import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
-import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
-import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
 
 public class PiecesAndBoardView extends JComponent {
 
@@ -31,9 +28,6 @@ public class PiecesAndBoardView extends JComponent {
 	}
 
 	// private ThemeMusicPlayer themeMusicPlayer;
-	private CompleteLineMusicPlayer completeLinePlayer;
-	private LevelChangeMusicPlayer levelChangePlayer;
-	private HitFloorMusicPlayer hitFloorPlayer;
 	private PieceFactory pieceFactory;
 	private KeyboardListener keyListener;
 	private GameStateListener gameStateListener;
@@ -54,15 +48,9 @@ public class PiecesAndBoardView extends JComponent {
 	}
 
 	@Inject
-	public PiecesAndBoardView(Board board,
-			CompleteLineMusicPlayer completeLinePlayer,
-			LevelChangeMusicPlayer levelChangePlayer,
-			HitFloorMusicPlayer hitFloorPlayer, PieceFactory pieceFactory) {
+	public PiecesAndBoardView(Board board, PieceFactory pieceFactory) {
 		this();
 		this.board = board;
-		this.completeLinePlayer = completeLinePlayer;
-		this.levelChangePlayer = levelChangePlayer;
-		this.hitFloorPlayer = hitFloorPlayer;
 		this.pieceFactory = pieceFactory;
 
 		keyListener = new KeyboardListener(board);
@@ -87,10 +75,6 @@ public class PiecesAndBoardView extends JComponent {
 		return currLevel;
 	}
 
-	public HitFloorMusicPlayer getHitFloorPlayer() {
-		return hitFloorPlayer;
-	}
-
 	public static int getScore() {
 		return score;
 	}
@@ -110,11 +94,11 @@ public class PiecesAndBoardView extends JComponent {
 			setScore(getScore() + 1000);
 			break;
 		}
-		completeLinePlayer.play();
+		gameStateListener.onCompleteLine();
 		if (score > currLevel * 4000) {
 			currLevel++;
 			ScoreLevelDisplay.setLevel(currLevel);
-			levelChangePlayer.play();
+			gameStateListener.onLevelChange();
 		}
 	}
 
@@ -147,6 +131,7 @@ public class PiecesAndBoardView extends JComponent {
 					p.moveDown();
 				} else {
 					board.landPiece(p);
+					gameStateListener.onHitFloor();
 					board.checkFullRowsOfPiece(p);
 					landed = true;
 					setScore(getScore() + 1);
