@@ -3,6 +3,7 @@ package edu.touro.cooptetris;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Singleton;
@@ -19,7 +20,7 @@ public class Board {
 	private List<Square[]> squares;
 
 	public Board() {
-		squares = new ArrayList<Square[]>();
+		squares = new LinkedList<Square[]>();
 
 		for (int i = 0; i < NUM_ROWS; i++) {
 			squares.add(new Square[NUM_COLUMNS]);
@@ -86,7 +87,12 @@ public class Board {
 
 	public void removeRow(int rowNumber) {
 		squares.remove(rowNumber);
-		squares.add(new Square[NUM_COLUMNS]);
+		for(Square[] rowSquares: squares){
+			for(Square square: rowSquares){
+				square.setY(square.getY()+Square.SIDE);
+			}
+		}
+		squares.add(0,new Square[NUM_COLUMNS]);
 	}
 
 	public void setSquareEmpty(int rowNumber, int colNumber) {
