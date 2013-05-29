@@ -47,6 +47,14 @@ public class Board {
 		}
 
 	}
+	public void checkFullRowsOfPiece(Piece p){
+		for (Square square : p.getSquares()) {
+			int rowNumber = square.getY() / Square.SIDE;
+			if(isRowFull(rowNumber)){
+				this.removeRow(rowNumber);
+			}
+		}
+	}
 
 	public void removeFullRows() {
 		Iterator<Square[]> i = squares.iterator();
@@ -188,10 +196,10 @@ public class Board {
 			int rowNumber = square.getY() / Square.SIDE;
 			int colNumber = square.getX() / Square.SIDE;
 
-			if (rowNumber < 0 || rowNumber >= NUM_ROWS) {
+			if (square.getX() < 0 || rowNumber >= NUM_ROWS) {
 				return false;
 			}
-			if (colNumber < 0 || colNumber >= NUM_COLUMNS) {
+			if (square.getY() < 0 || colNumber >= NUM_COLUMNS) {
 				return false;
 			}
 		}

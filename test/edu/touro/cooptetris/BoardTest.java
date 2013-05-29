@@ -43,7 +43,7 @@ public class BoardTest {
 
 		assertFalse(board.willCollideWithFloorLeft(linePiece));
 
-		board.setSquareFull(new Square(0, 16*Square.SIDE, Color.BLACK));
+		board.setSquareFull(new Square(0, 16 * Square.SIDE, Color.BLACK));
 		assertTrue(board.willCollideWithFloorLeft(linePiece));
 	}
 
@@ -55,13 +55,14 @@ public class BoardTest {
 		LinePiece linePiece = givenLinePiece();
 		assertFalse(board.willCollideWithFloorRight(linePiece));
 
-		board.setSquareFull(new Square(2*Square.SIDE, 16*Square.SIDE, Color.BLACK));
+		board.setSquareFull(new Square(2 * Square.SIDE, 16 * Square.SIDE,
+				Color.BLACK));
 
 		assertTrue(board.willCollideWithFloorRight(linePiece));
 	}
 
 	@Test
-	public void testCollidesWithFloorVertical() {
+	public void testWillCollideWithFloorVertical() {
 		givenBoard();
 		givenFullRow();
 
