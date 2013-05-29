@@ -92,12 +92,15 @@ public class Board {
 
 	public void removeRow(int rowNumber) {
 		squares.remove(rowNumber);
-		for(Square[] rowSquares: squares){
-			for(Square square: rowSquares){
-				square.setY(square.getY()+Square.SIDE);
+		for (int i=0;i<rowNumber;i++) {
+			Square[] rowSquares=squares.get(i);
+			for (Square square : rowSquares) {
+				if (square != null) {
+					square.setY(square.getY() + Square.SIDE);
+				}
 			}
 		}
-		squares.add(0,new Square[NUM_COLUMNS]);
+		squares.add(0, new Square[NUM_COLUMNS]);
 	}
 
 	public void setSquareEmpty(int rowNumber, int colNumber) {
