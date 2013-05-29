@@ -27,9 +27,11 @@ public class ScoreLevelDisplay extends JPanel {
 		scoreTextArea = new JTextArea(scoreString + String.valueOf(0));
 		scoreTextArea.setSize(94, 30);
 		scoreTextArea.setLineWrap(true);
+		scoreTextArea.setEnabled(false);
 		levelTextArea = new JTextArea(levelString + String.valueOf(1));
 		levelTextArea.setSize(94, 30);
 		levelTextArea.setLineWrap(true);
+		levelTextArea.setEnabled(false);
 		Border paddingBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 		Border compoundBorder = BorderFactory.createCompoundBorder(border,
