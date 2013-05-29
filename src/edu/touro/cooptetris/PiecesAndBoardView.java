@@ -157,7 +157,7 @@ public class PiecesAndBoardView extends JComponent {
 
 	public void displayGameOver() {
 
-		gameStateListener.onGameOver();
+		gameStateListener.onGameOver(this);
 
 	}
 
