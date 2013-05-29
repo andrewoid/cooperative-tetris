@@ -15,13 +15,19 @@ import edu.touro.cooptetris.pieces.ZPiece;
 public class PieceFactory {
 
 	private Random random;
+	private int nextPiece;
 
 	public PieceFactory() {
 		random = new Random();
+		nextPiece=random.nextInt(7);
+	}
+	public int getNextPiece(){
+		return nextPiece;
 	}
 
 	public Piece getRandomPiece(int x, int y) {
-		int r = random.nextInt(7);
+		int r=this.nextPiece;
+		this.nextPiece=random.nextInt(7);
 		switch (r) {
 		case 0:
 			return new BoxPiece(x, y-2*Square.SIDE);
@@ -38,7 +44,6 @@ public class PieceFactory {
 		case 6:
 			return new LinePiece(x, y-4*Square.SIDE);
 		}
-
 		throw new IllegalStateException("Piece not found");
 	}
 

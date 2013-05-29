@@ -18,10 +18,12 @@ public class ScoreLevelDisplay extends JPanel {
 	private static JTextArea levelTextArea;
 	private static String scoreString;
 	private static String levelString;
+	private JLabel nextPieceString;
 
 	public ScoreLevelDisplay() {
 		setSize(100, 300);
 
+		nextPieceString=new JLabel("Next Piece: ");
 		scoreString = "Score: ";
 		levelString = "Level: ";
 		scoreTextArea = new JTextArea(scoreString + String.valueOf(0));
@@ -42,6 +44,8 @@ public class ScoreLevelDisplay extends JPanel {
 		scoreTextArea.setFont(font);
 		levelTextArea.setFont(font);
 		setLayout(new GridLayout(10, 1));
+		add(nextPieceString);
+		add(new JLabel());
 		add(new JLabel());
 		add(scoreTextArea);
 		add(new JLabel());

@@ -148,7 +148,6 @@ public class PiecesAndBoardView extends JComponent {
 				} else {
 					board.landPiece(p);
 					board.checkFullRowsOfPiece(p);
-					//board.removeFullRows();
 					landed = true;
 					setScore(getScore() + 1);
 				}
