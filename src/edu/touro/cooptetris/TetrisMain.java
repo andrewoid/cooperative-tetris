@@ -31,20 +31,22 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	}
 
 	@Inject
-	public TetrisMain(PiecesAndBoardView gameView,
+	public TetrisMain(final PiecesAndBoardView gameView,
 			ScoreLevelDisplay scoreLevelDisplay,
 			CompleteLineMusicPlayer completeLinePlayer,
 			LevelChangeMusicPlayer levelChangePlayer,
-			HitFloorMusicPlayer hitFloorPlayer, GameController gameController) {
+			HitFloorMusicPlayer hitFloorPlayer,
+			final GameController gameController) {
 		this.completeLinePlayer = completeLinePlayer;
 		this.levelChangePlayer = levelChangePlayer;
 		this.hitFloorPlayer = hitFloorPlayer;
 		this.gameController = gameController;
 		this.keyboardListener = new KeyboardListener(gameController.getBoard());
 
-		addKeyListener(keyboardListener);
+		gameView.addKeyListener(keyboardListener);
 
 		gameController.setGameStateListener(this);
+		gameController.addNewPiece();
 		int height = scoreLevelDisplay.getHeight() + 30, width = 100
 				+ Board.NUM_COLUMNS * Square.SIDE + 15;
 		setLocationRelativeTo(getRootPane());
@@ -56,6 +58,15 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		add(gameView, BorderLayout.CENTER);
 		add(scoreLevelDisplay, BorderLayout.EAST);
 		setVisible(true);
+
+		new Thread() {
+			public void run() {
+				while (true) {
+					gameView.repaint();
+					gameController.movePieces();
+				}
+			}
+		}.start();
 
 	}
 

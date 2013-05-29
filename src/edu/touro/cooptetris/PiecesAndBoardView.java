@@ -30,6 +30,7 @@ public class PiecesAndBoardView extends JComponent {
 	public PiecesAndBoardView(Board board, PiecesList list) {
 		this();
 		this.board = board;
+		this.list = list;
 
 	}
 

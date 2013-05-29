@@ -20,7 +20,7 @@ public class GameController {
 
 	@Inject
 	public GameController(Board board, PiecesList list,
-			PieceFactory pieceFactory, GameStateListener gameStateListener) {
+			PieceFactory pieceFactory) {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
@@ -56,7 +56,7 @@ public class GameController {
 		}
 	}
 
-	private void movePieces() {
+	public void movePieces() {
 
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
@@ -77,16 +77,20 @@ public class GameController {
 			if (landed) {
 				list.clear();
 				if (!board.isFull() && score < 9999) {
-					Piece piece = pieceFactory.getNextPiece(Board.NUM_COLUMNS
-							* Square.SIDE / 2, 0);
-					list.add(piece);
-					gameStateListener.onNewPiece(piece);
+					addNewPiece();
 				} else {
 					gameStateListener.onGameOver();
 				}
 			}
 
 		}
+	}
+
+	public void addNewPiece() {
+		Piece piece = pieceFactory.getNextPiece(Board.NUM_COLUMNS * Square.SIDE
+				/ 2, 0);
+		list.add(piece);
+		gameStateListener.onNewPiece(piece);
 	}
 
 	public int getCurrLevel() {
