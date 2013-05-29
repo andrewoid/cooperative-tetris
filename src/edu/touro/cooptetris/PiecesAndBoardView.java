@@ -17,7 +17,6 @@ public class PiecesAndBoardView extends JComponent {
 	private static final long serialVersionUID = 1L;
 	private PiecesList list;
 
-	
 	public PiecesAndBoardView() {
 
 		setSize(Board.NUM_COLUMNS * Square.SIDE + 15, Board.NUM_ROWS
@@ -31,10 +30,6 @@ public class PiecesAndBoardView extends JComponent {
 	public PiecesAndBoardView(Board board, PiecesList list) {
 		this();
 		this.board = board;
-
-		
-	
-		keyListener.setPiece(list.get(list.size() - 1));
 
 	}
 
@@ -55,6 +50,7 @@ public class PiecesAndBoardView extends JComponent {
 		}
 
 		// repaint();
+
 	}
 
 	private void clearScreen(Graphics g) {

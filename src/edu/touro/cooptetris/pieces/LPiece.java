@@ -6,19 +6,23 @@ public class LPiece extends Piece {
 
 	public LPiece(int x, int y) {
 		super();
-		int side = Square.SIDE;
+		setLocation(x,y);
+		center = squares[1];
+		for (Square square : squares) {
+			square.setColor(Color.PINK);
+		}
+	}
+	
+	public void setLocation(int x, int y){
 		for (int i = 0; i < 3; i++) {
 			Square s = squares[i];
-			s.setY(i * side + y);
+			s.setY(i * Square.SIDE + y);
 			s.setX(x);
-			s.setColor(Color.PINK);
 		}
 
 		Square s = squares[3];
-		s.setY(2 * side + y);
-		s.setX(s.getX() + side + x);
-		s.setColor(Color.PINK);
-		center = squares[1];
+		s.setY(2 * Square.SIDE + y);
+		s.setX(s.getX() + Square.SIDE + x);
 	}
 
 }

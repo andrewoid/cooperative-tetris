@@ -6,23 +6,25 @@ public class SPiece extends Piece {
 
 	public SPiece(int x, int y) {
 		super();
-		Color color = Color.BLUE;
-		int side = Square.SIDE;
+		setLocation(x,y);
+		for (Square square : squares) {
+			square.setColor(Color.BLUE);
+		}
+		center=squares[0];
+	}
+	public void setLocation(int x, int y){
 		for (int i = 0; i < 2; i++) {
 			Square s = squares[i];
-			s.setY(i * side+y);
+			s.setY(i * Square.SIDE+y);
 			s.setX(x);
-			s.setColor(color);
 		}
 		Square s = squares[2];
-		s.setY(side+y);
-		s.setX(-side+x);
-		s.setColor(color);
+		s.setY(Square.SIDE+y);
+		s.setX(-Square.SIDE+x);
+		
 		s = squares[3];
 		s.setY(y);
-		s.setX(side+x);
-		s.setColor(color);
-		center=squares[0];
+		s.setX(Square.SIDE+x);
 	}
 
 }

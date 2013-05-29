@@ -15,19 +15,26 @@ import edu.touro.cooptetris.pieces.ZPiece;
 public class PieceFactory {
 
 	private Random random;
-	private int nextPiece;
+	private Piece nextPiece;
 
 	public PieceFactory() {
 		random = new Random();
-		nextPiece=random.nextInt(7);
+		nextPiece=getRandomPiece(0,0);
 	}
-	public int getNextPiece(){
+	public Piece getNextPiece(int x, int y){
+		Piece tempPiece=nextPiece;
+		tempPiece.setLocation(x, y);
+		
+		nextPiece=getRandomPiece(0,0);
+		return tempPiece;
+	}
+	
+	public Piece peekPiece(){
 		return nextPiece;
 	}
 
-	public Piece getRandomPiece(int x, int y) {
-		int r=this.nextPiece;
-		this.nextPiece=random.nextInt(7);
+	private Piece getRandomPiece(int x, int y) {
+		int r=random.nextInt(7);
 		switch (r) {
 		case 0:
 			return new BoxPiece(x, y-2*Square.SIDE);

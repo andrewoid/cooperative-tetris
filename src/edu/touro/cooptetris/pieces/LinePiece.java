@@ -6,14 +6,19 @@ public class LinePiece extends Piece {
 
 	public LinePiece(int x, int y) {
 		super();
-		int side = Square.SIDE;
-		for (int i = 0; i < squares.length; i++) {
-			Square s = squares[i];
-			s.setY(i * side + y);
-			s.setX(x);
-			s.setColor(Color.ORANGE);
+		
+		setLocation(x,y);
+		for (Square square : squares) {
+			square.setColor(Color.ORANGE);
 		}
 		center = squares[1];
 	}
 
+	public void setLocation(int x, int y){
+		for (int i = 0; i < squares.length; i++) {
+			Square s = squares[i];
+			s.setY(i * Square.SIDE + y);
+			s.setX(x);
+		}
+	}
 }
