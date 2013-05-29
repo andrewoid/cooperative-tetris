@@ -8,7 +8,6 @@ public class JPiece extends Piece {
 		super();
 		setLocation(x,y);
 		center = squares[1];
-		
 		for (Square square : squares) {
 			square.setColor(Color.BLUE);
 		}
