@@ -140,7 +140,7 @@ public class PiecesAndBoardView extends JComponent {
 			if (landed) {
 				pieces.clear();
 				if (!board.isFull() && score < 9999) {
-					pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS
+					pieces.add(pieceFactory.getNextPiece(Board.NUM_COLUMNS
 							* Square.SIDE / 2, 0));
 					keyListener.setPiece(pieces.get(pieces.size() - 1));
 				} else {

@@ -28,8 +28,12 @@ public class PieceFactory {
 		nextPiece=getRandomPiece(0,0);
 		return tempPiece;
 	}
+	
+	public Piece peekPiece(){
+		return nextPiece;
+	}
 
-	public Piece getRandomPiece(int x, int y) {
+	private Piece getRandomPiece(int x, int y) {
 		int r=random.nextInt(7);
 		switch (r) {
 		case 0:
