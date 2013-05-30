@@ -6,7 +6,7 @@ public interface GameStateListener {
 
 	public void onGameOver();
 
-	public void onCompleteLine();
+	public void onCompleteLine(int numLines);
 
 	public void onLevelChange();
 

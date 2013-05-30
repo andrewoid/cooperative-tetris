@@ -88,13 +88,23 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	}
 
 	@Override
-	public void onCompleteLine() {
+	public void onCompleteLine(int numLines) {
 		completeLinePlayer.play();
+		gameController.lineCompleted(numLines);
+		ScoreLevelDisplay.setScore(gameController.getScore());
+		int currLevel = gameController.getCurrLevel();
+		if (gameController.getScore() > currLevel * 2000) {
+			onLevelChange();
+		}
 	}
 
 	@Override
 	public void onLevelChange() {
+		int currLevel = gameController.getCurrLevel();
 		levelChangePlayer.play();
+		gameController.setCurrLevel(currLevel + 1);
+		ScoreLevelDisplay.setLevel(currLevel + 1);
+		gameController.increaseSpeed();
 	}
 
 	@Override

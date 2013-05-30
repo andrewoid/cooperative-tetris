@@ -8,17 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.Border;
-
-import edu.touro.cooptetris.pieces.BoxPiece;
-import edu.touro.cooptetris.pieces.JPiece;
-import edu.touro.cooptetris.pieces.LPiece;
-import edu.touro.cooptetris.pieces.LinePiece;
-import edu.touro.cooptetris.pieces.SPiece;
-import edu.touro.cooptetris.pieces.Square;
-import edu.touro.cooptetris.pieces.TPiece;
-import edu.touro.cooptetris.pieces.ZPiece;
 
 public class ScoreLevelDisplay extends JPanel {
 

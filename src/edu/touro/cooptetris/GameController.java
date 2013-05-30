@@ -30,7 +30,12 @@ public class GameController {
 			levels.add(new Level(i, 1000 - (i * 100)));
 		}
 		currLevel = 1;
-		timer = new DropTimer(300);
+		timer = new DropTimer(400);
+	}
+
+	public void increaseSpeed() {
+		int currIncrement = timer.getTimeIncrement();
+		timer.setTimeIncrement(currIncrement - 30);
 	}
 
 	public void lineCompleted(int numLines) {
@@ -48,12 +53,7 @@ public class GameController {
 			setScore(score + 1000);
 			break;
 		}
-		gameStateListener.onCompleteLine();
-		if (score > currLevel * 4000) {
-			currLevel++;
-			ScoreLevelDisplay.setLevel(currLevel);
-			gameStateListener.onLevelChange();
-		}
+
 	}
 
 	public void movePieces() {
@@ -69,9 +69,12 @@ public class GameController {
 				} else {
 					board.landPiece(p);
 					gameStateListener.onHitFloor();
-					board.checkFullRowsOfPiece(p);
+					int numRows = board.checkFullRowsOfPiece(p);
 					landed = true;
 					setScore(score + 1);
+					if (numRows > 0) {
+						gameStateListener.onCompleteLine(numRows);
+					}
 				}
 			}
 			if (landed) {
