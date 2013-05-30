@@ -6,12 +6,13 @@ public class JPiece extends Piece {
 
 	public JPiece(int x, int y) {
 		super();
-		setLocation(x,y);
+		
 		center = squares[1];
 		for (Square square : squares) {
 			square.setColor(Color.BLUE);
 		}
 
+		setLocation(x,y);
 	}
 	public void setLocation(int x, int y){
 		for (int i = 0; i < 3; i++) {
@@ -22,7 +23,6 @@ public class JPiece extends Piece {
 
 		Square s = squares[3];
 		s.setY(2 * Square.SIDE  + y);
-		s.setX(s.getX() - Square.SIDE + x);
+		s.setX(x-Square.SIDE);
 	}
-
 }

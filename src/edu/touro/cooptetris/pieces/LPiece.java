@@ -22,7 +22,7 @@ public class LPiece extends Piece {
 
 		Square s = squares[3];
 		s.setY(2 * Square.SIDE + y);
-		s.setX(s.getX() + Square.SIDE + x);
+		s.setX(Square.SIDE + x);
 	}
 
 }
