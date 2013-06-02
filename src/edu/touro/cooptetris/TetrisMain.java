@@ -1,8 +1,11 @@
 package edu.touro.cooptetris;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,13 +18,11 @@ import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
 import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
 import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
+import edu.touro.cooptetris.sound.RotateMusicPlayer;
 
 public class TetrisMain extends JFrame implements GameStateListener {
 
 	private static final long serialVersionUID = 1L;
-	private CompleteLineMusicPlayer completeLinePlayer;
-	private LevelChangeMusicPlayer levelChangePlayer;
-	private HitFloorMusicPlayer hitFloorPlayer;
 	private GameController gameController;
 	private KeyboardListener keyboardListener;
 	private ScoreLevelDisplay scoreLevelDisplay;
@@ -34,17 +35,13 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	@Inject
 	public TetrisMain(final PiecesAndBoardView gameView,
 			ScoreLevelDisplay scoreLevelDisplay,
-			CompleteLineMusicPlayer completeLinePlayer,
-			LevelChangeMusicPlayer levelChangePlayer,
-			HitFloorMusicPlayer hitFloorPlayer,
+
 			final GameController gameController) {
-		this.completeLinePlayer = completeLinePlayer;
-		this.levelChangePlayer = levelChangePlayer;
-		this.hitFloorPlayer = hitFloorPlayer;
 		this.gameController = gameController;
 		this.keyboardListener = new KeyboardListener(gameController.getBoard());
 		this.scoreLevelDisplay = scoreLevelDisplay;
 		gameView.addKeyListener(keyboardListener);
+		keyboardListener.setGameStateListener(this);
 
 		gameController.setGameStateListener(this);
 		gameController.addNewPiece();
@@ -92,8 +89,17 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Override
 	public void onCompleteLine(int numLines) {
-		completeLinePlayer.play();
-		gameController.lineCompleted(numLines);
+		CompleteLineMusicPlayer completePlayer;
+		try {
+			completePlayer = new CompleteLineMusicPlayer();
+			completePlayer.play();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
 		scoreLevelDisplay.setScore(gameController.getScore());
 		int currLevel = gameController.getCurrLevel();
 		if (gameController.getScore() > currLevel * 200) {
@@ -103,8 +109,18 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Override
 	public void onLevelChange() {
+		LevelChangeMusicPlayer levelPlayer;
+		try {
+			levelPlayer = new LevelChangeMusicPlayer();
+			levelPlayer.play();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
 		int currLevel = gameController.getCurrLevel();
-		levelChangePlayer.play();
 		gameController.setCurrLevel(currLevel + 1);
 		scoreLevelDisplay.setLevel(currLevel + 1);
 		gameController.increaseSpeed();
@@ -112,7 +128,17 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Override
 	public void onHitFloor() {
-		hitFloorPlayer.play();
+		HitFloorMusicPlayer hitFloorPlayer;
+		try {
+			hitFloorPlayer = new HitFloorMusicPlayer();
+			hitFloorPlayer.play();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
 		scoreLevelDisplay.repaint();
 		scoreLevelDisplay.setPiece(gameController.getNextPiece());
 	}
@@ -121,5 +147,20 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	public void onNewPiece(Piece piece) {
 		keyboardListener.setPiece(piece);
 
+	}
+
+	@Override
+	public void onRotate() {
+		RotateMusicPlayer rotatePlayer;
+		try {
+			rotatePlayer = new RotateMusicPlayer();
+			rotatePlayer.play();
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
 	}
 }

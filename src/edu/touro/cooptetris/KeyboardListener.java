@@ -9,6 +9,7 @@ public class KeyboardListener implements KeyListener {
 
 	private Piece piece;
 	private Board board;
+	private GameStateListener gameStateListener;
 
 	public KeyboardListener(Board board) {
 		this.board = board;
@@ -37,8 +38,10 @@ public class KeyboardListener implements KeyListener {
 			case KeyEvent.VK_KP_UP:
 			case KeyEvent.VK_W:
 				piece.rotate();
-				if(!board.onBoard(piece)||board.collidedWithPiece(piece)){
+				if (!board.onBoard(piece) || board.collidedWithPiece(piece)) {
 					piece.unrotate();
+				} else {
+					gameStateListener.onRotate();
 				}
 				break;
 			case KeyEvent.VK_DOWN:
@@ -70,6 +73,10 @@ public class KeyboardListener implements KeyListener {
 
 	public void setPiece(Piece piece) {
 		this.piece = piece;
+	}
+
+	public void setGameStateListener(GameStateListener gameStateListener) {
+		this.gameStateListener = gameStateListener;
 	}
 
 }

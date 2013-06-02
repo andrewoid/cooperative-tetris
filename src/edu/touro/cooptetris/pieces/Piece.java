@@ -78,17 +78,6 @@ public abstract class Piece {
 	}
 
 	public void rotate() {
-		RotateMusicPlayer rotatePlayer;
-		try {
-			rotatePlayer = new RotateMusicPlayer();
-			rotatePlayer.play();
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
 
 		int rx = center.getX();
 		int ry = center.getY();
@@ -108,5 +97,6 @@ public abstract class Piece {
 		rotate();
 		rotate();
 	}
+
 	public abstract void setLocation(int x, int y);
 }
