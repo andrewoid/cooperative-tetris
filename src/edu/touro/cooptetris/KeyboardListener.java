@@ -19,12 +19,14 @@ public class KeyboardListener implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent event) {
-
-		if (event.getKeyCode() == KeyEvent.VK_P) {
+		int keyCode = event.getKeyCode();
+		if (keyCode == KeyEvent.VK_P) {
 			paused = !paused;
 			gameStateListener.onPause();
+		} else if (keyCode == KeyEvent.VK_T) {
+			gameStateListener.onToggleThemeMusic();
 		} else if (piece != null && !paused) {
-			switch (event.getKeyCode()) {
+			switch (keyCode) {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_KP_LEFT:
 			case KeyEvent.VK_A:

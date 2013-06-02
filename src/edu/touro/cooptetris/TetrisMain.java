@@ -25,10 +25,12 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	private static final long serialVersionUID = 1L;
 	private GameController gameController;
+	private PiecesAndBoardView gameView;
 	private KeyboardListener keyboardListener;
 	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
 	private ThemeMusicPlayer themeMusicPlayer;
 	private boolean paused;
+	private PausePanel pausePanel;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
@@ -176,9 +178,37 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	public void onPause() {
 		gameController.pauseAndUnPause();
 		themeMusicPlayer.pauseAndUnPause();
+		paused = !paused;
+
+		/*
+		 * if (paused) {
+		 * System.out.println(" paused");
+		 * pausePanel.setVisible(true);
+		 * add(pausePanel);
+		 * // gameView.setVisible(false);
+		 * // add(pausePanel);
+		 * }
+		 * if (!paused) {
+		 * System.out.println("not paused");
+		 * pausePanel.setVisible(false);
+		 * this.getContentPane().remove(pausePanel);
+		 * // pausePanel.setVisible(false);
+		 * // this.getContentPane().remove(pausePanel);
+		 * // gameView.setVisible(true);
+		 * // gameView.setVisible(true);
+		 * // add(gameView);
+		 * }
+		 */
+
 	}
 
 	public boolean isPaused() {
 		return paused;
+	}
+
+	@Override
+	public void onToggleThemeMusic() {
+		themeMusicPlayer.pauseAndUnPause();
+
 	}
 }

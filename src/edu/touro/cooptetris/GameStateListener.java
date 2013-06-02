@@ -18,4 +18,6 @@ public interface GameStateListener {
 
 	public void onPause();
 
+	public void onToggleThemeMusic();
+
 }
