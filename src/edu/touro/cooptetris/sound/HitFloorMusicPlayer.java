@@ -11,7 +11,8 @@ public class HitFloorMusicPlayer extends SoundPlayer {
 		try {
 			HitFloorMusicPlayer test = new HitFloorMusicPlayer();
 			test.play();
-			Thread.sleep(10000);
+			Thread.sleep(1000);
+			test.play();
 
 		} catch (UnsupportedAudioFileException e) {
 

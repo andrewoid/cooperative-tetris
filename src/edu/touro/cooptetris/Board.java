@@ -2,6 +2,9 @@ package edu.touro.cooptetris;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.inject.Singleton;
 
@@ -11,21 +14,25 @@ import edu.touro.cooptetris.pieces.Square;
 @Singleton
 public class Board {
 
-	public static final int NUM_ROWS = 30;
-	public static final int NUM_COLUMNS = 25;
+	public static final int NUM_ROWS = 20;
+	public static final int NUM_COLUMNS = 11;
 
-	private ArrayList<Square[]> squares;
+	private List<Square[]> squares;
 
 	public Board() {
-		squares = new ArrayList<Square[]>();
+		squares = new LinkedList<Square[]>();
 
-		for (int i = 0; i < NUM_ROWS + 1; i++) {
-			squares.add(new Square[NUM_COLUMNS + 1]);
+		for (int i = 0; i < NUM_ROWS; i++) {
+			squares.add(new Square[NUM_COLUMNS]);
 
 		}
 	}
 
-	public ArrayList<Square[]> getSquares() {
+	public void removeAll() {
+		squares = new ArrayList<Square[]>();
+	}
+
+	public List<Square[]> getSquares() {
 		return squares;
 	}
 
@@ -41,12 +48,62 @@ public class Board {
 	public void landPiece(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			this.setSquareFull(square);
+
 		}
+
+	}
+
+	public int checkFullRowsOfPiece(Piece p) {
+		int i = 0;
+		for (Square square : p.getSquares()) {
+			int rowNumber = square.getY() / Square.SIDE;
+			if (isRowFull(rowNumber)) {
+				this.removeRow(rowNumber);
+				i++;
+			}
+		}
+		return i;
+	}
+
+	public void removeFullRows() {
+		Iterator<Square[]> i = squares.iterator();
+		int rowsToAdd = 0;
+		while (i.hasNext()) {
+			Square row[] = i.next();
+			if (isFullRow(row)) {
+				i.remove();
+				rowsToAdd++;
+			}
+		}
+		addBlankRows(rowsToAdd);
+	}
+
+	private void addBlankRows(int rowsToAdd) {
+		for (int i = 0; i < rowsToAdd; i++) {
+			squares.add(new Square[NUM_COLUMNS]);
+		}
+	}
+
+	private boolean isFullRow(Square[] row) {
+		for (Square s : row) {
+			if (s == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void removeRow(int rowNumber) {
 		squares.remove(rowNumber);
-		squares.add(new Square[NUM_COLUMNS]);
+		for (int i = 0; i < rowNumber; i++) {
+			Square[] rowSquares = squares.get(i);
+			for (Square square : rowSquares) {
+				if (square != null) {
+					square.setY(square.getY() + Square.SIDE);
+				}
+			}
+		}
+		squares.add(0, new Square[NUM_COLUMNS]);
 	}
 
 	public void setSquareEmpty(int rowNumber, int colNumber) {
@@ -57,7 +114,9 @@ public class Board {
 		int rowNumber = square.getY() / Square.SIDE;
 		int colNumber = square.getX() / Square.SIDE;
 
-		squares.get(rowNumber)[colNumber] = square;
+		if (rowNumber >= 0) {
+			squares.get(rowNumber)[colNumber] = square;
+		}
 	}
 
 	public void setSquares(ArrayList<Square[]> squares) {
@@ -77,8 +136,10 @@ public class Board {
 				return true;
 			}
 
-			if (squares.get(rowNumber)[colNumber - 1] != null) {
-				return true;
+			if (rowNumber >= 0) {
+				if (squares.get(rowNumber)[colNumber - 1] != null) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -93,8 +154,10 @@ public class Board {
 				return true;
 			}
 
-			if (squares.get(rowNumber)[colNumber + 1] != null) {
-				return true;
+			if (rowNumber >= 0) {
+				if (squares.get(rowNumber)[colNumber + 1] != null) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -111,7 +174,7 @@ public class Board {
 	public boolean willCollideWithFloorVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			if (rowNumber == NUM_ROWS) {
+			if (rowNumber == NUM_ROWS - 1) {
 				return true;
 			}
 		}
@@ -122,8 +185,10 @@ public class Board {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
 			int colNumber = square.getX() / Square.SIDE;
-			if (squares.get(rowNumber)[colNumber] != null) {
-				return true;
+			if (rowNumber >= 0) {
+				if (squares.get(rowNumber + 1)[colNumber] != null) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -139,4 +204,35 @@ public class Board {
 		}
 	}
 
+	public int getNumRows() {
+		return squares.size();
+	}
+
+	public boolean onBoard(Piece p) {
+		for (Square square : p.getSquares()) {
+			int rowNumber = square.getY() / Square.SIDE;
+			int colNumber = square.getX() / Square.SIDE;
+
+			if (square.getX() < 0 || rowNumber >= NUM_ROWS) {
+				return false;
+			}
+			if (square.getY() < 0 || colNumber >= NUM_COLUMNS) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean collidedWithPiece(Piece p) {
+		for (Square square : p.getSquares()) {
+			int rowNumber = square.getY() / Square.SIDE;
+			int colNumber = square.getX() / Square.SIDE;
+			if (rowNumber >= 0) {
+				if (squares.get(rowNumber)[colNumber] != null) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

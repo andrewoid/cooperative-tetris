@@ -2,17 +2,23 @@ package edu.touro.cooptetris.pieces;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import edu.touro.cooptetris.sound.RotateMusicPlayer;
-
-public class Piece {
+public abstract class Piece {
 
 	protected Square[] squares;
 	protected Square center;
+
+	public Square getCenter() {
+		return center;
+	}
+
+	public Piece(Piece piece) {
+		piece.squares = new Square[4];
+
+		for (int i = 0; i < 4; i++) {
+			piece.squares[i] = new Square(0, 0, Color.BLACK);
+		}
+	}
 
 	public Piece() {
 		squares = new Square[4];
@@ -46,6 +52,7 @@ public class Piece {
 	public Square[] getSquares() {
 		return squares;
 	}
+
 	public void moveUp() {
 		for (Square s : squares) {
 			int side = s.getSide();
@@ -53,6 +60,7 @@ public class Piece {
 			// if it is + side then it moves up
 		}
 	}
+
 	public void moveDown() {
 		for (Square s : squares) {
 			int side = s.getSide();
@@ -76,17 +84,6 @@ public class Piece {
 	}
 
 	public void rotate() {
-		RotateMusicPlayer rotatePlayer;
-		try {
-			rotatePlayer = new RotateMusicPlayer();
-			rotatePlayer.play();
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
 
 		int rx = center.getX();
 		int ry = center.getY();
@@ -101,4 +98,11 @@ public class Piece {
 		}
 	}
 
+	public void unrotate() {
+		rotate();
+		rotate();
+		rotate();
+	}
+
+	public abstract void setLocation(int x, int y);
 }

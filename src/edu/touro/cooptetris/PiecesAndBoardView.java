@@ -2,102 +2,42 @@ package edu.touro.cooptetris;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 import javax.inject.Inject;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
-import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
-import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
-import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
-import edu.touro.cooptetris.sound.ThemeMusicPlayer;
+
 
 public class PiecesAndBoardView extends JComponent {
 
 	private Board board;
+
 	private static final long serialVersionUID = 1L;
-	private Piece p;
-	private ArrayList<Piece> pieces;
-	private DropTimer timer;
-	private ArrayList<Level> levels;
-	private int score;
-	private int currLevel;
-	// private ThemeMusicPlayer themeMusicPlayer;
-	private CompleteLineMusicPlayer completeLinePlayer;
-	private LevelChangeMusicPlayer levelChangePlayer;
-	private HitFloorMusicPlayer hitFloorPlayer;
-	private PieceFactory pieceFactory;
-	private KeyboardListener keyListener;
+	private PiecesList list;
 
 	public PiecesAndBoardView() {
-		levels = new ArrayList<Level>();
-		for (int i = 0; i < 10; i++) {
-			levels.add(new Level(i, 1000 - (i * 100)));
-		}
-		currLevel = 1;
-		timer = new DropTimer(300);
-		setSize(800, 600);
-		pieces = new ArrayList<Piece>();
 
-		keyListener = new KeyboardListener(this);
-		addKeyListener(keyListener);
-		keyListener.setPiece(p);
+
+		setSize(Board.NUM_COLUMNS * Square.SIDE + 15, Board.NUM_ROWS
+				* Square.SIDE);
+		setBorder(BorderFactory.createMatteBorder(0, 7, 0, 7, Color.GREEN));
 		setFocusable(true);
 
 	}
 
 	@Inject
-	public PiecesAndBoardView(Board board,
-			CompleteLineMusicPlayer completeLinePlayer,
-			LevelChangeMusicPlayer levelChangePlayer,
-			HitFloorMusicPlayer hitFloorPlayer, PieceFactory pieceFactory) {
+	public PiecesAndBoardView(Board board, PiecesList list) {
 		this();
 		this.board = board;
-		this.completeLinePlayer = completeLinePlayer;
-		this.levelChangePlayer = levelChangePlayer;
-		this.hitFloorPlayer = hitFloorPlayer;
-		this.pieceFactory = pieceFactory;
-
-		pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS * Square.SIDE
-				/ 2, 0));
-		keyListener.setPiece(pieces.get(pieces.size() - 1));
+		this.list = list;
 
 	}
 
-	public int getCurrLevel() {
-		return currLevel;
-	}
-
-	public HitFloorMusicPlayer getHitFloorPlayer() {
-		return hitFloorPlayer;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void lineCompleted(int numLines) {
-		switch (numLines) {
-		case 1:
-			setScore(getScore() + 100);
-			break;
-		case 2:
-			setScore(getScore() + 250);
-			break;
-		case 3:
-			setScore(getScore() + 500);
-			break;
-		case 4:
-			setScore(getScore() + 1000);
-			break;
-		}
-		completeLinePlayer.play();
-		if (score > currLevel * 4000) {
-			currLevel++;
-			levelChangePlayer.play();
-		}
+	public Board getBoard() {
+		return board;
 	}
 
 	@Override
@@ -108,54 +48,18 @@ public class PiecesAndBoardView extends JComponent {
 
 		board.draw(g);
 
-		for (Piece p : pieces) {
+		for (Piece p : list) {
 			p.drawPiece(g);
 		}
 
-		movePieces();
+		// repaint();
 
-		repaint();
-	}
-
-	private void movePieces() {
-		if (timer.isTimeToDrop()) {
-			boolean landed = false;
-			for (Piece p : pieces) {
-				p.moveDown();
-
-				if (board.willCollideWithFloorVertical(p)) {
-					board.landPiece(p);
-					landed = true;
-				} else if (board.willCollideWithLandedPieceVertical(p)) {
-					p.moveUp();
-					board.landPiece(p);
-					landed = true;
-				}
-
-			}
-			if (landed) {
-				pieces.clear();
-				if (!board.isFull()) {
-					pieces.add(pieceFactory.getRandomPiece(Board.NUM_COLUMNS
-							* Square.SIDE / 2, 0));
-					keyListener.setPiece(pieces.get(pieces.size() - 1));
-				}
-			}
-
-		}
 	}
 
 	private void clearScreen(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.fillRect(0, 0, Board.NUM_COLUMNS * Square.SIDE + 15, this.getHeight());
 	}
 
-	public void setScore(int score) {
-		this.score = score;
-	}
 
-	public void pauseAndUnPauseGame() {
-		timer.pauseAndUnPause();
-		// themeMusicPlayer.pause();
-	}
 }

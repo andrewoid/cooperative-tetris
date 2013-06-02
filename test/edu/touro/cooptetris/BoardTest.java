@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 import edu.touro.cooptetris.pieces.LinePiece;
@@ -19,6 +21,18 @@ public class BoardTest {
 		board = new Board();
 	}
 
+	private void givenFullBoard() {
+		board = new Board();
+		for (int j = 0; j < Board.NUM_ROWS; j++) {
+			fullRow = new Square[Board.NUM_COLUMNS];
+
+			for (int i = 0; i < fullRow.length; i++) {
+				fullRow[i] = new Square(0, 0, Color.BLACK);
+			}
+			board.setSquaresArray(fullRow, j);
+		}
+	}
+
 	private void givenFullRow() {
 		fullRow = new Square[Board.NUM_COLUMNS];
 
@@ -28,7 +42,7 @@ public class BoardTest {
 	}
 
 	private LinePiece givenLinePiece() {
-		LinePiece linePiece = new LinePiece(20, 27 * Square.SIDE);
+		LinePiece linePiece = new LinePiece(15, 16 * Square.SIDE);
 		return linePiece;
 	}
 
@@ -41,7 +55,7 @@ public class BoardTest {
 
 		assertFalse(board.willCollideWithFloorLeft(linePiece));
 
-		board.setSquareFull(new Square(10, 10, Color.BLACK));
+		board.setSquareFull(new Square(0, 16 * Square.SIDE, Color.BLACK));
 		assertTrue(board.willCollideWithFloorLeft(linePiece));
 	}
 
@@ -53,18 +67,19 @@ public class BoardTest {
 		LinePiece linePiece = givenLinePiece();
 		assertFalse(board.willCollideWithFloorRight(linePiece));
 
-		board.setSquareFull(new Square(30, 40, Color.BLACK));
+		board.setSquareFull(new Square(2 * Square.SIDE, 16 * Square.SIDE,
+				Color.BLACK));
 
 		assertTrue(board.willCollideWithFloorRight(linePiece));
 	}
 
 	@Test
-	public void testCollidesWithFloorVertical() {
+	public void testWillCollideWithFloorVertical() {
 		givenBoard();
 		givenFullRow();
 
 		LinePiece linePiece = givenLinePiece();
-
+		linePiece.moveDown();
 		assertTrue(board.willCollideWithFloorVertical(linePiece));
 
 	}
@@ -92,7 +107,7 @@ public class BoardTest {
 		// assertTrue(board.willCollideWithFloorRight(linePiece));
 	}
 
-	@Test
+	// @Test
 	public void testRemoveRow() {
 		givenBoard();
 
@@ -120,6 +135,42 @@ public class BoardTest {
 
 	private void whenRowIsRemoved(int rowNumber) {
 		board.removeRow(rowNumber);
+	}
+
+	@Test
+	public void testRemoveNoRowsWhenBoardIsEmpty() {
+		givenBoard();
+		whenFullRowsAreRemoved();
+		thenBoardHasCorrectNumberOfRows();
+	}
+
+	@Test
+	public void testRemoveFullRows() {
+		givenBoard();
+		whenRowIsFull(2);
+		whenRowIsFull(3);
+		whenFullRowsAreRemoved();
+		thenRowIsNotFull(2);
+		thenRowIsNotFull(3);
+		thenBoardHasCorrectNumberOfRows();
+	}
+
+	@Test
+	public void testIsBoardFull() {
+		givenBoard();
+		assertFalse(board.isFull());
+		board.setSquareFull(new Square(82, 0, Color.BLACK));
+		assertTrue(board.isFull());
+
+	}
+
+	private void whenFullRowsAreRemoved() {
+		givenBoard();
+		board.removeFullRows();
+	}
+
+	private void thenBoardHasCorrectNumberOfRows() {
+		Assert.assertEquals(Board.NUM_ROWS, board.getNumRows());
 	}
 
 }

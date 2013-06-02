@@ -24,14 +24,20 @@ public class DropTimer {
 		} else {
 			return false;
 		}
+
+	}
+
+	public void setTimeIncrement(int timeIncrement) {
+		this.timeIncrement = timeIncrement > 0 ? timeIncrement
+				: this.timeIncrement;
+	}
+
+	public int getTimeIncrement() {
+		return timeIncrement;
 	}
 
 	public void pauseAndUnPause() {
 		paused = !paused;
-	}
-
-	public void setTimeIncrement(int timeIncrement) {
-		this.timeIncrement = timeIncrement;
 	}
 
 }
