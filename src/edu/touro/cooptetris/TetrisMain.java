@@ -24,6 +24,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	private HitFloorMusicPlayer hitFloorPlayer;
 	private GameController gameController;
 	private KeyboardListener keyboardListener;
+	private ScoreLevelDisplay scoreLevelDisplay;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
@@ -42,11 +43,12 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		this.hitFloorPlayer = hitFloorPlayer;
 		this.gameController = gameController;
 		this.keyboardListener = new KeyboardListener(gameController.getBoard());
-
+		this.scoreLevelDisplay = scoreLevelDisplay;
 		gameView.addKeyListener(keyboardListener);
 
 		gameController.setGameStateListener(this);
 		gameController.addNewPiece();
+		scoreLevelDisplay.setPiece(gameController.getNextPiece());
 		int height = scoreLevelDisplay.getHeight() + 30, width = 100
 				+ Board.NUM_COLUMNS * Square.SIDE + 15;
 		setLocationRelativeTo(getRootPane());
@@ -60,6 +62,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		setVisible(true);
 
 		new Thread() {
+			@Override
 			public void run() {
 				while (true) {
 					gameView.repaint();
@@ -91,7 +94,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	public void onCompleteLine(int numLines) {
 		completeLinePlayer.play();
 		gameController.lineCompleted(numLines);
-		ScoreLevelDisplay.setScore(gameController.getScore());
+		scoreLevelDisplay.setScore(gameController.getScore());
 		int currLevel = gameController.getCurrLevel();
 		if (gameController.getScore() > currLevel * 2000) {
 			onLevelChange();
@@ -103,17 +106,20 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		int currLevel = gameController.getCurrLevel();
 		levelChangePlayer.play();
 		gameController.setCurrLevel(currLevel + 1);
-		ScoreLevelDisplay.setLevel(currLevel + 1);
+		scoreLevelDisplay.setLevel(currLevel + 1);
 		gameController.increaseSpeed();
 	}
 
 	@Override
 	public void onHitFloor() {
 		hitFloorPlayer.play();
+		scoreLevelDisplay.repaint();
+		scoreLevelDisplay.setPiece(gameController.getNextPiece());
 	}
 
 	@Override
 	public void onNewPiece(Piece piece) {
 		keyboardListener.setPiece(piece);
+
 	}
 }
