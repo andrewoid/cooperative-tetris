@@ -99,6 +99,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
+		gameController.lineCompleted(numLines);
 		scoreLevelDisplay.setScore(gameController.getScore());
 		int currLevel = gameController.getCurrLevel();
 		if (gameController.getScore() > currLevel * 200) {
