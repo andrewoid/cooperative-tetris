@@ -92,6 +92,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Override
 	public void onCompleteLine(int numLines) {
+
 		completeLinePlayer.play();
 		gameController.lineCompleted(numLines);
 		scoreLevelDisplay.setScore(gameController.getScore());
@@ -104,6 +105,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	@Override
 	public void onLevelChange() {
 		int currLevel = gameController.getCurrLevel();
+
 		levelChangePlayer.play();
 		gameController.setCurrLevel(currLevel + 1);
 		scoreLevelDisplay.setLevel(currLevel + 1);
@@ -112,6 +114,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Override
 	public void onHitFloor() {
+
 		hitFloorPlayer.play();
 		scoreLevelDisplay.repaint();
 		scoreLevelDisplay.setPiece(gameController.getNextPiece());
