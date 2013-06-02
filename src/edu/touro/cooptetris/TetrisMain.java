@@ -24,7 +24,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	private HitFloorMusicPlayer hitFloorPlayer;
 	private GameController gameController;
 	private KeyboardListener keyboardListener;
-	private ScoreLevelDisplay scoreLevelDisplay;
+	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
@@ -33,7 +33,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Inject
 	public TetrisMain(final PiecesAndBoardView gameView,
-			ScoreLevelDisplay scoreLevelDisplay,
+			ScoreLevelNextPieceDisplay scoreLevelDisplay,
 			CompleteLineMusicPlayer completeLinePlayer,
 			LevelChangeMusicPlayer levelChangePlayer,
 			HitFloorMusicPlayer hitFloorPlayer,
@@ -113,13 +113,12 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	@Override
 	public void onHitFloor() {
 		hitFloorPlayer.play();
-		scoreLevelDisplay.repaint();
-		scoreLevelDisplay.setPiece(gameController.getNextPiece());
 	}
 
 	@Override
 	public void onNewPiece(Piece piece) {
 		keyboardListener.setPiece(piece);
-
+		scoreLevelDisplay.setPiece(gameController.getNextPiece());
+		scoreLevelDisplay.repaint();
 	}
 }

@@ -91,9 +91,12 @@ public class GameController {
 	}
 
 	public void addNewPiece() {
+
 		list.add(nextPiece);
-		gameStateListener.onNewPiece(nextPiece);
+		Piece tempPiece = nextPiece;
 		setNextPiece();
+		gameStateListener.onNewPiece(tempPiece);
+
 	}
 
 	public void setNextPiece() {

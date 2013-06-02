@@ -14,6 +14,18 @@ public abstract class Piece {
 	protected Square[] squares;
 	protected Square center;
 
+	public Square getCenter() {
+		return center;
+	}
+
+	public Piece(Piece piece) {
+		piece.squares = new Square[4];
+
+		for (int i = 0; i < 4; i++) {
+			piece.squares[i] = new Square(0, 0, Color.BLACK);
+		}
+	}
+
 	public Piece() {
 		squares = new Square[4];
 
@@ -108,5 +120,6 @@ public abstract class Piece {
 		rotate();
 		rotate();
 	}
+
 	public abstract void setLocation(int x, int y);
 }
