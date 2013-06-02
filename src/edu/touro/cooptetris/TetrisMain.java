@@ -19,6 +19,7 @@ import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
 import edu.touro.cooptetris.sound.HitFloorMusicPlayer;
 import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
 import edu.touro.cooptetris.sound.RotateMusicPlayer;
+import edu.touro.cooptetris.sound.ThemeMusicPlayer;
 
 public class TetrisMain extends JFrame implements GameStateListener {
 
@@ -26,6 +27,8 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	private GameController gameController;
 	private KeyboardListener keyboardListener;
 	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
+	private ThemeMusicPlayer themeMusicPlayer;
+	private boolean paused;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
@@ -35,12 +38,14 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	@Inject
 	public TetrisMain(final PiecesAndBoardView gameView,
 			ScoreLevelNextPieceDisplay scoreLevelDisplay,
+			ThemeMusicPlayer themeMusicPlayer,
 			final GameController gameController) {
 		this.gameController = gameController;
 		this.keyboardListener = new KeyboardListener(gameController.getBoard());
 		this.scoreLevelDisplay = scoreLevelDisplay;
 		gameView.addKeyListener(keyboardListener);
 		keyboardListener.setGameStateListener(this);
+		this.themeMusicPlayer = themeMusicPlayer;
 
 		gameController.setGameStateListener(this);
 		gameController.addNewPiece();
@@ -56,6 +61,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		add(gameView, BorderLayout.CENTER);
 		add(scoreLevelDisplay, BorderLayout.EAST);
 		setVisible(true);
+		themeMusicPlayer.play();
 
 		new Thread() {
 			@Override
@@ -167,6 +173,11 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	@Override
 	public void onPause() {
 		gameController.pauseAndUnPause();
+		themeMusicPlayer.pauseAndUnPause();
 
+	}
+
+	public boolean isPaused() {
+		return paused;
 	}
 }

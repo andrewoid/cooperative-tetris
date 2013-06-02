@@ -32,6 +32,7 @@ public class GameController {
 		}
 		currLevel = 1;
 		timer = new DropTimer(400);
+		// score = 90;
 	}
 
 	public void increaseSpeed() {
@@ -126,6 +127,9 @@ public class GameController {
 
 	public void setScore(int score) {
 		this.score = score;
+		// if (score % 100 == 0) {
+		// gameStateListener.onLevelChange();
+		// }
 
 	}
 
