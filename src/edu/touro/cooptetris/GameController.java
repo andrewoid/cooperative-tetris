@@ -40,6 +40,33 @@ public class GameController {
 		timer.setTimeIncrement(currIncrement - 30);
 	}
 
+	public void rotate(Piece piece) {
+		if (!board.onBoard(piece) || board.collidedWithPiece(piece)) {
+			piece.unrotate();
+		} else {
+			gameStateListener.onRotate();
+		}
+	}
+
+	public void moveLeft(Piece piece) {
+		if (!board.willCollideWithFloorLeft(piece)) {
+			piece.moveLeft();
+		}
+	}
+
+	public void moveRight(Piece piece) {
+		if (!board.willCollideWithFloorRight(piece)) {
+			piece.moveRight();
+		}
+	}
+
+	public void drop(Piece piece) {
+		while (!board.willCollideWithFloorVertical(piece)
+				&& !board.willCollideWithLandedPieceVertical(piece)) {
+			piece.moveDown();
+		}
+	}
+
 	public void lineCompleted(int numLines) {
 		switch (numLines) {
 		case 1:
@@ -126,9 +153,6 @@ public class GameController {
 
 	public void setScore(int score) {
 		this.score = score;
-		// if (score % 100 == 0) {
-		// gameStateListener.onLevelChange();
-		// }
 
 	}
 
@@ -138,6 +162,15 @@ public class GameController {
 
 	public Board getBoard() {
 		return board;
+	}
+
+	public Piece getPieceByID(int pieceID) {
+		for (Piece p : list) {
+			if (p.getPieceID() == pieceID) {
+				return p;
+			}
+		}
+		return null;
 	}
 
 }
