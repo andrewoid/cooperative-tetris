@@ -106,6 +106,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
+		gameController.lineCompleted(numLines);
 		scoreLevelDisplay.setScore(gameController.getScore());
 		int currLevel = gameController.getCurrLevel();
 		if (gameController.getScore() > currLevel * 200) {
@@ -175,7 +176,6 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	public void onPause() {
 		gameController.pauseAndUnPause();
 		themeMusicPlayer.pauseAndUnPause();
-
 	}
 
 	public boolean isPaused() {

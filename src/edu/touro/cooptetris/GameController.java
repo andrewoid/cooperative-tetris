@@ -77,7 +77,6 @@ public class GameController {
 					gameStateListener.onHitFloor();
 					int numRows = board.checkFullRowsOfPiece(p);
 					landed = true;
-					setScore(score + 1);
 					if (numRows > 0) {
 						gameStateListener.onCompleteLine(numRows);
 					}
