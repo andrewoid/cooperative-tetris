@@ -25,7 +25,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	private static final long serialVersionUID = 1L;
 	private GameController gameController;
 	private KeyboardListener keyboardListener;
-	private ScoreLevelDisplay scoreLevelDisplay;
+	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
@@ -34,8 +34,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Inject
 	public TetrisMain(final PiecesAndBoardView gameView,
-			ScoreLevelDisplay scoreLevelDisplay,
-
+			ScoreLevelNextPieceDisplay scoreLevelDisplay,
 			final GameController gameController) {
 		this.gameController = gameController;
 		this.keyboardListener = new KeyboardListener(gameController.getBoard());
@@ -146,7 +145,8 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	@Override
 	public void onNewPiece(Piece piece) {
 		keyboardListener.setPiece(piece);
-
+		scoreLevelDisplay.setPiece(gameController.getNextPiece());
+		scoreLevelDisplay.repaint();
 	}
 
 	@Override
