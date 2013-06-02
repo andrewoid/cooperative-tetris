@@ -21,6 +21,18 @@ public class BoardTest {
 		board = new Board();
 	}
 
+	private void givenFullBoard() {
+		board = new Board();
+		for (int j = 0; j < Board.NUM_ROWS; j++) {
+			fullRow = new Square[Board.NUM_COLUMNS];
+
+			for (int i = 0; i < fullRow.length; i++) {
+				fullRow[i] = new Square(0, 0, Color.BLACK);
+			}
+			board.setSquaresArray(fullRow, j);
+		}
+	}
+
 	private void givenFullRow() {
 		fullRow = new Square[Board.NUM_COLUMNS];
 
@@ -141,6 +153,15 @@ public class BoardTest {
 		thenRowIsNotFull(2);
 		thenRowIsNotFull(3);
 		thenBoardHasCorrectNumberOfRows();
+	}
+
+	@Test
+	public void testIsBoardFull() {
+		givenBoard();
+		assertFalse(board.isFull());
+		board.setSquareFull(new Square(82, 0, Color.BLACK));
+		assertTrue(board.isFull());
+
 	}
 
 	private void whenFullRowsAreRemoved() {

@@ -77,6 +77,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	@Override
 	public void onGameOver() {
+		themeMusicPlayer.stop();
 		String message = "Game over! Score is " + gameController.getScore()
 				+ ".\n" + "Do you want to play again?";
 		int gameOver = JOptionPane.showConfirmDialog(null, message);

@@ -71,4 +71,8 @@ public class ThemeMusicPlayer extends SoundPlayer {
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
+	public void stop() {
+		clip.stop();
+	}
+
 }
