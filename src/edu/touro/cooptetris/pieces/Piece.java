@@ -2,12 +2,6 @@ package edu.touro.cooptetris.pieces;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import edu.touro.cooptetris.sound.RotateMusicPlayer;
 
 public abstract class Piece {
 
