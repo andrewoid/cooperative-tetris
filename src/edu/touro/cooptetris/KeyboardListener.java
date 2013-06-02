@@ -57,6 +57,11 @@ public class KeyboardListener implements KeyListener {
 					piece.moveDown();
 				}
 				break;
+			case KeyEvent.VK_SPACE:
+				while (!board.willCollideWithFloorVertical(piece)
+						&& !board.willCollideWithLandedPieceVertical(piece)) {
+					piece.moveDown();
+				}
 			default:
 				break;
 
