@@ -168,6 +168,5 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	@Override
 	public void onPause() {
 		gameController.pauseAndUnPause();
-
 	}
 }
