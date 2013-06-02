@@ -12,6 +12,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class SoundPlayer {
 
 	protected Clip clip;
+	protected AudioInputStream audioIn;
 
 	public SoundPlayer(String soundFileName)
 			throws UnsupportedAudioFileException, IOException,
@@ -21,16 +22,16 @@ public class SoundPlayer {
 		// URL url =
 		// this.getClass().getClassLoader().getResource("tetristheme.wav");
 		File soundFile = new File(soundFileName);
-		AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+		audioIn = AudioSystem.getAudioInputStream(soundFile);
 		// Get a sound clip resource.
 		clip = AudioSystem.getClip();
-		// Open audio clip and load samples from the audio input stream.
 		clip.open(audioIn);
 
 	}
 
 	public void play() {
-		clip.start();
-	}
 
+		clip.start();
+
+	}
 }
