@@ -17,6 +17,7 @@ public class GameController {
 	private ArrayList<Level> levels;
 	private int score;
 	private int currLevel;
+	private Piece nextPiece;
 
 	@Inject
 	public GameController(Board board, PiecesList list,
@@ -24,7 +25,7 @@ public class GameController {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
-
+		setNextPiece();
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
@@ -41,16 +42,16 @@ public class GameController {
 	public void lineCompleted(int numLines) {
 		switch (numLines) {
 		case 1:
-			setScore(score + 100);
+			setScore(score + 10);
 			break;
 		case 2:
-			setScore(score + 250);
+			setScore(score + 25);
 			break;
 		case 3:
-			setScore(score + 500);
+			setScore(score + 50);
 			break;
 		case 4:
-			setScore(score + 1000);
+			setScore(score + 100);
 			break;
 		}
 
@@ -90,10 +91,18 @@ public class GameController {
 	}
 
 	public void addNewPiece() {
-		Piece piece = pieceFactory.getNextPiece(Board.NUM_COLUMNS * Square.SIDE
-				/ 2, 0);
-		list.add(piece);
-		gameStateListener.onNewPiece(piece);
+		list.add(nextPiece);
+		gameStateListener.onNewPiece(nextPiece);
+		setNextPiece();
+	}
+
+	public void setNextPiece() {
+		this.nextPiece = pieceFactory.getNextPiece(Board.NUM_COLUMNS
+				* Square.SIDE / 2, 0);
+	}
+
+	public Piece getNextPiece() {
+		return nextPiece;
 	}
 
 	public int getCurrLevel() {
@@ -110,7 +119,7 @@ public class GameController {
 
 	public void setScore(int score) {
 		this.score = score;
-		ScoreLevelDisplay.setScore(score);
+
 	}
 
 	public void setGameStateListener(GameStateListener gameStateListener) {

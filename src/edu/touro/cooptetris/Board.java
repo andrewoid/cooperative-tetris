@@ -54,15 +54,15 @@ public class Board {
 	}
 
 	public int checkFullRowsOfPiece(Piece p) {
-		int rowsFull = 0;
+		int i = 0;
 		for (Square square : p.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
 			if (isRowFull(rowNumber)) {
 				this.removeRow(rowNumber);
-				rowsFull++;
+				i++;
 			}
 		}
-		return rowsFull;
+		return i;
 	}
 
 	public void removeFullRows() {
