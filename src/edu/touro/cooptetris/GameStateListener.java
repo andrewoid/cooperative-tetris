@@ -14,4 +14,8 @@ public interface GameStateListener {
 
 	public void onNewPiece(Piece piece);
 
+	public void onRotate();
+
+	public void onPause();
+
 }

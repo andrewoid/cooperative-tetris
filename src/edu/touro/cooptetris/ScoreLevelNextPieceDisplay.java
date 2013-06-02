@@ -1,7 +1,7 @@
 package edu.touro.cooptetris;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -12,9 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
+import edu.touro.cooptetris.pieces.BoxPiece;
+import edu.touro.cooptetris.pieces.JPiece;
+import edu.touro.cooptetris.pieces.LPiece;
 import edu.touro.cooptetris.pieces.Piece;
+import edu.touro.cooptetris.pieces.SPiece;
+import edu.touro.cooptetris.pieces.Square;
+import edu.touro.cooptetris.pieces.TPiece;
+import edu.touro.cooptetris.pieces.ZPiece;
 
-public class ScoreLevelDisplay extends JPanel {
+public class ScoreLevelNextPieceDisplay extends JPanel {
 
 	private static final long serialVersionUID = -4724424751560236726L;
 
@@ -25,9 +32,8 @@ public class ScoreLevelDisplay extends JPanel {
 	private JPanel nextPiece;
 	private Piece piece;
 
-	public ScoreLevelDisplay() {
+	public ScoreLevelNextPieceDisplay() {
 		setSize(100, 300);
-		this.piece = null;
 		scoreString = "Score: ";
 		levelString = "Level: ";
 		scoreTextArea = new JTextArea(scoreString + String.valueOf(0));
@@ -36,24 +42,30 @@ public class ScoreLevelDisplay extends JPanel {
 		scoreTextArea.setEnabled(false);
 		levelTextArea = new JTextArea(levelString + String.valueOf(1));
 		levelTextArea.setSize(94, 30);
+		levelTextArea.setAlignmentY(CENTER_ALIGNMENT);
 		levelTextArea.setLineWrap(true);
 		levelTextArea.setEnabled(false);
 		createNextPiece();
-		Border paddingBorder = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+		JLabel nextPieceLabel = new JLabel("Next piece");
+		nextPieceLabel.setEnabled(false);
+		Border paddingBorder = BorderFactory.createEmptyBorder(10, 1, 10, 1);
+		Border paddingBorder2 = BorderFactory.createEmptyBorder(35, 1, 1, 1);
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 		Border compoundBorder = BorderFactory.createCompoundBorder(border,
 				paddingBorder);
 		scoreTextArea.setBorder(compoundBorder);
 		levelTextArea.setBorder(compoundBorder);
+		nextPieceLabel.setBorder(paddingBorder2);
 		Font font = new Font("Calibri", Font.BOLD, 18);
 		scoreTextArea.setFont(font);
 		levelTextArea.setFont(font);
-		setLayout(new GridLayout(6, 1));
-		add(new JLabel());
+		nextPieceLabel.setFont(font);
+
+		setLayout(new GridLayout(5, 1));
 		add(scoreTextArea);
 		add(new JLabel());
 		add(levelTextArea);
-		add(new JLabel());
+		add(nextPieceLabel);
 		add(nextPiece);
 		setVisible(true);
 	}
@@ -61,19 +73,8 @@ public class ScoreLevelDisplay extends JPanel {
 	public void createNextPiece() {
 		this.nextPiece = new NextPiecePanel();
 		nextPiece.setBackground(Color.BLACK);
-
-	}
-
-	private class NextPiecePanel extends JPanel {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			this.setLayout(new FlowLayout());
-			piece.drawPiece(g);
-		}
+		Dimension dim = new Dimension(60, 60);
+		this.setMinimumSize(dim);
 	}
 
 	public void setScore(int score) {
@@ -93,4 +94,25 @@ public class ScoreLevelDisplay extends JPanel {
 		this.piece = piece;
 	}
 
+	private class NextPiecePanel extends JPanel {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			if (piece instanceof BoxPiece || piece instanceof SPiece
+					|| piece instanceof ZPiece) {
+				piece.setLocation(35, 15);
+			} else if (piece instanceof JPiece || piece instanceof LPiece) {
+				piece.setLocation(30, 5);
+			} else if (piece instanceof TPiece) {
+				piece.setLocation(25, 15);
+			} else {
+				piece.setLocation(35, 0);
+			}
+			piece.drawPiece(g);
+			piece.setLocation(Board.NUM_COLUMNS * Square.SIDE / 2, 0);
+		}
+	}
 }

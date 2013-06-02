@@ -9,15 +9,21 @@ public class KeyboardListener implements KeyListener {
 
 	private Piece piece;
 	private Board board;
+	private boolean paused;
+	private GameStateListener gameStateListener;
 
 	public KeyboardListener(Board board) {
 		this.board = board;
+		paused = false;
 	}
 
 	@Override
 	public void keyPressed(KeyEvent event) {
 
-		if (piece != null) {
+		if (event.getKeyCode() == KeyEvent.VK_P) {
+			paused = !paused;
+			gameStateListener.onPause();
+		} else if (piece != null && !paused) {
 			switch (event.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_KP_LEFT:
@@ -37,8 +43,10 @@ public class KeyboardListener implements KeyListener {
 			case KeyEvent.VK_KP_UP:
 			case KeyEvent.VK_W:
 				piece.rotate();
-				if(!board.onBoard(piece)||board.collidedWithPiece(piece)){
+				if (!board.onBoard(piece) || board.collidedWithPiece(piece)) {
 					piece.unrotate();
+				} else {
+					gameStateListener.onRotate();
 				}
 				break;
 			case KeyEvent.VK_DOWN:
@@ -70,6 +78,10 @@ public class KeyboardListener implements KeyListener {
 
 	public void setPiece(Piece piece) {
 		this.piece = piece;
+	}
+
+	public void setGameStateListener(GameStateListener gameStateListener) {
+		this.gameStateListener = gameStateListener;
 	}
 
 }
