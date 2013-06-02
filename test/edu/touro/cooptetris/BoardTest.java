@@ -95,7 +95,7 @@ public class BoardTest {
 		// assertTrue(board.willCollideWithFloorRight(linePiece));
 	}
 
-	@Test
+	// @Test
 	public void testRemoveRow() {
 		givenBoard();
 

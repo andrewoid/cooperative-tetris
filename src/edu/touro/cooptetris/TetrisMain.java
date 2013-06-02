@@ -164,4 +164,10 @@ public class TetrisMain extends JFrame implements GameStateListener {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void onPause() {
+		gameController.pauseAndUnPause();
+
+	}
 }

@@ -16,4 +16,6 @@ public interface GameStateListener {
 
 	public void onRotate();
 
+	public void onPause();
+
 }

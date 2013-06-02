@@ -57,6 +57,10 @@ public class GameController {
 
 	}
 
+	public void pauseAndUnPause() {
+		timer.pauseAndUnPause();
+	}
+
 	public void movePieces() {
 
 		if (timer.isTimeToDrop()) {
