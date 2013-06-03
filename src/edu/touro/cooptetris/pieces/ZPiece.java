@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class ZPiece extends Piece {
 
-	public ZPiece(int x, int y) {
-		super();
+	public ZPiece(int x, int y, int pieceID) {
+		super(pieceID);
 		
 		setLocation(x,y);
 		for (Square square : squares) {
