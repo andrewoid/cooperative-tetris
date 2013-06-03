@@ -5,22 +5,19 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import edu.touro.cooptetris.GameController;
-import edu.touro.cooptetris.GameStateListener;
+import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.net.message.Message;
 
 public class TetrisClient {
 
 	private Socket socket;
 	private ObjectOutputStream objectOut;
-	private GameController gameController;
-	private GameStateListener gameStateListener;
+	private ClientGameController gameController;
 	private ReaderThread readerThread;
 	
-	public TetrisClient(GameController gameController, GameStateListener gameStateListener)throws UnknownHostException, IOException{
+	public TetrisClient(ClientGameController gameController)throws UnknownHostException, IOException{
 		initializeClient();
 		this.gameController = gameController;
-		this.gameStateListener = gameStateListener;
 		
 		readerThread.start();
 	}
@@ -28,7 +25,7 @@ public class TetrisClient {
 	private void initializeClient() throws UnknownHostException, IOException {
 		socket = new Socket("localhost", 8080);
 		objectOut=new ObjectOutputStream(socket.getOutputStream());
-		readerThread = new ReaderThread(socket, gameController, gameStateListener);
+		readerThread = new ReaderThread(socket, gameController);
 		
 		
 		//String s="join message"

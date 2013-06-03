@@ -24,7 +24,7 @@ import edu.touro.cooptetris.sound.ThemeMusicPlayer;
 public class TetrisMain extends JFrame implements GameStateListener {
 
 	private static final long serialVersionUID = 1L;
-	private ClientGameController gameController;
+	private GameController gameController;
 	private PiecesAndBoardView gameView;
 	private KeyboardListener keyboardListener;
 	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
@@ -41,7 +41,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	public TetrisMain(final PiecesAndBoardView gameView,
 			ScoreLevelNextPieceDisplay scoreLevelDisplay,
 			ThemeMusicPlayer themeMusicPlayer,
-			final ClientGameController gameController) {
+			final GameController gameController) {
 		this.gameController = gameController;
 		this.keyboardListener = new KeyboardListener(gameController.getBoard());
 		this.scoreLevelDisplay = scoreLevelDisplay;
@@ -50,7 +50,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		this.themeMusicPlayer = themeMusicPlayer;
 
 		gameController.setGameStateListener(this);
-		gameController.addNewPiece();
+		//gameController.addNewPiece();
 		scoreLevelDisplay.setPiece(gameController.getNextPiece());
 		int height = scoreLevelDisplay.getHeight() + 30, width = 100
 				+ Board.numColumns * Square.SIDE + 15;

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import edu.touro.cooptetris.pieces.Piece;
-import edu.touro.cooptetris.pieces.Square;
 
 public class ClientGameController {
 

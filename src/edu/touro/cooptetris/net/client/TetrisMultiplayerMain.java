@@ -15,7 +15,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 
 import edu.touro.cooptetris.Board;
-import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.PiecesAndBoardView;
 import edu.touro.cooptetris.ScoreLevelNextPieceDisplay;
@@ -30,13 +30,13 @@ import edu.touro.cooptetris.sound.ThemeMusicPlayer;
 public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 
 	private static final long serialVersionUID = 1L;
-	private GameController gameController;
+	private ClientGameController gameController;
 	private PiecesAndBoardView gameView;
 	private MultiplayerKeyboardListener keyboardListener;
 	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
 	private ThemeMusicPlayer themeMusicPlayer;
 	private boolean paused;
-	private boolean mute;
+	//private boolean mute;
 	private TetrisClient tetrisClient;
 
 	public static void main(String[] args) {
@@ -48,26 +48,25 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 	public TetrisMultiplayerMain(final PiecesAndBoardView gameView,
 			ScoreLevelNextPieceDisplay scoreLevelDisplay,
 			ThemeMusicPlayer themeMusicPlayer,
-			final GameController gameController) throws UnknownHostException, IOException {
+			final ClientGameController gameController)
+			throws UnknownHostException, IOException {
 		this.gameController = gameController;
 		gameController.setGameStateListener(this);
-		gameController.addNewPiece();
-		
-		this.tetrisClient = new TetrisClient(gameController,this);
-		this.keyboardListener = new MultiplayerKeyboardListener(
-				gameController.getBoard(), tetrisClient);
+		this.gameView = gameView;
+		this.tetrisClient = new TetrisClient(gameController);
+		this.keyboardListener = new MultiplayerKeyboardListener(tetrisClient);
 		this.scoreLevelDisplay = scoreLevelDisplay;
-		gameView.addKeyListener(keyboardListener);
+		this.gameView.addKeyListener(keyboardListener);
 		keyboardListener.setGameStateListener(this);
 		this.themeMusicPlayer = themeMusicPlayer;
 		setSize();
-		
+
 		scoreLevelDisplay.setPiece(gameController.getNextPiece());
-		
+
 		setLocationRelativeTo(getRootPane());
 		setResizable(false);
 		setTitle("Single Player Tetris");
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		add(gameView, BorderLayout.CENTER);
@@ -80,7 +79,7 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 			public void run() {
 				while (true) {
 					gameView.repaint();
-					if(gameView.getWasResized()){
+					if (gameView.getWasResized()) {
 						setSize();
 						gameView.setWasResized(false);
 					}
@@ -109,11 +108,12 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		}
 	}
 
-	public void setSize(){
+	public void setSize() {
 		int height = scoreLevelDisplay.getHeight() + 30, width = 100
 				+ Board.numColumns * Square.SIDE + 15;
 		setSize(width, height);
 	}
+
 	@Override
 	public void onCompleteLine(int numLines) {
 		CompleteLineMusicPlayer completePlayer;
