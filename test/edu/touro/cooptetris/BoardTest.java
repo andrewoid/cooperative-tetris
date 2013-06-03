@@ -39,10 +39,11 @@ public class BoardTest {
 		for (int i = 0; i < fullRow.length; i++) {
 			fullRow[i] = new Square(0, 0, Color.BLACK);
 		}
+		board.setSquaresArray(fullRow, 0);
 	}
 
 	private LinePiece givenLinePiece() {
-		LinePiece linePiece = new LinePiece(15, 16 * Square.SIDE);
+		LinePiece linePiece = new LinePiece(15, 16 * Square.SIDE, 1);
 		return linePiece;
 	}
 
@@ -101,7 +102,7 @@ public class BoardTest {
 
 		givenLinePiece();
 
-		LinePiece SecondLinePiece = new LinePiece(30, 10);
+		LinePiece SecondLinePiece = new LinePiece(30, 10, 1);
 		board.landPiece(SecondLinePiece);
 
 		// assertTrue(board.willCollideWithFloorRight(linePiece));

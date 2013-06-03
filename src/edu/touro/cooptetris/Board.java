@@ -2,6 +2,7 @@ package edu.touro.cooptetris;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,22 +18,26 @@ public class Board {
 	public static int numRows = 20;
 	public static int numColumns = 11;
 
-	private List<ArrayList<Square>> squares;
+	private List<List<Square>> squares;
 
 	public Board() {
-		squares = new LinkedList<ArrayList<Square>>();
+		squares = new LinkedList<List<Square>>();
 
 		for (int i = 0; i < numRows; i++) {
-			squares.add(new ArrayList<Square>());
+			List<Square> row = new ArrayList<Square>();
+			for (int j = 0; j < numColumns; j++) {
+				row.add(null);
+			}
+			squares.add(row);
 
 		}
 	}
 
 	public void removeAll() {
-		squares = new LinkedList<ArrayList<Square>>();
+		squares = new LinkedList<List<Square>>();
 	}
 
-	public List<ArrayList<Square>> getSquares() {
+	public List<List<Square>> getSquares() {
 		return squares;
 	}
 
@@ -66,10 +71,10 @@ public class Board {
 	}
 
 	public void removeFullRows() {
-		Iterator<ArrayList<Square>> i = squares.iterator();
+		Iterator<List<Square>> i = squares.iterator();
 		int rowsToAdd = 0;
 		while (i.hasNext()) {
-			ArrayList<Square> row = i.next();
+			List<Square> row = i.next();
 			if (isFullRow(row)) {
 				i.remove();
 				rowsToAdd++;
@@ -84,7 +89,7 @@ public class Board {
 		}
 	}
 
-	private boolean isFullRow(ArrayList<Square> row) {
+	private boolean isFullRow(List<Square> row) {
 		for (Square s : row) {
 			if (s == null) {
 				return false;
@@ -96,7 +101,7 @@ public class Board {
 	public void removeRow(int rowNumber) {
 		squares.remove(rowNumber);
 		for (int i = 0; i < rowNumber; i++) {
-			ArrayList<Square> rowSquares = squares.get(i);
+			List<Square> rowSquares = squares.get(i);
 			for (Square square : rowSquares) {
 				if (square != null) {
 					square.setY(square.getY() + Square.SIDE);
@@ -119,12 +124,12 @@ public class Board {
 		}
 	}
 
-	public void setSquares(ArrayList<ArrayList<Square>> squares) {
+	public void setSquares(List<List<Square>> squares) {
 		this.squares = squares;
 	}
 
-	public void setSquaresArray(ArrayList<Square> squaresArrayList, int numRow) {
-		squares.set(numRow, squaresArrayList);
+	public void setSquaresArray(List<Square> list, int numRow) {
+		squares.set(numRow, list);
 	}
 
 	public boolean willCollideWithFloorLeft(Piece piece) {
@@ -176,12 +181,12 @@ public class Board {
 	}
 
 	public void increaseBoardSize() {
-		//numRows += 3;
+		// numRows += 3;
 		numColumns += 6;
 
-		/*for (int i = 0; i < 3; i++) {
-			squares.add(new ArrayList<Square>());
-		}*/
+		/*
+		 * for (int i = 0; i < 3; i++) { squares.add(new ArrayList<Square>()); }
+		 */
 	}
 
 	public boolean willCollideWithFloorVertical(Piece piece) {
@@ -208,7 +213,7 @@ public class Board {
 	}
 
 	public void draw(Graphics g) {
-		for (ArrayList<Square> row : squares) {
+		for (List<Square> row : squares) {
 			for (Square s : row) {
 				if (s != null) {
 					s.draw(g);
@@ -243,6 +248,14 @@ public class Board {
 			}
 		}
 		return false;
+	}
+
+	public void setSquaresArray(Square[] fullRow, int j) {
+		List<Square> list = new ArrayList<Square>();
+		for (Square s : fullRow) {
+			list.add(s);
+		}
+		setSquaresArray(list, j);
 	}
 
 }
