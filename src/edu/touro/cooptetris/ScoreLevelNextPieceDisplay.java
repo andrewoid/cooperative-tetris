@@ -112,7 +112,7 @@ public class ScoreLevelNextPieceDisplay extends JPanel {
 				piece.setLocation(35, 0);
 			}
 			piece.drawPiece(g);
-			piece.setLocation(Board.NUM_COLUMNS * Square.SIDE / 2, 0);
+			piece.setLocation(Board.numColumns * Square.SIDE / 2, 0);
 		}
 	}
 }

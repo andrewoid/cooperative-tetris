@@ -17,15 +17,16 @@ public class PiecesAndBoardView extends JComponent {
 
 	private static final long serialVersionUID = 1L;
 	private PiecesList list;
+	private boolean wasResized;
 
 	public PiecesAndBoardView() {
 
 
-		setSize(Board.NUM_COLUMNS * Square.SIDE + 15, Board.NUM_ROWS
+		setSize(Board.numColumns * Square.SIDE + 15, Board.numRows
 				* Square.SIDE);
 		setBorder(BorderFactory.createMatteBorder(0, 7, 0, 7, Color.GREEN));
 		setFocusable(true);
-
+		wasResized=false;
 	}
 
 	@Inject
@@ -33,7 +34,17 @@ public class PiecesAndBoardView extends JComponent {
 		this();
 		this.board = board;
 		this.list = list;
+		wasResized=false;
 
+	}
+
+	
+	public boolean getWasResized() {
+		return wasResized;
+	}
+
+	public void setWasResized(boolean wasResized) {
+		this.wasResized = wasResized;
 	}
 
 	public Board getBoard() {
@@ -58,7 +69,7 @@ public class PiecesAndBoardView extends JComponent {
 
 	private void clearScreen(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Board.NUM_COLUMNS * Square.SIDE + 15, this.getHeight());
+		g.fillRect(0, 0, Board.numColumns * Square.SIDE + 15, this.getHeight());
 	}
 
 

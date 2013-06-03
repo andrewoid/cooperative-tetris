@@ -131,7 +131,7 @@ public class GameController {
 	}
 
 	public void setNextPiece() {
-		this.nextPiece = pieceFactory.getNextPiece(Board.NUM_COLUMNS
+		this.nextPiece = pieceFactory.getNextPiece(Board.numColumns
 				* Square.SIDE / 2, 0);
 	}
 

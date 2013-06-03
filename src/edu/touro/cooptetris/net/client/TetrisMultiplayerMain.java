@@ -1,7 +1,8 @@
-package edu.touro.cooptetris;
+package edu.touro.cooptetris.net.client;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.inject.Inject;
 import javax.sound.sampled.LineUnavailableException;
@@ -13,6 +14,11 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
+import edu.touro.cooptetris.Board;
+import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.GameStateListener;
+import edu.touro.cooptetris.PiecesAndBoardView;
+import edu.touro.cooptetris.ScoreLevelNextPieceDisplay;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
@@ -21,43 +27,47 @@ import edu.touro.cooptetris.sound.LevelChangeMusicPlayer;
 import edu.touro.cooptetris.sound.RotateMusicPlayer;
 import edu.touro.cooptetris.sound.ThemeMusicPlayer;
 
-public class TetrisMain extends JFrame implements GameStateListener {
+public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 
 	private static final long serialVersionUID = 1L;
 	private GameController gameController;
 	private PiecesAndBoardView gameView;
-	private KeyboardListener keyboardListener;
+	private MultiplayerKeyboardListener keyboardListener;
 	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
 	private ThemeMusicPlayer themeMusicPlayer;
 	private boolean paused;
 	private boolean mute;
+	private TetrisClient tetrisClient;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
-		injector.getInstance(TetrisMain.class);
+		injector.getInstance(TetrisMultiplayerMain.class);
 	}
 
 	@Inject
-	public TetrisMain(final PiecesAndBoardView gameView,
+	public TetrisMultiplayerMain(final PiecesAndBoardView gameView,
 			ScoreLevelNextPieceDisplay scoreLevelDisplay,
 			ThemeMusicPlayer themeMusicPlayer,
-			final GameController gameController) {
+			final GameController gameController) throws UnknownHostException, IOException {
 		this.gameController = gameController;
-		this.keyboardListener = new KeyboardListener(gameController.getBoard());
+		gameController.setGameStateListener(this);
+		gameController.addNewPiece();
+		
+		this.tetrisClient = new TetrisClient(gameController,this);
+		this.keyboardListener = new MultiplayerKeyboardListener(
+				gameController.getBoard(), tetrisClient);
 		this.scoreLevelDisplay = scoreLevelDisplay;
 		gameView.addKeyListener(keyboardListener);
 		keyboardListener.setGameStateListener(this);
 		this.themeMusicPlayer = themeMusicPlayer;
-
-		gameController.setGameStateListener(this);
-		gameController.addNewPiece();
+		setSize();
+		
 		scoreLevelDisplay.setPiece(gameController.getNextPiece());
-		int height = scoreLevelDisplay.getHeight() + 30, width = 100
-				+ Board.numColumns * Square.SIDE + 15;
+		
 		setLocationRelativeTo(getRootPane());
 		setResizable(false);
 		setTitle("Single Player Tetris");
-		setSize(width, height);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		add(gameView, BorderLayout.CENTER);
@@ -70,6 +80,10 @@ public class TetrisMain extends JFrame implements GameStateListener {
 			public void run() {
 				while (true) {
 					gameView.repaint();
+					if(gameView.getWasResized()){
+						setSize();
+						gameView.setWasResized(false);
+					}
 					gameController.movePieces();
 				}
 			}
@@ -88,13 +102,18 @@ public class TetrisMain extends JFrame implements GameStateListener {
 			gameController.setCurrLevel(1);
 			this.dispose();
 			Injector injector = Guice.createInjector(new Module[0]);
-			injector.getInstance(TetrisMain.class);
+			injector.getInstance(TetrisMultiplayerMain.class);
 		}
 		if (gameOver == 1) {
 			System.exit(0);
 		}
 	}
 
+	public void setSize(){
+		int height = scoreLevelDisplay.getHeight() + 30, width = 100
+				+ Board.numColumns * Square.SIDE + 15;
+		setSize(width, height);
+	}
 	@Override
 	public void onCompleteLine(int numLines) {
 		CompleteLineMusicPlayer completePlayer;

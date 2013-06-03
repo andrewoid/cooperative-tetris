@@ -23,8 +23,8 @@ public class BoardTest {
 
 	private void givenFullBoard() {
 		board = new Board();
-		for (int j = 0; j < Board.NUM_ROWS; j++) {
-			fullRow = new Square[Board.NUM_COLUMNS];
+		for (int j = 0; j < Board.numRows; j++) {
+			fullRow = new Square[Board.numColumns];
 
 			for (int i = 0; i < fullRow.length; i++) {
 				fullRow[i] = new Square(0, 0, Color.BLACK);
@@ -34,7 +34,7 @@ public class BoardTest {
 	}
 
 	private void givenFullRow() {
-		fullRow = new Square[Board.NUM_COLUMNS];
+		fullRow = new Square[Board.numColumns];
 
 		for (int i = 0; i < fullRow.length; i++) {
 			fullRow[i] = new Square(0, 0, Color.BLACK);
@@ -170,7 +170,7 @@ public class BoardTest {
 	}
 
 	private void thenBoardHasCorrectNumberOfRows() {
-		Assert.assertEquals(Board.NUM_ROWS, board.getNumRows());
+		Assert.assertEquals(Board.numRows, board.getNumRows());
 	}
 
 }
