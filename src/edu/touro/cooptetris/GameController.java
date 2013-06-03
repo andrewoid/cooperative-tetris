@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import edu.touro.cooptetris.net.message.DropMessage;
+import edu.touro.cooptetris.net.message.MoveDownMessage;
+import edu.touro.cooptetris.net.message.MoveLeftMessage;
+import edu.touro.cooptetris.net.message.MoveRightMessage;
+import edu.touro.cooptetris.net.message.RemoveRowMessage;
+import edu.touro.cooptetris.net.message.RotateMessage;
+import edu.touro.cooptetris.net.server.WriterThread;
 import edu.touro.cooptetris.pieces.Piece;
 
 public class GameController {
@@ -18,10 +25,11 @@ public class GameController {
 	private int currLevel;
 	private Piece nextPiece;
 	private int xDrop;
+	private WriterThread writer;
 
 	@Inject
 	public GameController(Board board, PiecesList list,
-			PieceFactory pieceFactory) {
+			PieceFactory pieceFactory, WriterThread writer) {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
@@ -32,7 +40,7 @@ public class GameController {
 		}
 		currLevel = 1;
 		timer = new DropTimer(400);
-		// score = 90;
+		this.writer=writer;
 	}
 
 	public void increaseSpeed() {
@@ -45,13 +53,15 @@ public class GameController {
 		if (!board.onBoard(piece) || board.collidedWithPiece(piece)) {
 			piece.unrotate();
 		} else {
-			gameStateListener.onRotate();
+			writer.addMessage(new RotateMessage(piece.getPieceID()));
 		}
+		
 	}
 
 	public void moveLeft(Piece piece) {
 		if (!board.willCollideWithFloorLeft(piece)) {
 			piece.moveLeft();
+			writer.addMessage(new MoveLeftMessage(piece.getPieceID()));
 		}
 	}
 
@@ -59,6 +69,7 @@ public class GameController {
 		if (!board.willCollideWithFloorVertical(piece)
 				&& !board.willCollideWithLandedPieceVertical(piece)) {
 			piece.moveDown();
+			writer.addMessage(new MoveDownMessage(piece.getPieceID()));
 		}
 
 	}
@@ -66,14 +77,16 @@ public class GameController {
 	public void moveRight(Piece piece) {
 		if (!board.willCollideWithFloorRight(piece)) {
 			piece.moveRight();
+			writer.addMessage(new MoveRightMessage(piece.getPieceID()));
 		}
 	}
 
 	public void drop(Piece piece) {
 		while (!board.willCollideWithFloorVertical(piece)
 				&& !board.willCollideWithLandedPieceVertical(piece)) {
-			piece.moveDown();
+			piece.moveDown();			
 		}
+		writer.addMessage(new DropMessage(piece.getPieceID()));
 	}
 
 	public void lineCompleted(int numLines) {
@@ -103,6 +116,7 @@ public class GameController {
 		if (numRows > 0) {
 			gameStateListener.onCompleteLine(numRows);
 		}
+		writer.addMessage(new RemoveRowMessage(p.getPieceID()));
 	}
 
 	public void movePieces() {
@@ -115,14 +129,13 @@ public class GameController {
 				if (!board.willCollideWithFloorVertical(p)
 						&& !board.willCollideWithLandedPieceVertical(p)) {
 					p.moveDown();
+					writer.addMessage(new MoveDownMessage(p.getPieceID()));
 				} else {
 					board.landPiece(p);
 					gameStateListener.onHitFloor();
-					int numRows = board.checkFullRowsOfPiece(p);
+					
 					landed = true;
-					if (numRows > 0) {
-						gameStateListener.onCompleteLine(numRows);
-					}
+					removeRow(p);
 				}
 			}
 			if (landed) {

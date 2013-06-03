@@ -7,10 +7,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.google.inject.Singleton;
+@Singleton
 public class WriterThread extends Thread {
 
 	private LinkedBlockingQueue<String> messages;
 	private LinkedList<OutputStream> outs;
+	//DataOutputStream
 
 	public WriterThread() {
 		messages = new LinkedBlockingQueue<String>();

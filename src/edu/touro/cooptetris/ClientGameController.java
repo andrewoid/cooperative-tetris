@@ -10,22 +10,21 @@ public class ClientGameController {
 
 	private Board board;
 	private PiecesList list;
-	private PieceFactory pieceFactory;
 	private GameStateListener gameStateListener;
 	private DropTimer timer;
 	private ArrayList<Level> levels;
 	private int score;
 	private int currLevel;
 	private Piece nextPiece;
-	private int xDrop;
 
 	@Inject
 	public ClientGameController(Board board, PiecesList list,
 			PieceFactory pieceFactory) {
 		this.board = board;
 		this.list = list;
-		this.pieceFactory = pieceFactory;
-		setNextPiece(xDrop);
+		// look below!!! For errors!!
+		setNextPiece(nextPiece);
+		// look above!!
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
@@ -105,50 +104,36 @@ public class ClientGameController {
 		}
 	}
 
-	public void movePieces() {
+	/*
+	 * public void movePieces() {
+	 * 
+	 * if (timer.isTimeToDrop()) { boolean landed = false;
+	 * 
+	 * for (Piece p : list) {
+	 * 
+	 * if (!board.willCollideWithFloorVertical(p) &&
+	 * !board.willCollideWithLandedPieceVertical(p)) { p.moveDown(); } else {
+	 * board.landPiece(p); gameStateListener.onHitFloor(); int numRows =
+	 * board.checkFullRowsOfPiece(p); landed = true; if (numRows > 0) {
+	 * gameStateListener.onCompleteLine(numRows); } } } if (landed) {
+	 * list.clear(); if (!board.isFull() && score < 9999) { //addNewPiece(); }
+	 * else { endGame(); } }
+	 * 
+	 * } }
+	 */
 
-		if (timer.isTimeToDrop()) {
-			boolean landed = false;
+	public void addNewPiece(Piece nextPiece) {
 
-			for (Piece p : list) {
-
-				if (!board.willCollideWithFloorVertical(p)
-						&& !board.willCollideWithLandedPieceVertical(p)) {
-					p.moveDown();
-				} else {
-					board.landPiece(p);
-					gameStateListener.onHitFloor();
-					int numRows = board.checkFullRowsOfPiece(p);
-					landed = true;
-					if (numRows > 0) {
-						gameStateListener.onCompleteLine(numRows);
-					}
-				}
-			}
-			if (landed) {
-				list.clear();
-				if (!board.isFull() && score < 9999) {
-					//addNewPiece();
-				} else {
-					endGame();
-				}
-			}
-
-		}
-	}
-
-	public void addNewPiece(int xDrop) {
-
-		list.add(nextPiece);
+		list.add(this.nextPiece);
 		Piece tempPiece = nextPiece;
-		setNextPiece(xDrop);
+		setNextPiece(nextPiece);
 		gameStateListener.onNewPiece(tempPiece);
 
 	}
 
-	public void setNextPiece(int xDrop) {
-		//Board.NUM_COLUMNS * Square.SIDE / 2
-		this.nextPiece = pieceFactory.getNextPiece(xDrop, 0);
+	public void setNextPiece(Piece nextPiece) {
+		// Board.NUM_COLUMNS * Square.SIDE / 2
+		this.nextPiece = nextPiece;
 	}
 
 	public Piece getNextPiece() {
@@ -188,9 +173,8 @@ public class ClientGameController {
 		}
 		return null;
 	}
-	
-	
-	public void endGame(){
+
+	public void endGame() {
 		gameStateListener.onGameOver();
 	}
 
