@@ -2,27 +2,23 @@ package edu.touro.cooptetris.net.message;
 
 import edu.touro.cooptetris.GameController;
 import edu.touro.cooptetris.GameStateListener;
-import edu.touro.cooptetris.pieces.Piece;
 
-public class DropMessage implements Message {
+public class NewPlayerMessage implements Message {
 
 	private static final long serialVersionUID = 1L;
-	private int pieceID;
 
-	public DropMessage(int pieceID) {
-		this.pieceID = pieceID;
-	}
+	//public NewPlayerMessage(String playerName, int playerID) {
+	//	Player player=new Player(playerID, playerName);
+	//}
 
 	@Override
 	public void handleByClient(GameController gameController) {
-		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.drop(piece);
+		
 	}
 
 	@Override
 	public void handleByServer(GameController gameController) {
-		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.drop(piece);
+		
 	}
-
+	
 }
