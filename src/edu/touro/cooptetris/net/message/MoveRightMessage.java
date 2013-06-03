@@ -1,7 +1,7 @@
 package edu.touro.cooptetris.net.message;
 
 import edu.touro.cooptetris.ClientGameController;
-import edu.touro.cooptetris.GameStateListener;
+import edu.touro.cooptetris.GameController;
 import edu.touro.cooptetris.pieces.Piece;
 
 public class MoveRightMessage implements Message {
@@ -21,7 +21,7 @@ public class MoveRightMessage implements Message {
 	}
 
 	@Override
-	public void handleByServer(ClientGameController gameController) {
+	public void handleByServer(GameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
 		gameController.moveRight(piece);
 	}
