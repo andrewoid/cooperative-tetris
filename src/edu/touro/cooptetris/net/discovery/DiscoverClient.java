@@ -23,7 +23,7 @@ public class DiscoverClient {
 		packet = new DatagramPacket(buf, buf.length);
 		socket.receive(packet);
 
-		return packet.getAddress().toString();
+		return packet.getSocketAddress().toString();
 
 	}
 
