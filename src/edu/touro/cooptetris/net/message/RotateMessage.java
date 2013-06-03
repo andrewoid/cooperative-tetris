@@ -1,6 +1,6 @@
 package edu.touro.cooptetris.net.message;
 
-import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.pieces.Piece;
 
 public class RotateMessage implements Message {
@@ -13,13 +13,13 @@ public class RotateMessage implements Message {
 	}
 
 	@Override
-	public void handleByClient(GameController gameController) {
+	public void handleByClient(ClientGameController gameController) {
 		Piece p = gameController.getPieceByID(pieceID);
 		p.rotate();
 	}
 
 	@Override
-	public void handleByServer(GameController gameController) {
+	public void handleByServer(ClientGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
 		gameController.rotate(piece);
 	}

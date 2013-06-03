@@ -1,6 +1,6 @@
 package edu.touro.cooptetris.net.message;
 
-import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.pieces.Piece;
 
@@ -14,14 +14,14 @@ public class RemoveRowMessage implements Message {
 	}
 	
 	@Override
-	public void handleByClient(GameController gameController) {
+	public void handleByClient(ClientGameController gameController) {
 		Piece piece=gameController.getPieceByID(pieceID);
 		gameController.removeRow(piece);
 		
 	}
 
 	@Override
-	public void handleByServer(GameController gameController) {
+	public void handleByServer(ClientGameController gameController) {
 		
 		
 	}
