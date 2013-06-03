@@ -14,7 +14,7 @@ public class PieceTest {
 	@Test
 	public void testDoesNotCollideWith() {
 		BoxPiece aBox = new BoxPiece(0, 0, 1);
-		LinePiece aLine = new LinePiece(0, 0,2 );
+		LinePiece aLine = new LinePiece(0, 0, 2);
 		aLine.moveRight();
 		aLine.moveRight();
 		Assert.assertTrue(!aBox.collidesWith(aLine));
@@ -26,13 +26,13 @@ public class PieceTest {
 		Square[] squares = aBox.getSquares();
 		aBox.moveDown();
 		Assert.assertEquals(0, squares[0].getX());
-		Assert.assertEquals(-15, squares[0].getY());
+		Assert.assertEquals(15, squares[0].getY());
 		Assert.assertEquals(15, squares[1].getX());
-		Assert.assertEquals(-15, squares[1].getY());
+		Assert.assertEquals(15, squares[1].getY());
 		Assert.assertEquals(0, squares[2].getX());
-		Assert.assertEquals(0, squares[2].getY());
+		Assert.assertEquals(30, squares[2].getY());
 		Assert.assertEquals(15, squares[3].getX());
-		Assert.assertEquals(0, squares[3].getY());
+		Assert.assertEquals(30, squares[3].getY());
 	}
 
 	@Test
