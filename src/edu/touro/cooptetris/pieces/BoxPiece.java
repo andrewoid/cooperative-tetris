@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class BoxPiece extends Piece {
 
-	public BoxPiece(int x, int y) {
-		super();
+	public BoxPiece(int x, int y, int pieceID) {
+		super(pieceID);
 		setLocation(x,y);
 		center = squares[2];
 

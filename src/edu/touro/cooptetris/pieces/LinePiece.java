@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class LinePiece extends Piece {
 
-	public LinePiece(int x, int y) {
-		super();
+	public LinePiece(int x, int y, int pieceID) {
+		super(pieceID);
 		
 		setLocation(x,y);
 		for (Square square : squares) {

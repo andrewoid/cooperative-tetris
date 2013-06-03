@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class SPiece extends Piece {
 
-	public SPiece(int x, int y) {
-		super();
+	public SPiece(int x, int y, int pieceID) {
+		super(pieceID);
 		setLocation(x,y);
 		for (Square square : squares) {
 			square.setColor(Color.BLUE);

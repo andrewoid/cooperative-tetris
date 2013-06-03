@@ -4,8 +4,8 @@ import java.awt.Color;
 
 public class LPiece extends Piece {
 
-	public LPiece(int x, int y) {
-		super();
+	public LPiece(int x, int y, int pieceID) {
+		super(pieceID);
 		setLocation(x,y);
 		center = squares[1];
 		for (Square square : squares) {

@@ -8,7 +8,7 @@ public abstract class Piece {
 	protected Square[] squares;
 	protected Square center;
 	private int pieceID;
-	private static int currPieceID;
+	
 
 	public Square getCenter() {
 		return center;
@@ -20,20 +20,19 @@ public abstract class Piece {
 		for (int i = 0; i < 4; i++) {
 			piece.squares[i] = new Square(0, 0, Color.BLACK);
 		}
-
-		pieceID = getNextPieceID();
+		pieceID =piece.getPieceID();
+		
+		
 	}
 
-	public static int getNextPieceID() {
-		return currPieceID++;
-	}
-
-	public Piece() {
+	public Piece(int pieceID) {
 		squares = new Square[4];
 
 		for (int i = 0; i < 4; i++) {
 			squares[i] = new Square(0, 0, Color.BLACK);
 		}
+		
+		this.pieceID = pieceID;
 	}
 
 	public boolean collidesWith(Piece p) {
