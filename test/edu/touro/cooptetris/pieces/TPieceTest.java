@@ -8,7 +8,7 @@ public class TPieceTest {
 
 	@Test
 	public void testTPiece() {
-		TPiece tPiece = new TPiece(0, 0);
+		TPiece tPiece = new TPiece(0, 0, 1);
 		Square[] squares = tPiece.getSquares();
 		assertEquals(0, squares[0].getX());
 		assertEquals(0, squares[0].getY());

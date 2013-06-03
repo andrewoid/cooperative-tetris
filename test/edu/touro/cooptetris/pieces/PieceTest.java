@@ -6,15 +6,15 @@ import org.junit.Test;
 public class PieceTest {
 	@Test
 	public void testCollidesWith() {
-		BoxPiece aBox = new BoxPiece(0, 0);
-		LinePiece aLine = new LinePiece(0, 0);
+		BoxPiece aBox = new BoxPiece(0, 0, 1);
+		LinePiece aLine = new LinePiece(0, 0, 2);
 		Assert.assertTrue(aBox.collidesWith(aLine));
 	}
 
 	@Test
 	public void testDoesNotCollideWith() {
-		BoxPiece aBox = new BoxPiece(0, 0);
-		LinePiece aLine = new LinePiece(0, 0);
+		BoxPiece aBox = new BoxPiece(0, 0, 1);
+		LinePiece aLine = new LinePiece(0, 0,2 );
 		aLine.moveRight();
 		aLine.moveRight();
 		Assert.assertTrue(!aBox.collidesWith(aLine));
@@ -22,7 +22,7 @@ public class PieceTest {
 
 	@Test
 	public void testMoveDown() {
-		BoxPiece aBox = new BoxPiece(0, 0);
+		BoxPiece aBox = new BoxPiece(0, 0, 1);
 		Square[] squares = aBox.getSquares();
 		aBox.moveDown();
 		Assert.assertEquals(0, squares[0].getX());
@@ -37,7 +37,7 @@ public class PieceTest {
 
 	@Test
 	public void testMoveLeft() {
-		SPiece anSPiece = new SPiece(0, 0);
+		SPiece anSPiece = new SPiece(0, 0, 1);
 		Square[] squares = anSPiece.getSquares();
 		anSPiece.moveLeft();
 		Assert.assertEquals(-15, squares[0].getX());
@@ -52,7 +52,7 @@ public class PieceTest {
 
 	@Test
 	public void testMoveRight() {
-		LinePiece aLine = new LinePiece(0, 0);
+		LinePiece aLine = new LinePiece(0, 0, 1);
 		Square[] squares = aLine.getSquares();
 		aLine.moveRight();
 		Assert.assertEquals(15, squares[0].getX());
