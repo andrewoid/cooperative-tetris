@@ -1,7 +1,7 @@
 package edu.touro.cooptetris.net.message;
 
 import edu.touro.cooptetris.ClientGameController;
-import edu.touro.cooptetris.GameStateListener;
+import edu.touro.cooptetris.GameController;
 
 public class NewPlayerMessage implements Message {
 
@@ -17,7 +17,7 @@ public class NewPlayerMessage implements Message {
 	}
 
 	@Override
-	public void handleByServer(ClientGameController gameController) {
+	public void handleByServer(GameController gameController) {
 		
 	}
 	

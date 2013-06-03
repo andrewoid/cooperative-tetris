@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import edu.touro.cooptetris.pieces.Piece;
-import edu.touro.cooptetris.pieces.Square;
 
 public class GameController {
 
@@ -18,6 +17,7 @@ public class GameController {
 	private int score;
 	private int currLevel;
 	private Piece nextPiece;
+	private int xDrop;
 
 	@Inject
 	public GameController(Board board, PiecesList list,
@@ -25,7 +25,7 @@ public class GameController {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
-		setNextPiece();
+		setNextPiece(xDrop);
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
@@ -41,6 +41,7 @@ public class GameController {
 	}
 
 	public void rotate(Piece piece) {
+		piece.rotate();
 		if (!board.onBoard(piece) || board.collidedWithPiece(piece)) {
 			piece.unrotate();
 		} else {
@@ -52,6 +53,14 @@ public class GameController {
 		if (!board.willCollideWithFloorLeft(piece)) {
 			piece.moveLeft();
 		}
+	}
+
+	public void moveDown(Piece piece) {
+		if (!board.willCollideWithFloorVertical(piece)
+				&& !board.willCollideWithLandedPieceVertical(piece)) {
+			piece.moveDown();
+		}
+
 	}
 
 	public void moveRight(Piece piece) {
@@ -89,6 +98,13 @@ public class GameController {
 		timer.pauseAndUnPause();
 	}
 
+	public void removeRow(Piece p) {
+		int numRows = board.checkFullRowsOfPiece(p);
+		if (numRows > 0) {
+			gameStateListener.onCompleteLine(numRows);
+		}
+	}
+
 	public void movePieces() {
 
 		if (timer.isTimeToDrop()) {
@@ -112,27 +128,27 @@ public class GameController {
 			if (landed) {
 				list.clear();
 				if (!board.isFull() && score < 9999) {
-					addNewPiece();
+					//addNewPiece();
 				} else {
-					gameStateListener.onGameOver();
+					endGame();
 				}
 			}
 
 		}
 	}
 
-	public void addNewPiece() {
+	public void addNewPiece(int xDrop) {
 
 		list.add(nextPiece);
 		Piece tempPiece = nextPiece;
-		setNextPiece();
+		setNextPiece(xDrop);
 		gameStateListener.onNewPiece(tempPiece);
 
 	}
 
-	public void setNextPiece() {
-		this.nextPiece = pieceFactory.getNextPiece(Board.numColumns
-				* Square.SIDE / 2, 0);
+	public void setNextPiece(int xDrop) {
+		//Board.NUM_COLUMNS * Square.SIDE / 2
+		this.nextPiece = pieceFactory.getNextPiece(xDrop, 0);
 	}
 
 	public Piece getNextPiece() {
@@ -171,6 +187,11 @@ public class GameController {
 			}
 		}
 		return null;
+	}
+	
+	
+	public void endGame(){
+		gameStateListener.onGameOver();
 	}
 
 }
