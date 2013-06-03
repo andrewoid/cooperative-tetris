@@ -3,7 +3,9 @@ package edu.touro.cooptetris.net.discovery;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.net.SocketAddress;
 
 public class DiscoverClient {
 
@@ -23,7 +25,7 @@ public class DiscoverClient {
 		packet = new DatagramPacket(buf, buf.length);
 		socket.receive(packet);
 
-		return packet.getSocketAddress().toString();
+		return ((InetSocketAddress) packet.getSocketAddress()).getHostName();
 
 	}
 
