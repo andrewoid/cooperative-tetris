@@ -1,9 +1,10 @@
-package edu.touro.cooptetris.net;
+package edu.touro.cooptetris.net.server;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.util.Scanner;
+
 
 public class ClientHandler extends Thread {
 

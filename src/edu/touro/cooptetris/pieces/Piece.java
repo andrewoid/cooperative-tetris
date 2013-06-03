@@ -7,6 +7,8 @@ public abstract class Piece {
 
 	protected Square[] squares;
 	protected Square center;
+	private int pieceID;
+	private static int currPieceID;
 
 	public Square getCenter() {
 		return center;
@@ -18,6 +20,12 @@ public abstract class Piece {
 		for (int i = 0; i < 4; i++) {
 			piece.squares[i] = new Square(0, 0, Color.BLACK);
 		}
+
+		pieceID = getNextPieceID();
+	}
+
+	public static int getNextPieceID() {
+		return currPieceID++;
 	}
 
 	public Piece() {
@@ -102,6 +110,10 @@ public abstract class Piece {
 		rotate();
 		rotate();
 		rotate();
+	}
+
+	public int getPieceID() {
+		return pieceID;
 	}
 
 	public abstract void setLocation(int x, int y);

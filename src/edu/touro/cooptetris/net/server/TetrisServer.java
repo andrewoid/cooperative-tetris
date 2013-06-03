@@ -1,8 +1,9 @@
-package edu.touro.cooptetris.net;
+package edu.touro.cooptetris.net.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 
 public class TetrisServer {
 	public static void main(String[] args) throws IOException {
