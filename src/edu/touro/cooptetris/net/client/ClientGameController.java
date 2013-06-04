@@ -22,6 +22,7 @@ public class ClientGameController {
 	private int score;
 	private int currLevel;
 	private Piece nextPiece;
+	private int playerID;
 
 	@Inject
 	public ClientGameController(Board board, PiecesList list,
@@ -186,6 +187,11 @@ public class ClientGameController {
 
 	public void endGame() {
 		gameStateListener.onGameOver();
+	}
+
+	public int getPlayerID() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
