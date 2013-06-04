@@ -1,6 +1,7 @@
 package edu.touro.cooptetris.net.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,7 @@ public class ClientGameController {
 	private int currLevel;
 	private Piece nextPiece;
 	private int playerID;
+	private HashMap<Integer, Piece> activePieces;
 
 	@Inject
 	public ClientGameController(Board board, PiecesList list,
@@ -39,10 +41,13 @@ public class ClientGameController {
 		currLevel = 1;
 		timer = new DropTimer(400);
 		// score = 90;
+		this.activePieces = new HashMap<Integer, Piece>();
 	}
 
 	public void dropAll() {
-
+		for (Piece p : activePieces.values()) {
+			p.moveDown();
+		}
 	}
 
 	public void increaseSpeed() {
@@ -134,7 +139,11 @@ public class ClientGameController {
 	 */
 
 	public void addNewPiece(Piece nextPiece) {
-
+		int playerID = nextPiece.getPlayerID();
+		if (activePieces.containsKey(playerID)) {
+			activePieces.remove(playerID);
+		}
+		activePieces.put(playerID, nextPiece);
 		list.add(this.nextPiece);
 		Piece tempPiece = nextPiece;
 		setNextPiece(nextPiece);
