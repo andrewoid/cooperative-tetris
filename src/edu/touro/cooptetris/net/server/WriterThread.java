@@ -1,6 +1,7 @@
 package edu.touro.cooptetris.net.server;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Iterator;
@@ -8,15 +9,19 @@ import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.google.inject.Singleton;
+
+import edu.touro.cooptetris.net.message.Message;
+
 @Singleton
 public class WriterThread extends Thread {
 
-	private LinkedBlockingQueue<String> messages;
+	private LinkedBlockingQueue<Message> messages;
 	private LinkedList<OutputStream> outs;
-	//DataOutputStream
+
+	// DataOutputStream
 
 	public WriterThread() {
-		messages = new LinkedBlockingQueue<String>();
+		messages = new LinkedBlockingQueue<Message>();
 		outs = new LinkedList<OutputStream>();
 	}
 
@@ -25,30 +30,31 @@ public class WriterThread extends Thread {
 		outs.add(out);
 	}
 
-	public void addMessage(String message) {
+	private void serializeMessage(OutputStream out, Message message) {
+		for (int i = 0; i < outs.size(); i++) {
+			try {
+				ObjectOutputStream ooStream = new ObjectOutputStream(out);
+				ooStream.writeObject(message);
+				ooStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void addMessage(Message message) {
 		messages.add(message);
 	}
 
 	public void writeMessage() throws InterruptedException {
-		String message = messages.take();
+		Message message = messages.take();
 		Iterator<OutputStream> iter = outs.iterator();
 		OutputStream outputStream;
 		while (iter.hasNext()) {
 			outputStream = iter.next();
-			try {
-				writeToStream(message, outputStream);
-			} catch (IOException e) {
-				iter.remove();
-			}
+			serializeMessage(outputStream, message);
 		}
 
-	}
-
-	private void writeToStream(String message, OutputStream outputStream)
-			throws IOException {
-		outputStream.write(message.getBytes());
-		outputStream.write("\n".getBytes());
-		outputStream.flush();
 	}
 
 	public void run() {

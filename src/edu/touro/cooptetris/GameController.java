@@ -33,6 +33,8 @@ public class GameController {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
+		// didn't set xDrop
+		// must initially drop a piece for each player
 		setNextPiece(xDrop);
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
@@ -40,7 +42,7 @@ public class GameController {
 		}
 		currLevel = 1;
 		timer = new DropTimer(400);
-		this.writer=writer;
+		this.writer = writer;
 	}
 
 	public void increaseSpeed() {
@@ -55,7 +57,7 @@ public class GameController {
 		} else {
 			writer.addMessage(new RotateMessage(piece.getPieceID()));
 		}
-		
+
 	}
 
 	public void moveLeft(Piece piece) {
@@ -84,7 +86,7 @@ public class GameController {
 	public void drop(Piece piece) {
 		while (!board.willCollideWithFloorVertical(piece)
 				&& !board.willCollideWithLandedPieceVertical(piece)) {
-			piece.moveDown();			
+			piece.moveDown();
 		}
 		writer.addMessage(new DropMessage(piece.getPieceID()));
 	}
@@ -133,7 +135,6 @@ public class GameController {
 				} else {
 					board.landPiece(p);
 					gameStateListener.onHitFloor();
-					
 					landed = true;
 					removeRow(p);
 				}
@@ -141,7 +142,7 @@ public class GameController {
 			if (landed) {
 				list.clear();
 				if (!board.isFull() && score < 9999) {
-					//addNewPiece();
+					// addNewPiece();
 				} else {
 					endGame();
 				}
@@ -156,11 +157,12 @@ public class GameController {
 		Piece tempPiece = nextPiece;
 		setNextPiece(xDrop);
 		gameStateListener.onNewPiece(tempPiece);
+		// send addNewPieceMessage;
 
 	}
 
 	public void setNextPiece(int xDrop) {
-		//Board.NUM_COLUMNS * Square.SIDE / 2
+		// Board.NUM_COLUMNS * Square.SIDE / 2
 		this.nextPiece = pieceFactory.getNextPiece(xDrop, 0);
 	}
 
@@ -201,10 +203,11 @@ public class GameController {
 		}
 		return null;
 	}
-	
-	
-	public void endGame(){
+
+	public void endGame() {
 		gameStateListener.onGameOver();
+
+		// send endGameMessage
 	}
 
 }
