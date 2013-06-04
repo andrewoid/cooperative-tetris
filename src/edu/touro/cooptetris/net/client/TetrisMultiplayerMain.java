@@ -36,8 +36,9 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
 	private ThemeMusicPlayer themeMusicPlayer;
 	private boolean paused;
-	//private boolean mute;
+	// private boolean mute;
 	private TetrisClient tetrisClient;
+	private Board board;
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
@@ -48,8 +49,9 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 	public TetrisMultiplayerMain(final PiecesAndBoardView gameView,
 			ScoreLevelNextPieceDisplay scoreLevelDisplay,
 			ThemeMusicPlayer themeMusicPlayer,
-			final ClientGameController gameController)
+			final ClientGameController gameController, Board board)
 			throws UnknownHostException, IOException {
+		this.board = board;
 		this.gameController = gameController;
 		gameController.setGameStateListener(this);
 		this.gameView = gameView;
@@ -111,7 +113,7 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 
 	public void setSize() {
 		int height = scoreLevelDisplay.getHeight() + 30, width = 100
-				+ Board.numColumns * Square.SIDE + 15;
+				+ board.getNumColumns() * Square.SIDE + 15;
 		setSize(width, height);
 	}
 

@@ -31,8 +31,10 @@ public class ScoreLevelNextPieceDisplay extends JPanel {
 	private String levelString;
 	private JPanel nextPiece;
 	private Piece piece;
+	private Board board;
 
-	public ScoreLevelNextPieceDisplay() {
+	public ScoreLevelNextPieceDisplay(Board board) {
+		this.board = board;
 		setSize(100, 300);
 		scoreString = "Score: ";
 		levelString = "Level: ";
@@ -112,7 +114,7 @@ public class ScoreLevelNextPieceDisplay extends JPanel {
 				piece.setLocation(35, 0);
 			}
 			piece.drawPiece(g, 0);
-			piece.setLocation(Board.numColumns * Square.SIDE / 2, 0);
+			piece.setLocation(board.getNumColumns() * Square.SIDE / 2, 0);
 		}
 	}
 }

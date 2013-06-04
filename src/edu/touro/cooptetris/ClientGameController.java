@@ -16,6 +16,7 @@ public class ClientGameController {
 	private int score;
 	private int currLevel;
 	private Piece nextPiece;
+	private int playerID;
 
 	@Inject
 	public ClientGameController(Board board, PiecesList list,
@@ -176,6 +177,18 @@ public class ClientGameController {
 
 	public void endGame() {
 		gameStateListener.onGameOver();
+	}
+
+	public void setBoard(Board b) {
+		this.board.copyBoard(b);
+	}
+
+	public int getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
 	}
 
 }

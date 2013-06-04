@@ -10,7 +10,6 @@ import javax.swing.JComponent;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 
-
 public class PiecesAndBoardView extends JComponent {
 
 	private Board board;
@@ -19,16 +18,14 @@ public class PiecesAndBoardView extends JComponent {
 	private PiecesList list;
 	private boolean wasResized;
 	private int playerID;
-	
+
 	public PiecesAndBoardView() {
-
-
-		setSize(Board.numColumns * Square.SIDE + 15, Board.numRows
+		setSize(board.getNumColumns() * Square.SIDE + 15, board.getNumRows()
 				* Square.SIDE);
 		setBorder(BorderFactory.createMatteBorder(0, 7, 0, 7, Color.GREEN));
 		setFocusable(true);
-		wasResized=false;
-		playerID=0;
+		wasResized = false;
+		playerID = 0;
 	}
 
 	@Inject
@@ -36,12 +33,11 @@ public class PiecesAndBoardView extends JComponent {
 		this();
 		this.board = board;
 		this.list = list;
-		wasResized=false;
-		playerID=0;
+		wasResized = false;
+		playerID = 0;
 
 	}
 
-	
 	public int getPlayerID() {
 		return playerID;
 	}
@@ -71,7 +67,7 @@ public class PiecesAndBoardView extends JComponent {
 		board.draw(g);
 
 		for (Piece p : list) {
-			p.drawPiece(g,playerID);
+			p.drawPiece(g, playerID);
 		}
 
 		// repaint();
@@ -80,8 +76,7 @@ public class PiecesAndBoardView extends JComponent {
 
 	private void clearScreen(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Board.numColumns * Square.SIDE + 15, this.getHeight());
+		g.fillRect(0, 0, board.getNumColumns() * Square.SIDE + 15, this.getHeight());
 	}
-
 
 }

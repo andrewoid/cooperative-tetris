@@ -14,8 +14,8 @@ import edu.touro.cooptetris.pieces.Square;
 @Singleton
 public class Board {
 
-	public static int numRows = 20;
-	public static int numColumns = 11;
+	private int numRows = 20;
+	private int numColumns = 11;
 
 	private List<List<Square>> squares;
 
@@ -30,6 +30,24 @@ public class Board {
 			squares.add(row);
 
 		}
+	}
+
+	public int getNumColumns() {
+		return numColumns;
+	}
+
+	public void setNumColumns(int numColumns) {
+		this.numColumns = numColumns;
+	}
+
+	public void setNumRows(int numRows) {
+		this.numRows = numRows;
+	}
+
+	public void copyBoard(Board b) {
+		this.numColumns = b.numColumns;
+		this.numRows = b.numRows;
+		this.squares = b.squares;
 	}
 
 	public void removeAll() {

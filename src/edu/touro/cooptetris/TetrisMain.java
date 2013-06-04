@@ -41,7 +41,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	public TetrisMain(final PiecesAndBoardView gameView,
 			ScoreLevelNextPieceDisplay scoreLevelDisplay,
 			ThemeMusicPlayer themeMusicPlayer,
-			final GameController gameController) {
+			final GameController gameController, Board board) {
 		this.gameController = gameController;
 		this.keyboardListener = new KeyboardListener(gameController.getBoard());
 		this.scoreLevelDisplay = scoreLevelDisplay;
@@ -50,10 +50,10 @@ public class TetrisMain extends JFrame implements GameStateListener {
 		this.themeMusicPlayer = themeMusicPlayer;
 
 		gameController.setGameStateListener(this);
-		//gameController.addNewPiece();
+		// gameController.addNewPiece();
 		scoreLevelDisplay.setPiece(gameController.getNextPiece());
-		int height = scoreLevelDisplay.getHeight() + 30, width = 100
-				+ Board.numColumns * Square.SIDE + 15;
+		int height = scoreLevelDisplay.getHeight() + 30;
+		int width = 100 + board.getNumColumns() * Square.SIDE + 15;
 		setLocationRelativeTo(getRootPane());
 		setResizable(false);
 		setTitle("Single Player Tetris");

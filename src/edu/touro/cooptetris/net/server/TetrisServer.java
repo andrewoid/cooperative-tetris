@@ -30,6 +30,7 @@ public class TetrisServer {
 		writer = new WriterThread();
 		this.gameController = gameController;
 	}
+	
 
 	public void runServer() {
 
