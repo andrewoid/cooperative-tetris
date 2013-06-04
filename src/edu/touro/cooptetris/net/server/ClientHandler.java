@@ -16,6 +16,7 @@ public class ClientHandler extends Thread {
 	public ClientHandler(Socket socket, GameController gameController)
 			throws IOException {
 		in = socket.getInputStream();
+		this.gameController=gameController;
 
 	}
 
