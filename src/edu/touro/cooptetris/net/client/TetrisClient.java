@@ -16,11 +16,11 @@ public class TetrisClient {
 	private ReaderThread readerThread;
 	private int playerID;
 
-	public TetrisClient(ClientGameController gameController, int playerID)
+	public TetrisClient(ClientGameController gameController)
 			throws UnknownHostException, IOException {
 		initializeClient();
 		this.gameController = gameController;
-		this.playerID = playerID;
+		// here readerthread should send newplayermessage
 		readerThread.start();
 
 	}

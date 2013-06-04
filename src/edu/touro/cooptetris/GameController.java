@@ -37,7 +37,8 @@ public class GameController {
 		this.pieceFactory = pieceFactory;
 		// didn't set xDrop
 		// must initially drop a piece for each player
-		setNextPiece(xDrop);
+		playerList = new ArrayList<Player>();
+
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
@@ -45,7 +46,7 @@ public class GameController {
 		currLevel = 1;
 		timer = new DropTimer(400);
 		this.writer = writer;
-		playerList = new ArrayList<Player>();
+
 	}
 
 	public void increaseSpeed() {
@@ -64,7 +65,9 @@ public class GameController {
 	}
 
 	public void addPlayer(Player p) {
+
 		playerList.add(p);
+		setNextPiece(p.getxDrop(), p.getPlayerID());
 	}
 
 	public void moveLeft(Piece piece) {
@@ -158,19 +161,19 @@ public class GameController {
 		}
 	}
 
-	public void addNewPiece(int xDrop) {
+	public void addNewPiece(int xDrop, int playerID) {
 
 		list.add(nextPiece);
 		Piece tempPiece = nextPiece;
-		setNextPiece(xDrop);
+		setNextPiece(xDrop, playerID);
 		gameStateListener.onNewPiece(tempPiece);
 		// send addNewPieceMessage;
 
 	}
 
-	public void setNextPiece(int xDrop) {
+	public void setNextPiece(int xDrop, int playerID) {
 		// Board.NUM_COLUMNS * Square.SIDE / 2
-		this.nextPiece = pieceFactory.getNextPiece(xDrop, 0);
+		this.nextPiece = pieceFactory.getNextPiece(xDrop, 0, playerID);
 	}
 
 	public Piece getNextPiece() {
