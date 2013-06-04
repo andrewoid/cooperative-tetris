@@ -24,8 +24,8 @@ public class PieceFactory {
 	@Inject
 	public PieceFactory(PieceIDGenerator pieceIDGenerator) {
 		random = new Random();
-		nextPiece = getRandomPiece(0, 0, 0); // what should playerID be?
 		this.pieceIDGenerator = pieceIDGenerator;
+		nextPiece = getRandomPiece(0, 0,0);// what should player id be?
 	}
 
 	public Piece getNextPiece(int x, int y, int playerID) {
