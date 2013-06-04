@@ -14,12 +14,17 @@ public class TetrisClient {
 	private ObjectOutputStream objectOut;
 	private ClientGameController gameController;
 	private ReaderThread readerThread;
+	private int playerID;
 	
-	public TetrisClient(ClientGameController gameController)throws UnknownHostException, IOException{
+	public TetrisClient(ClientGameController gameController, int playerID)throws UnknownHostException, IOException{
 		initializeClient();
 		this.gameController = gameController;
-		
+		this.playerID=playerID;
 		readerThread.start();
+	}
+
+	public int getPlayerID() {
+		return playerID;
 	}
 
 	private void initializeClient() throws UnknownHostException, IOException {

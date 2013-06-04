@@ -54,6 +54,7 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		gameController.setGameStateListener(this);
 		this.gameView = gameView;
 		this.tetrisClient = new TetrisClient(gameController);
+		this.gameView.setPlayerID(this.tetrisClient.getPlayerID());
 		this.keyboardListener = new MultiplayerKeyboardListener(tetrisClient);
 		this.scoreLevelDisplay = scoreLevelDisplay;
 		this.gameView.addKeyListener(keyboardListener);

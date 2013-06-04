@@ -82,5 +82,11 @@ public class Square {
 		g.setColor(Color.BLACK);
 		g.drawRect(x, y, SIDE, SIDE);
 	}
+	public void drawBorderSquare(Graphics g){
+		g.setColor(color);
+		g.fillRect(x, y, SIDE, SIDE);
+		g.setColor(Color.lightGray);
+		g.drawRect(x, y, SIDE, SIDE);
+	}
 
 }
