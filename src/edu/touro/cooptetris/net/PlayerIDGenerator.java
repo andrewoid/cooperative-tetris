@@ -1,4 +1,4 @@
-package edu.touro.cooptetris.net.message;
+package edu.touro.cooptetris.net;
 
 import com.google.inject.Singleton;
 

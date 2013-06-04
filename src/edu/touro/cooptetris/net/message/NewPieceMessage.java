@@ -6,6 +6,7 @@ import edu.touro.cooptetris.pieces.Piece;
 
 public class NewPieceMessage implements Message {
 
+	private static final long serialVersionUID = 1L;
 	private Piece piece;
 
 	public NewPieceMessage(Piece piece) {
