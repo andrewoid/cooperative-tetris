@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import edu.touro.cooptetris.net.message.DropMessage;
-import edu.touro.cooptetris.net.message.MoveDownMessage;
+import edu.touro.cooptetris.net.Player;
+import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
 import edu.touro.cooptetris.net.message.RemoveRowMessage;
 import edu.touro.cooptetris.net.message.RotateMessage;
+import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.net.server.WriterThread;
 import edu.touro.cooptetris.pieces.Piece;
 
@@ -26,6 +27,7 @@ public class GameController {
 	private Piece nextPiece;
 	private int xDrop;
 	private WriterThread writer;
+	private ArrayList<Player> playerList;
 
 	@Inject
 	public GameController(Board board, PiecesList list,
@@ -43,6 +45,7 @@ public class GameController {
 		currLevel = 1;
 		timer = new DropTimer(400);
 		this.writer = writer;
+		playerList = new ArrayList<Player>();
 	}
 
 	public void increaseSpeed() {
@@ -60,6 +63,10 @@ public class GameController {
 
 	}
 
+	public void addPlayer(Player p) {
+		playerList.add(p);
+	}
+
 	public void moveLeft(Piece piece) {
 		if (!board.willCollideWithFloorLeft(piece)) {
 			piece.moveLeft();
@@ -71,7 +78,7 @@ public class GameController {
 		if (!board.willCollideWithFloorVertical(piece)
 				&& !board.willCollideWithLandedPieceVertical(piece)) {
 			piece.moveDown();
-			writer.addMessage(new MoveDownMessage(piece.getPieceID()));
+			writer.addMessage(new SoftDropMessage(piece.getPieceID()));
 		}
 
 	}
@@ -88,7 +95,7 @@ public class GameController {
 				&& !board.willCollideWithLandedPieceVertical(piece)) {
 			piece.moveDown();
 		}
-		writer.addMessage(new DropMessage(piece.getPieceID()));
+		writer.addMessage(new HardDropMessage(piece.getPieceID()));
 	}
 
 	public void lineCompleted(int numLines) {
@@ -131,7 +138,7 @@ public class GameController {
 				if (!board.willCollideWithFloorVertical(p)
 						&& !board.willCollideWithLandedPieceVertical(p)) {
 					p.moveDown();
-					writer.addMessage(new MoveDownMessage(p.getPieceID()));
+					writer.addMessage(new SoftDropMessage(p.getPieceID()));
 				} else {
 					board.landPiece(p);
 					gameStateListener.onHitFloor();

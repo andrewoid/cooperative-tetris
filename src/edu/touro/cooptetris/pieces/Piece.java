@@ -8,6 +8,7 @@ public abstract class Piece {
 	protected Square[] squares;
 	protected Square center;
 	private int pieceID;
+	private int playerID;
 
 	public Square getCenter() {
 		return center;
@@ -20,16 +21,17 @@ public abstract class Piece {
 			piece.squares[i] = new Square(0, 0, Color.BLACK);
 		}
 		pieceID = piece.getPieceID();
+		playerID = piece.getPlayerID();
 
 	}
 
-	public Piece(int pieceID) {
+	public Piece(int pieceID, int playerID) {
 		squares = new Square[4];
 
 		for (int i = 0; i < 4; i++) {
 			squares[i] = new Square(0, 0, Color.BLACK);
 		}
-
+		this.playerID = playerID;
 		this.pieceID = pieceID;
 	}
 
@@ -47,7 +49,7 @@ public abstract class Piece {
 	}
 
 	public void drawPiece(Graphics g, int playerID) {
-		if (this.pieceID == playerID) {
+		if (this.playerID == playerID) {
 			for (Square s : squares) {
 				s.drawBorderSquare(g);
 			}
@@ -119,4 +121,12 @@ public abstract class Piece {
 	}
 
 	public abstract void setLocation(int x, int y);
+
+	public int getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
 }

@@ -1,9 +1,15 @@
-package edu.touro.cooptetris;
+package edu.touro.cooptetris.net.client;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import edu.touro.cooptetris.Board;
+import edu.touro.cooptetris.DropTimer;
+import edu.touro.cooptetris.GameStateListener;
+import edu.touro.cooptetris.Level;
+import edu.touro.cooptetris.PieceFactory;
+import edu.touro.cooptetris.PiecesList;
 import edu.touro.cooptetris.pieces.Piece;
 
 public class ClientGameController {
@@ -32,6 +38,10 @@ public class ClientGameController {
 		currLevel = 1;
 		timer = new DropTimer(400);
 		// score = 90;
+	}
+
+	public void dropAll() {
+
 	}
 
 	public void increaseSpeed() {

@@ -2,24 +2,18 @@ package edu.touro.cooptetris.net.message;
 
 import edu.touro.cooptetris.GameController;
 import edu.touro.cooptetris.net.client.ClientGameController;
-import edu.touro.cooptetris.pieces.Piece;
 
-public class NewPieceMessage implements Message {
-
+public class SoftDropAllMessage implements Message {
 	private static final long serialVersionUID = 1L;
-	private Piece piece;
-
-	public NewPieceMessage(Piece piece) {
-		this.piece = piece;
-	}
 
 	@Override
 	public void handleByClient(ClientGameController gameController) {
-		gameController.addNewPiece(piece);
+		gameController.dropAll();
 	}
 
 	@Override
 	public void handleByServer(GameController gameController) {
+		// TODO Auto-generated method stub
 
 	}
 

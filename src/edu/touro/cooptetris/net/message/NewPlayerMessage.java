@@ -1,24 +1,25 @@
 package edu.touro.cooptetris.net.message;
 
-import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.net.client.ClientGameController;
 
 public class NewPlayerMessage implements Message {
 
 	private static final long serialVersionUID = 1L;
 
-	//public NewPlayerMessage(String playerName, int playerID) {
-	//	Player player=new Player(playerID, playerName);
-	//}
+	// public NewPlayerMessage(String playerName, int playerID) {
+	// Player player=new Player(playerID, playerName);
+	// }
 
 	@Override
 	public void handleByClient(ClientGameController gameController) {
-		
+		// make board bigger
+
 	}
 
 	@Override
 	public void handleByServer(GameController gameController) {
-		
+
 	}
-	
+
 }

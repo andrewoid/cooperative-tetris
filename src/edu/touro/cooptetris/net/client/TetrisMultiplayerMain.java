@@ -15,7 +15,6 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 
 import edu.touro.cooptetris.Board;
-import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.PiecesAndBoardView;
 import edu.touro.cooptetris.ScoreLevelNextPieceDisplay;
