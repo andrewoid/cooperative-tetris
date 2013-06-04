@@ -34,7 +34,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new Module[0]);
-		injector.getInstance(TetrisMain.class);
+		TetrisMain main = injector.getInstance(TetrisMain.class);
 	}
 
 	@Inject

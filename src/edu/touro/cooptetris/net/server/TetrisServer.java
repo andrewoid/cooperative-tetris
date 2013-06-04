@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.inject.Inject;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+
 import edu.touro.cooptetris.GameController;
 
 public class TetrisServer {
@@ -13,6 +19,7 @@ public class TetrisServer {
 	private GameController gameController;
 	private WriterThread writer;
 
+	@Inject
 	public TetrisServer(GameController gameController) {
 		try {
 			server = new ServerSocket(8080);
@@ -40,5 +47,8 @@ public class TetrisServer {
 	}
 
 	public static void main(String[] args) throws IOException {
+		Injector injector = Guice.createInjector(new Module[0]);
+		TetrisServer server = injector.getInstance(TetrisServer.class);
+		server.runServer();
 	}
 }
