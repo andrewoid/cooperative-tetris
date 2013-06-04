@@ -190,8 +190,13 @@ public class ClientGameController {
 	}
 
 	public int getPlayerID() {
-		// TODO Auto-generated method stub
-		return 0;
+		return playerID;
 	}
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+
+	
 
 }
