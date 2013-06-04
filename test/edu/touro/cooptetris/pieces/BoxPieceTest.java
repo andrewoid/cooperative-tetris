@@ -8,7 +8,7 @@ public class BoxPieceTest {
 
 	@Test
 	public void TestInitalPosition() {
-		BoxPiece aBoxPiece = new BoxPiece(0, 0, 1);
+		BoxPiece aBoxPiece = new BoxPiece(0, 0, 1, 0);
 		Square[] squares = aBoxPiece.getSquares();
 
 		Assert.assertEquals(0, squares[0].getX());

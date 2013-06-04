@@ -135,7 +135,6 @@ public class GameController {
 
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
-
 			for (Piece p : list) {
 
 				if (!board.willCollideWithFloorVertical(p)
@@ -148,16 +147,24 @@ public class GameController {
 					landed = true;
 					removeRow(p);
 				}
-			}
-			if (landed) {
-				list.clear();
-				if (!board.isFull() && score < 9999) {
-					// addNewPiece();
-				} else {
-					endGame();
+
+				if (landed) {
+					list.clear();
+					if (!board.isFull() && score < 9999) {
+
+						for (Player player : playerList) {
+							if (player.getPlayerID() == p.getPlayerID()) {
+								addNewPiece(player.getxDrop(),
+										player.getPlayerID());
+								break;
+							}
+						}
+
+					} else {
+						endGame();
+					}
 				}
 			}
-
 		}
 	}
 

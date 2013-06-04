@@ -8,7 +8,7 @@ public class SPieceTest {
 
 	@Test
 	public void testSPiece() {
-		SPiece piece = new SPiece(0, 0, 1);
+		SPiece piece = new SPiece(0, 0, 1, 0);
 		Square[] squares = piece.getSquares();
 		assertEquals(squares[0].getX(), 0);
 		assertEquals(squares[0].getY(), 0);

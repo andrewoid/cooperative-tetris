@@ -43,7 +43,7 @@ public class BoardTest {
 	}
 
 	private LinePiece givenLinePiece() {
-		LinePiece linePiece = new LinePiece(15, 16 * Square.SIDE, 1);
+		LinePiece linePiece = new LinePiece(15, 16 * Square.SIDE, 1, 0);
 		return linePiece;
 	}
 
@@ -102,7 +102,7 @@ public class BoardTest {
 
 		givenLinePiece();
 
-		LinePiece SecondLinePiece = new LinePiece(30, 10, 1);
+		LinePiece SecondLinePiece = new LinePiece(30, 10, 1, 0);
 		board.landPiece(SecondLinePiece);
 
 		// assertTrue(board.willCollideWithFloorRight(linePiece));
