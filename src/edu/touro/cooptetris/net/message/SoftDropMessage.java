@@ -1,15 +1,15 @@
 package edu.touro.cooptetris.net.message;
 
-import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.net.client.ClientGameController;
 import edu.touro.cooptetris.pieces.Piece;
 
-public class MoveDownMessage implements Message{
+public class SoftDropMessage implements Message{
 
 	private static final long serialVersionUID = 1L;
 	private int pieceID;
 
-	public MoveDownMessage(int pieceID) {
+	public SoftDropMessage(int pieceID) {
 		this.pieceID = pieceID;
 	}
 

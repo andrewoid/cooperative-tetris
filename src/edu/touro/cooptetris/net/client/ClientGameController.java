@@ -1,51 +1,47 @@
-package edu.touro.cooptetris;
+package edu.touro.cooptetris.net.client;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import edu.touro.cooptetris.net.Player;
-import edu.touro.cooptetris.net.message.HardDropMessage;
-import edu.touro.cooptetris.net.message.MoveLeftMessage;
-import edu.touro.cooptetris.net.message.MoveRightMessage;
-import edu.touro.cooptetris.net.message.RemoveRowMessage;
-import edu.touro.cooptetris.net.message.RotateMessage;
-import edu.touro.cooptetris.net.message.SoftDropMessage;
-import edu.touro.cooptetris.net.server.WriterThread;
+import edu.touro.cooptetris.Board;
+import edu.touro.cooptetris.DropTimer;
+import edu.touro.cooptetris.GameStateListener;
+import edu.touro.cooptetris.Level;
+import edu.touro.cooptetris.PieceFactory;
+import edu.touro.cooptetris.PiecesList;
 import edu.touro.cooptetris.pieces.Piece;
 
-public class GameController {
+public class ClientGameController {
 
 	private Board board;
 	private PiecesList list;
-	private PieceFactory pieceFactory;
 	private GameStateListener gameStateListener;
 	private DropTimer timer;
 	private ArrayList<Level> levels;
 	private int score;
 	private int currLevel;
 	private Piece nextPiece;
-	private int xDrop;
-	private WriterThread writer;
-	private ArrayList<Player> playerList;
 
 	@Inject
-	public GameController(Board board, PiecesList list,
-			PieceFactory pieceFactory, WriterThread writer) {
+	public ClientGameController(Board board, PiecesList list,
+			PieceFactory pieceFactory) {
 		this.board = board;
 		this.list = list;
-		this.pieceFactory = pieceFactory;
-		// didn't set xDrop
-		// must initially drop a piece for each player
-		setNextPiece(xDrop);
+		// look below!!! For errors!!
+		setNextPiece(nextPiece);
+		// look above!!
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new Level(i, 1000 - (i * 100)));
 		}
 		currLevel = 1;
 		timer = new DropTimer(400);
-		this.writer = writer;
-		playerList = new ArrayList<Player>();
+		// score = 90;
+	}
+
+	public void dropAll() {
+
 	}
 
 	public void increaseSpeed() {
@@ -58,19 +54,13 @@ public class GameController {
 		if (!board.onBoard(piece) || board.collidedWithPiece(piece)) {
 			piece.unrotate();
 		} else {
-			writer.addMessage(new RotateMessage(piece.getPieceID()));
+			gameStateListener.onRotate();
 		}
-
-	}
-
-	public void addPlayer(Player p) {
-		playerList.add(p);
 	}
 
 	public void moveLeft(Piece piece) {
 		if (!board.willCollideWithFloorLeft(piece)) {
 			piece.moveLeft();
-			writer.addMessage(new MoveLeftMessage(piece.getPieceID()));
 		}
 	}
 
@@ -78,7 +68,6 @@ public class GameController {
 		if (!board.willCollideWithFloorVertical(piece)
 				&& !board.willCollideWithLandedPieceVertical(piece)) {
 			piece.moveDown();
-			writer.addMessage(new SoftDropMessage(piece.getPieceID()));
 		}
 
 	}
@@ -86,7 +75,6 @@ public class GameController {
 	public void moveRight(Piece piece) {
 		if (!board.willCollideWithFloorRight(piece)) {
 			piece.moveRight();
-			writer.addMessage(new MoveRightMessage(piece.getPieceID()));
 		}
 	}
 
@@ -95,7 +83,6 @@ public class GameController {
 				&& !board.willCollideWithLandedPieceVertical(piece)) {
 			piece.moveDown();
 		}
-		writer.addMessage(new HardDropMessage(piece.getPieceID()));
 	}
 
 	public void lineCompleted(int numLines) {
@@ -125,52 +112,38 @@ public class GameController {
 		if (numRows > 0) {
 			gameStateListener.onCompleteLine(numRows);
 		}
-		writer.addMessage(new RemoveRowMessage(p.getPieceID()));
 	}
 
-	public void movePieces() {
+	/*
+	 * public void movePieces() {
+	 * 
+	 * if (timer.isTimeToDrop()) { boolean landed = false;
+	 * 
+	 * for (Piece p : list) {
+	 * 
+	 * if (!board.willCollideWithFloorVertical(p) &&
+	 * !board.willCollideWithLandedPieceVertical(p)) { p.moveDown(); } else {
+	 * board.landPiece(p); gameStateListener.onHitFloor(); int numRows =
+	 * board.checkFullRowsOfPiece(p); landed = true; if (numRows > 0) {
+	 * gameStateListener.onCompleteLine(numRows); } } } if (landed) {
+	 * list.clear(); if (!board.isFull() && score < 9999) { //addNewPiece(); }
+	 * else { endGame(); } }
+	 * 
+	 * } }
+	 */
 
-		if (timer.isTimeToDrop()) {
-			boolean landed = false;
+	public void addNewPiece(Piece nextPiece) {
 
-			for (Piece p : list) {
-
-				if (!board.willCollideWithFloorVertical(p)
-						&& !board.willCollideWithLandedPieceVertical(p)) {
-					p.moveDown();
-					writer.addMessage(new SoftDropMessage(p.getPieceID()));
-				} else {
-					board.landPiece(p);
-					gameStateListener.onHitFloor();
-					landed = true;
-					removeRow(p);
-				}
-			}
-			if (landed) {
-				list.clear();
-				if (!board.isFull() && score < 9999) {
-					// addNewPiece();
-				} else {
-					endGame();
-				}
-			}
-
-		}
-	}
-
-	public void addNewPiece(int xDrop) {
-
-		list.add(nextPiece);
+		list.add(this.nextPiece);
 		Piece tempPiece = nextPiece;
-		setNextPiece(xDrop);
+		setNextPiece(nextPiece);
 		gameStateListener.onNewPiece(tempPiece);
-		// send addNewPieceMessage;
 
 	}
 
-	public void setNextPiece(int xDrop) {
+	public void setNextPiece(Piece nextPiece) {
 		// Board.NUM_COLUMNS * Square.SIDE / 2
-		this.nextPiece = pieceFactory.getNextPiece(xDrop, 0);
+		this.nextPiece = nextPiece;
 	}
 
 	public Piece getNextPiece() {
@@ -213,8 +186,6 @@ public class GameController {
 
 	public void endGame() {
 		gameStateListener.onGameOver();
-
-		// send endGameMessage
 	}
 
 }

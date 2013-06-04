@@ -4,17 +4,19 @@ import java.awt.Color;
 
 public class TPiece extends Piece {
 
-	public TPiece(int x, int y, int pieceID) {
-		super(pieceID);
-		setLocation(x,y);
+	public TPiece(int x, int y, int pieceID, int playerID) {
+		super(pieceID, playerID);
+
+		setLocation(x, y);
 		for (Square square : squares) {
 			square.setColor(Color.YELLOW);
 		}
-		
+
 		center = squares[1];
 	}
 
-	public void setLocation(int x, int y){
+	@Override
+	public void setLocation(int x, int y) {
 		for (int i = 0; i < 3; i++) {
 			Square s = squares[i];
 			s.setX(i * Square.SIDE + x);

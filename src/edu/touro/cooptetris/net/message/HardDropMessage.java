@@ -1,15 +1,15 @@
 package edu.touro.cooptetris.net.message;
 
-import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.net.client.ClientGameController;
 import edu.touro.cooptetris.pieces.Piece;
 
-public class DropMessage implements Message {
+public class HardDropMessage implements Message {
 
 	private static final long serialVersionUID = 1L;
 	private int pieceID;
 
-	public DropMessage(int pieceID) {
+	public HardDropMessage(int pieceID) {
 		this.pieceID = pieceID;
 	}
 

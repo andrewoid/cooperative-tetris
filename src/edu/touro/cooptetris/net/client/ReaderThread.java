@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import edu.touro.cooptetris.ClientGameController;
 import edu.touro.cooptetris.net.message.Message;
 
 public class ReaderThread extends Thread {

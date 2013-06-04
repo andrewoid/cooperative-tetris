@@ -25,14 +25,14 @@ public class PieceFactory {
 	public PieceFactory(PieceIDGenerator pieceIDGenerator) {
 		random = new Random();
 		this.pieceIDGenerator = pieceIDGenerator;
-		nextPiece = getRandomPiece(0, 0);
+		nextPiece = getRandomPiece(0, 0,0);// what should player id be?
 	}
 
-	public Piece getNextPiece(int x, int y) {
+	public Piece getNextPiece(int x, int y, int playerID) {
 		Piece tempPiece = nextPiece;
 		tempPiece.setLocation(x, y);
 
-		nextPiece = getRandomPiece(0, 0);
+		nextPiece = getRandomPiece(0, 0, playerID);
 		return tempPiece;
 	}
 
@@ -40,24 +40,30 @@ public class PieceFactory {
 		return nextPiece;
 	}
 
-	private Piece getRandomPiece(int x, int y) {
+	private Piece getRandomPiece(int x, int y, int playerID) {
 		int r = random.nextInt(7);
 		switch (r) {
 		case 0:
 			return new BoxPiece(x, y - 2 * Square.SIDE,
-					pieceIDGenerator.getNextPieceID());
+					pieceIDGenerator.getNextPieceID(), playerID);
 		case 1:
-			return new JPiece(x, y - 3 * Square.SIDE, pieceIDGenerator.getNextPieceID());
+			return new JPiece(x, y - 3 * Square.SIDE,
+					pieceIDGenerator.getNextPieceID(), playerID);
 		case 2:
-			return new LPiece(x, y - 3 * Square.SIDE, pieceIDGenerator.getNextPieceID());
+			return new LPiece(x, y - 3 * Square.SIDE,
+					pieceIDGenerator.getNextPieceID(), playerID);
 		case 3:
-			return new SPiece(x, y - 2 * Square.SIDE, pieceIDGenerator.getNextPieceID());
+			return new SPiece(x, y - 2 * Square.SIDE,
+					pieceIDGenerator.getNextPieceID(), playerID);
 		case 4:
-			return new TPiece(x, y - 2 * Square.SIDE, pieceIDGenerator.getNextPieceID());
+			return new TPiece(x, y - 2 * Square.SIDE,
+					pieceIDGenerator.getNextPieceID(), playerID);
 		case 5:
-			return new ZPiece(x, y - 2 * Square.SIDE, pieceIDGenerator.getNextPieceID());
+			return new ZPiece(x, y - 2 * Square.SIDE,
+					pieceIDGenerator.getNextPieceID(), playerID);
 		case 6:
-			return new LinePiece(x, y - 4 * Square.SIDE, pieceIDGenerator.getNextPieceID());
+			return new LinePiece(x, y - 4 * Square.SIDE,
+					pieceIDGenerator.getNextPieceID(), playerID);
 		}
 		throw new IllegalStateException("Piece not found");
 	}

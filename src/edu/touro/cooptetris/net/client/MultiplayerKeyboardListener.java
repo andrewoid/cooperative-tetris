@@ -5,8 +5,8 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import edu.touro.cooptetris.GameStateListener;
-import edu.touro.cooptetris.net.message.DropMessage;
-import edu.touro.cooptetris.net.message.MoveDownMessage;
+import edu.touro.cooptetris.net.message.HardDropMessage;
+import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
 import edu.touro.cooptetris.net.message.RotateMessage;
@@ -66,14 +66,14 @@ public class MultiplayerKeyboardListener implements KeyListener {
 			case KeyEvent.VK_KP_DOWN:
 			case KeyEvent.VK_S:
 				try {
-					tetrisClient.send(new MoveDownMessage(piece.getPieceID()));
+					tetrisClient.send(new SoftDropMessage(piece.getPieceID()));
 				} catch (IOException io) {
 					io.printStackTrace();
 				}
 				break;
 			case KeyEvent.VK_SPACE:
 				try {
-					tetrisClient.send(new DropMessage(piece.getPieceID()));
+					tetrisClient.send(new HardDropMessage(piece.getPieceID()));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
