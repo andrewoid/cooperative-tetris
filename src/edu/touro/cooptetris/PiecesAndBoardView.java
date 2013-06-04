@@ -18,7 +18,8 @@ public class PiecesAndBoardView extends JComponent {
 	private static final long serialVersionUID = 1L;
 	private PiecesList list;
 	private boolean wasResized;
-
+	private int playerID;
+	
 	public PiecesAndBoardView() {
 
 
@@ -27,6 +28,7 @@ public class PiecesAndBoardView extends JComponent {
 		setBorder(BorderFactory.createMatteBorder(0, 7, 0, 7, Color.GREEN));
 		setFocusable(true);
 		wasResized=false;
+		playerID=0;
 	}
 
 	@Inject
@@ -35,10 +37,19 @@ public class PiecesAndBoardView extends JComponent {
 		this.board = board;
 		this.list = list;
 		wasResized=false;
+		playerID=0;
 
 	}
 
 	
+	public int getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+
 	public boolean getWasResized() {
 		return wasResized;
 	}
@@ -60,7 +71,7 @@ public class PiecesAndBoardView extends JComponent {
 		board.draw(g);
 
 		for (Piece p : list) {
-			p.drawPiece(g);
+			p.drawPiece(g,playerID);
 		}
 
 		// repaint();
