@@ -23,6 +23,7 @@ public class ClientGameController {
 	private int score;
 	private int currLevel;
 	private Piece nextPiece;
+	private int playerID;
 	private HashMap<Integer, Piece> activePieces;
 
 	@Inject
@@ -196,5 +197,15 @@ public class ClientGameController {
 	public void endGame() {
 		gameStateListener.onGameOver();
 	}
+
+	public int getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+
+	
 
 }
