@@ -4,13 +4,11 @@ public class Player {
 
 	private int playerID;
 	private int xDrop;
-	private String name;
 	
 	
-	public Player(int playerID, int xDrop, String name) {
+	public Player(int playerID, int xDrop) {
 		this.playerID = playerID;
 		this.xDrop = xDrop;
-		this.name = name;
 	}
 	public int getPlayerID() {
 		return playerID;

@@ -11,11 +11,11 @@ public class PlayerIDGenerator {
 		currPlayerID = 0;
 	}
 
-	public int getNextPieceID() {
+	public int getNextPlayerID() {
 		return currPlayerID++;
 	}
 
-	public void resetPieceID() {
+	public void resetPlayerID() {
 		currPlayerID = 0;
 	}
 

@@ -11,11 +11,13 @@ import edu.touro.cooptetris.Level;
 import edu.touro.cooptetris.PieceFactory;
 import edu.touro.cooptetris.PiecesList;
 import edu.touro.cooptetris.net.Player;
+import edu.touro.cooptetris.net.PlayerIDGenerator;
 import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
 import edu.touro.cooptetris.net.message.RemoveRowMessage;
 import edu.touro.cooptetris.net.message.RotateMessage;
+import edu.touro.cooptetris.net.message.SetUpPlayerMessage;
 import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.pieces.Piece;
 
@@ -33,10 +35,12 @@ public class ServerGameController {
 	private int xDrop;
 	private WriterThread writer;
 	private ArrayList<Player> playerList;
+	private PlayerIDGenerator playerIDGenerator;
 
 	@Inject
 	public ServerGameController(Board board, PiecesList list,
-			PieceFactory pieceFactory, WriterThread writer) {
+			PieceFactory pieceFactory, WriterThread writer,
+			PlayerIDGenerator playerIDGenerator) {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
@@ -51,6 +55,7 @@ public class ServerGameController {
 		currLevel = 1;
 		timer = new DropTimer(400);
 		this.writer = writer;
+		this.playerIDGenerator=playerIDGenerator;
 
 	}
 
@@ -226,6 +231,11 @@ public class ServerGameController {
 		return null;
 	}
 
+	public void addPlayer(){
+		Player p=new Player(playerIDGenerator.getNextPlayerID(),0);
+		playerList.add(p);
+		writer.addMessage(new SetUpPlayerMessage(board,p.getPlayerID()));
+	}
 	public void endGame() {
 		gameStateListener.onGameOver();
 
