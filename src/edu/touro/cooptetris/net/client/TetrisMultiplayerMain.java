@@ -77,19 +77,14 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		setVisible(true);
 		themeMusicPlayer.play();
 
-		new Thread() {
-			@Override
-			public void run() {
-				while (true) {
-					gameView.repaint();
-					if (gameView.getWasResized()) {
-						setSize();
-						gameView.setWasResized(false);
-					}
-					gameController.movePieces();
-				}
-			}
-		}.start();
+		/*
+		 * new Thread() {
+		 * 
+		 * @Override public void run() { while (true) { gameView.repaint(); if
+		 * (gameView.getWasResized()) { setSize();
+		 * gameView.setWasResized(false); } gameController.movePieces(); } }
+		 * }.start();
+		 */
 
 	}
 

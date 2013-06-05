@@ -10,12 +10,14 @@ public class ReaderThread extends Thread {
 
 	private ObjectInputStream objectIn;
 	private ClientGameController gameController;
-	
-	public ReaderThread(Socket socket, ClientGameController gameController) throws IOException {
+
+	public ReaderThread(Socket socket, ClientGameController gameController)
+			throws IOException {
 		objectIn = new ObjectInputStream(socket.getInputStream());
 		this.gameController = gameController;
 	}
 
+	@Override
 	public void run() {
 
 		while (true) {
@@ -23,13 +25,14 @@ public class ReaderThread extends Thread {
 			try {
 				message = (Message) objectIn.readObject();
 				message.handleByClient(gameController);
+
 			} catch (IOException e) {
 
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 
 				e.printStackTrace();
-			} 
+			}
 		}
 	}
 
