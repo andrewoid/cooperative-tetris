@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -15,8 +14,8 @@ import edu.touro.cooptetris.net.message.Message;
 @Singleton
 public class WriterThread extends Thread {
 
-	private LinkedBlockingQueue<Message> messages;
-	private LinkedList<ObjectOutputStream> outs;
+	private final LinkedBlockingQueue<Message>		messages;
+	private final LinkedList<ObjectOutputStream>	outs;
 
 	// DataOutputStream
 
@@ -25,60 +24,42 @@ public class WriterThread extends Thread {
 		outs = new LinkedList<ObjectOutputStream>();
 	}
 
-	public void addSocket(Socket socket) throws IOException {
-		OutputStream out = socket.getOutputStream();
+	public void addSocket(final Socket socket) throws IOException {
+		final OutputStream out = socket.getOutputStream();
 		outs.add(new ObjectOutputStream(out));
 	}
 
-<<<<<<< OURS
-	private void serializeMessage(ObjectOutputStream out, Message message) {
-		try {
-			out.writeObject(message);
-			System.out.println("after write object");
-			out.flush();
-			System.out.println("after flush");
-		} catch (IOException e) {
-			e.printStackTrace();
-=======
-	private void serializeMessage(Message message) {
-		for (ObjectOutputStream out : outs) {
+	private void serializeMessage(final Message message) {
+		for (final ObjectOutputStream out : outs) {
 			try {
 				out.writeObject(message);
 				out.flush();
-			} catch (IOException e) {
+			}
+			catch (final IOException e) {
 				e.printStackTrace();
 			}
->>>>>>> THEIRS
 		}
 	}
 
-	public void addMessage(Message message) {
+	public void addMessage(final Message message) {
 		messages.add(message);
 		System.out.println("got message 1");
 	}
 
 	public void writeMessage() throws InterruptedException {
 		System.out.println("Taking a message?");
-		Message message = messages.take();
-<<<<<<< OURS
-		System.out.println("in write message");
-		Iterator<ObjectOutputStream> iter = outs.iterator();
-		ObjectOutputStream outputStream;
-		while (iter.hasNext()) {
-			outputStream = iter.next();
-			serializeMessage(outputStream, message);
-		}
-
-=======
+		final Message message = messages.take();
+		System.out.println("Took message");
 		serializeMessage(message);
->>>>>>> THEIRS
 	}
 
+	@Override
 	public void run() {
 		while (true) {
 			try {
 				writeMessage();
-			} catch (InterruptedException e) {
+			}
+			catch (final InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
