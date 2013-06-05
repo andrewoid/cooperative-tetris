@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import edu.touro.cooptetris.net.Player;
+import edu.touro.cooptetris.net.PlayerIDGenerator;
 import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
@@ -14,7 +15,7 @@ import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.net.server.WriterThread;
 import edu.touro.cooptetris.pieces.Piece;
 
-public class GameController {
+public class ServerGameController {
 
 	private Board board;
 	private PiecesList list;
@@ -28,10 +29,12 @@ public class GameController {
 	private int xDrop;
 	private WriterThread writer;
 	private ArrayList<Player> playerList;
+	private PlayerIDGenerator playerIDGenerator;
 
 	@Inject
-	public GameController(Board board, PiecesList list,
-			PieceFactory pieceFactory, WriterThread writer) {
+	public ServerGameController(Board board, PiecesList list,
+			PieceFactory pieceFactory, WriterThread writer,
+			PlayerIDGenerator playerIDGenerator) {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
@@ -46,6 +49,7 @@ public class GameController {
 		currLevel = 1;
 		timer = new DropTimer(400);
 		this.writer = writer;
+		this.playerIDGenerator=playerIDGenerator;
 
 	}
 
@@ -212,6 +216,10 @@ public class GameController {
 			}
 		}
 		return null;
+	}
+
+	public void addPlayer() {
+
 	}
 
 	public void endGame() {

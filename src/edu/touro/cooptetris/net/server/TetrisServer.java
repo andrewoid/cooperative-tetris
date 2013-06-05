@@ -10,17 +10,17 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
-import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.ServerGameController;
 
 public class TetrisServer {
 
 	private ServerSocket server;
 	private Socket socket;
-	private GameController gameController;
+	private ServerGameController gameController;
 	private WriterThread writer;
 
 	@Inject
-	public TetrisServer(GameController gameController) {
+	public TetrisServer(ServerGameController gameController) {
 		try {
 			server = new ServerSocket(8080);
 		} catch (IOException e) {

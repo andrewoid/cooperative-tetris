@@ -5,15 +5,15 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.ServerGameController;
 import edu.touro.cooptetris.net.message.Message;
 
 public class ClientHandler extends Thread {
 
 	private InputStream in;
-	private GameController gameController;
+	private ServerGameController gameController;
 
-	public ClientHandler(Socket socket, GameController gameController)
+	public ClientHandler(Socket socket, ServerGameController gameController)
 			throws IOException {
 		in = socket.getInputStream();
 		this.gameController=gameController;
