@@ -8,7 +8,7 @@ public class PlayerIDGenerator {
 	private int currPlayerID;
 
 	public PlayerIDGenerator() {
-		currPlayerID = 0;
+		currPlayerID = 1;
 	}
 
 	public int getNextPlayerID() {
@@ -16,7 +16,7 @@ public class PlayerIDGenerator {
 	}
 
 	public void resetPlayerID() {
-		currPlayerID = 0;
+		currPlayerID = 1;
 	}
 
 }

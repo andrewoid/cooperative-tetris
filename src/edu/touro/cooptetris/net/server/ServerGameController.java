@@ -20,6 +20,7 @@ import edu.touro.cooptetris.net.message.RotateMessage;
 import edu.touro.cooptetris.net.message.SetUpPlayerMessage;
 import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.pieces.Piece;
+import edu.touro.cooptetris.pieces.Square;
 
 public class ServerGameController {
 
@@ -55,7 +56,7 @@ public class ServerGameController {
 		currLevel = 1;
 		timer = new DropTimer(400);
 		this.writer = writer;
-		this.playerIDGenerator=playerIDGenerator;
+		this.playerIDGenerator = playerIDGenerator;
 
 	}
 
@@ -231,15 +232,28 @@ public class ServerGameController {
 		return null;
 	}
 
-	public void addPlayer(){
-		Player p=new Player(playerIDGenerator.getNextPlayerID(),0);
+	public void addPlayer() {
+		Player p = new Player(playerIDGenerator.getNextPlayerID(), 0);
 		playerList.add(p);
-		writer.addMessage(new SetUpPlayerMessage(board,p.getPlayerID()));
+		calculateXDrops();
+		board.increaseBoardSize();
+		writer.addMessage(new SetUpPlayerMessage(board, p.getPlayerID()));
 	}
+
 	public void endGame() {
 		gameStateListener.onGameOver();
 
 		// send endGameMessage
+	}
+
+	public void calculateXDrops() {
+		int numPlayers = playerList.size();
+		int dropInterval = (board.getNumColumns() * Square.SIDE) / numPlayers;
+		Player p;
+		for (int i = 0; i < playerList.size(); i++) {
+			p = playerList.get(i);
+			p.setxDrop((i + 1) * (dropInterval) - (dropInterval / 2));
+		}
 	}
 
 }

@@ -4,7 +4,6 @@ import edu.touro.cooptetris.Board;
 import edu.touro.cooptetris.net.client.ClientGameController;
 import edu.touro.cooptetris.net.server.ServerGameController;
 
-
 public class SetUpPlayerMessage implements Message {
 
 	private static final long serialVersionUID = 1L;
@@ -18,15 +17,14 @@ public class SetUpPlayerMessage implements Message {
 
 	@Override
 	public void handleByServer(ServerGameController gameController) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void handleByClient(ClientGameController gameController) {
 		gameController.setBoard(board);
-		gameController.setPlayerID(playerID);
+		if (gameController.getPlayerID() <= 0) {
+			gameController.setPlayerID(playerID);
+		}
 
 	}
-
 }
