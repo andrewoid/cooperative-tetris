@@ -206,6 +206,8 @@ public class ClientGameController {
 		this.playerID = playerID;
 	}
 
-	
+	public void setBoard(Board b){
+		this.board.copyBoard(b);
+	}
 
 }
