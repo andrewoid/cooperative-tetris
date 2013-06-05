@@ -29,7 +29,7 @@ public class ServerGameController {
 	private Board board;
 	private PiecesList list;
 	private PieceFactory pieceFactory;
-	private GameStateListener gameStateListener;
+	// private GameStateListener gameStateListener;
 	private DropTimer timer;
 	private ArrayList<Level> levels;
 	private int score;
@@ -132,7 +132,7 @@ public class ServerGameController {
 	public void removeRow(Piece p) {
 		int numRows = board.checkFullRowsOfPiece(p);
 		if (numRows > 0) {
-			gameStateListener.onCompleteLine(numRows);
+			// gameStateListener.onCompleteLine(numRows);
 		}
 		writer.addMessage(new RemoveRowMessage(p.getPieceID()));
 	}
@@ -153,7 +153,7 @@ public class ServerGameController {
 					writer.addMessage(new SoftDropMessage(p.getPieceID()));
 				} else {
 					board.landPiece(p);
-					gameStateListener.onHitFloor();
+					// gameStateListener.onHitFloor();
 					landed = true;
 					removeRow(p);
 				}
@@ -181,7 +181,7 @@ public class ServerGameController {
 	public void addNewPiece(int xDrop, int playerID) {
 		Piece p = pieceFactory.getNextPiece(xDrop, 0, playerID);
 		list.add(p);
-		gameStateListener.onNewPiece(p);
+		// gameStateListener.onNewPiece(p);
 		writer.addMessage(new NewPieceMessage(p));
 	}
 
@@ -203,7 +203,7 @@ public class ServerGameController {
 	}
 
 	public void setGameStateListener(GameStateListener gameStateListener) {
-		this.gameStateListener = gameStateListener;
+		// this.gameStateListener = gameStateListener;
 	}
 
 	public Board getBoard() {
@@ -222,14 +222,16 @@ public class ServerGameController {
 	public void addPlayer() {
 		Player p = new Player(playerIDGenerator.getNextPlayerID(), 0);
 		playerList.add(p);
+		writer.addMessage(new SetUpPlayerMessage(board, p.getPlayerID()));
+		System.out.println("Writing out new player: player id:"
+				+ p.getPlayerID());
 		board.increaseBoardSize();
 		calculateXDrops();
 		addNewPiece(p.getxDrop(), p.getPlayerID());
-		writer.addMessage(new SetUpPlayerMessage(board, p.getPlayerID()));
 	}
 
 	public void endGame() {
-		gameStateListener.onGameOver();
+		// gameStateListener.onGameOver();
 
 		// send endGameMessage
 	}

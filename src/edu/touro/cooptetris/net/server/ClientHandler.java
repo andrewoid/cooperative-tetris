@@ -15,18 +15,22 @@ public class ClientHandler extends Thread {
 	public ClientHandler(Socket socket, ServerGameController gameController)
 			throws IOException {
 		in = socket.getInputStream();
-		this.gameController=gameController;
+		this.gameController = gameController;
 
 	}
 
 	@Override
 	public void run() {
 
+		ObjectInputStream oiStream = null;
+		try {
+			oiStream = new ObjectInputStream(in);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		while (true) {
 			Message message;
-			ObjectInputStream oiStream;
 			try {
-				oiStream = new ObjectInputStream(in);
 				message = (Message) oiStream.readObject();
 				message.handleByServer(gameController);
 			} catch (IOException e) {

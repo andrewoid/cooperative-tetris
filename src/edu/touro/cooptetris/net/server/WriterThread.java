@@ -16,40 +16,42 @@ import edu.touro.cooptetris.net.message.Message;
 public class WriterThread extends Thread {
 
 	private LinkedBlockingQueue<Message> messages;
-	private LinkedList<OutputStream> outs;
+	private LinkedList<ObjectOutputStream> outs;
 
 	// DataOutputStream
 
 	public WriterThread() {
 		messages = new LinkedBlockingQueue<Message>();
-		outs = new LinkedList<OutputStream>();
+		outs = new LinkedList<ObjectOutputStream>();
 	}
 
 	public void addSocket(Socket socket) throws IOException {
 		OutputStream out = socket.getOutputStream();
-		outs.add(out);
+		outs.add(new ObjectOutputStream(out));
 	}
 
-	private void serializeMessage(OutputStream out, Message message) {
-		for (int i = 0; i < outs.size(); i++) {
-			try {
-				ObjectOutputStream ooStream = new ObjectOutputStream(out);
-				ooStream.writeObject(message);
-				ooStream.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	private void serializeMessage(ObjectOutputStream out, Message message) {
+		try {
+			out.writeObject(message);
+			System.out.println("after write object");
+			out.flush();
+			System.out.println("after flush");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public void addMessage(Message message) {
 		messages.add(message);
+		System.out.println("got message 1");
 	}
 
 	public void writeMessage() throws InterruptedException {
+		System.out.println("Taking a message?");
 		Message message = messages.take();
-		Iterator<OutputStream> iter = outs.iterator();
-		OutputStream outputStream;
+		System.out.println("in write message");
+		Iterator<ObjectOutputStream> iter = outs.iterator();
+		ObjectOutputStream outputStream;
 		while (iter.hasNext()) {
 			outputStream = iter.next();
 			serializeMessage(outputStream, message);

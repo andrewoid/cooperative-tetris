@@ -18,14 +18,15 @@ public class TetrisServer {
 	private WriterThread writer;
 
 	@Inject
-	public TetrisServer(ServerGameController gameController) {
+	public TetrisServer(ServerGameController gameController, WriterThread writer) {
 		try {
 			server = new ServerSocket(8080);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		writer = new WriterThread();
+		this.writer = writer;
+		writer.start();
 		this.gameController = gameController;
 	}
 
@@ -33,9 +34,10 @@ public class TetrisServer {
 
 		try {
 			while ((socket = server.accept()) != null) {
+				writer.addSocket(socket);
+
 				ClientHandler aClientHandler = new ClientHandler(socket,
 						gameController);
-				writer.addSocket(socket);
 				aClientHandler.start();
 
 			}
