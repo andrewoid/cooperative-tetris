@@ -35,7 +35,7 @@ public class WriterThread extends Thread {
 			try {
 				ObjectOutputStream ooStream = new ObjectOutputStream(out);
 				ooStream.writeObject(message);
-				ooStream.close();
+				ooStream.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

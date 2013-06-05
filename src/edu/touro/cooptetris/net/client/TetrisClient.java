@@ -35,7 +35,7 @@ public class TetrisClient {
 	private void initializeClient() throws UnknownHostException, IOException {
 		// socket = new Socket(new DiscoverClient().discoverTetrisServer(),
 		// 8080);
-		socket = new Socket("localhost", 8080);
+		socket = new Socket("192.168.117.124", 8080);
 		objectOut = new ObjectOutputStream(socket.getOutputStream());
 		readerThread = new ReaderThread(socket, gameController);
 

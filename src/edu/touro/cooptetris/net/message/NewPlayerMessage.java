@@ -13,13 +13,12 @@ public class NewPlayerMessage implements Message {
 
 	@Override
 	public void handleByClient(ClientGameController gameController) {
-		// make board bigger
-
 	}
 
 	@Override
 	public void handleByServer(ServerGameController gameController) {
-
+		gameController.addPlayer();
+		
 	}
 
 }
