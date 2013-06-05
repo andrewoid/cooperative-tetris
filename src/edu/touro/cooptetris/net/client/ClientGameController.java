@@ -44,11 +44,6 @@ public class ClientGameController {
 		this.activePieces = new HashMap<Integer, Piece>();
 	}
 
-	public void dropAll() {
-		for (Piece p : activePieces.values()) {
-			p.moveDown();
-		}
-	}
 
 	public void increaseSpeed() {
 		int currIncrement = timer.getTimeIncrement();
