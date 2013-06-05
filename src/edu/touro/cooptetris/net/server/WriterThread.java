@@ -30,6 +30,7 @@ public class WriterThread extends Thread {
 		outs.add(new ObjectOutputStream(out));
 	}
 
+<<<<<<< OURS
 	private void serializeMessage(ObjectOutputStream out, Message message) {
 		try {
 			out.writeObject(message);
@@ -38,6 +39,16 @@ public class WriterThread extends Thread {
 			System.out.println("after flush");
 		} catch (IOException e) {
 			e.printStackTrace();
+=======
+	private void serializeMessage(Message message) {
+		for (ObjectOutputStream out : outs) {
+			try {
+				out.writeObject(message);
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+>>>>>>> THEIRS
 		}
 	}
 
@@ -49,6 +60,7 @@ public class WriterThread extends Thread {
 	public void writeMessage() throws InterruptedException {
 		System.out.println("Taking a message?");
 		Message message = messages.take();
+<<<<<<< OURS
 		System.out.println("in write message");
 		Iterator<ObjectOutputStream> iter = outs.iterator();
 		ObjectOutputStream outputStream;
@@ -57,6 +69,9 @@ public class WriterThread extends Thread {
 			serializeMessage(outputStream, message);
 		}
 
+=======
+		serializeMessage(message);
+>>>>>>> THEIRS
 	}
 
 	public void run() {

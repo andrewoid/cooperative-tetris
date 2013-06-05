@@ -23,12 +23,6 @@ public class MockClientHandler extends Thread {
 	@Override
 	public void run() {
 
-		try {
-			ObjectOutputStream outStream = new ObjectOutputStream(this.out);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
 		while (true) {
 			Message message;
 			ObjectInputStream oiStream;

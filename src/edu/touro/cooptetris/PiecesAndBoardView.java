@@ -60,7 +60,6 @@ public class PiecesAndBoardView extends JComponent {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-
 		super.paintComponent(g);
 		clearScreen(g);
 
@@ -69,8 +68,7 @@ public class PiecesAndBoardView extends JComponent {
 		for (Piece p : list) {
 			p.drawPiece(g, playerID);
 		}
-
-		// repaint();
+		repaint();
 
 	}
 
@@ -78,6 +76,10 @@ public class PiecesAndBoardView extends JComponent {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, board.getNumColumns() * Square.SIDE + 15,
 				this.getHeight());
+	}
+
+	public void addPiece(Piece p) {
+		list.add(p);
 	}
 
 }

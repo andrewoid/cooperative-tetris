@@ -26,10 +26,9 @@ public class TetrisClient {
 	@Inject
 	public TetrisClient(ClientGameController gameController)
 			throws UnknownHostException, IOException {
-		initializeClient();
 		this.gameController = gameController;
+		initializeClient();
 		readerThread.start();
-
 	}
 
 	private void initializeClient() throws UnknownHostException, IOException {
@@ -45,6 +44,7 @@ public class TetrisClient {
 	public void send(Message message) throws IOException {
 		objectOut.writeObject(message);
 		objectOut.flush();
+
 	}
 
 	public ClientGameController getGameController() {

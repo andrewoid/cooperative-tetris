@@ -219,7 +219,9 @@ public class Board {
 	public boolean willCollideWithLandedPieceVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
+			System.out.println("rowNumber " + rowNumber);
 			int colNumber = square.getX() / Square.SIDE;
+			System.out.println("colNumber " + colNumber);
 			if (rowNumber >= 0) {
 				if (squares.get(rowNumber + 1).get(colNumber) != null) {
 					return true;

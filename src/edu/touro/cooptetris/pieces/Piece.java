@@ -2,8 +2,9 @@ package edu.touro.cooptetris.pieces;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
-public abstract class Piece {
+public abstract class Piece implements Serializable {
 
 	protected Square[] squares;
 	protected Square center;

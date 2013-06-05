@@ -10,6 +10,7 @@ import edu.touro.cooptetris.DropTimer;
 import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.Level;
 import edu.touro.cooptetris.PieceFactory;
+import edu.touro.cooptetris.PiecesAndBoardView;
 import edu.touro.cooptetris.PiecesList;
 import edu.touro.cooptetris.pieces.Piece;
 
@@ -22,17 +23,19 @@ public class ClientGameController {
 	private ArrayList<Level> levels;
 	private int score;
 	private int currLevel;
-	private Piece nextPiece;
+	// private Piece nextPiece;
 	private int playerID;
 	private HashMap<Integer, Piece> activePieces;
+	private PiecesAndBoardView view;
 
 	@Inject
 	public ClientGameController(Board board, PiecesList list,
-			PieceFactory pieceFactory) {
+			PieceFactory pieceFactory, PiecesAndBoardView view) {
 		this.board = board;
 		this.list = list;
+		this.view = view;
 		// look below!!! For errors!!
-		setNextPiece(nextPiece);
+		// setNextPiece(nextPiece);
 		// look above!!
 		levels = new ArrayList<Level>();
 		for (int i = 0; i < 10; i++) {
@@ -40,10 +43,8 @@ public class ClientGameController {
 		}
 		currLevel = 1;
 		timer = new DropTimer(400);
-		// score = 90;
 		this.activePieces = new HashMap<Integer, Piece>();
 	}
-
 
 	public void increaseSpeed() {
 		int currIncrement = timer.getTimeIncrement();
@@ -138,21 +139,14 @@ public class ClientGameController {
 		if (activePieces.containsKey(playerID)) {
 			activePieces.remove(playerID);
 		}
+
 		activePieces.put(playerID, nextPiece);
-		list.add(this.nextPiece);
+		list.add(nextPiece);
+
 		Piece tempPiece = nextPiece;
-		setNextPiece(nextPiece);
+		// setNextPiece(nextPiece);
 		gameStateListener.onNewPiece(tempPiece);
 
-	}
-
-	public void setNextPiece(Piece nextPiece) {
-		// Board.NUM_COLUMNS * Square.SIDE / 2
-		this.nextPiece = nextPiece;
-	}
-
-	public Piece getNextPiece() {
-		return nextPiece;
 	}
 
 	public int getCurrLevel() {
@@ -201,8 +195,12 @@ public class ClientGameController {
 		this.playerID = playerID;
 	}
 
-	public void setBoard(Board b){
+	public void setBoard(Board b) {
 		this.board.copyBoard(b);
+	}
+
+	public void repaint() {
+		view.repaint();
 	}
 
 }
