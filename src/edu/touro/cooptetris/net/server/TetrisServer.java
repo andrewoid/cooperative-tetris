@@ -10,7 +10,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
-import edu.touro.cooptetris.ServerGameController;
 
 public class TetrisServer {
 

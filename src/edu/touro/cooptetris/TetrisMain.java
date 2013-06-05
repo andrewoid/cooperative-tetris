@@ -13,6 +13,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
+import edu.touro.cooptetris.net.server.ServerGameController;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;

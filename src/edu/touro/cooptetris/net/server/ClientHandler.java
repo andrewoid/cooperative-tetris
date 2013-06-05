@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import edu.touro.cooptetris.ServerGameController;
 import edu.touro.cooptetris.net.message.Message;
 
 public class ClientHandler extends Thread {
