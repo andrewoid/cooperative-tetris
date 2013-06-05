@@ -19,8 +19,9 @@ public class PiecesAndBoardView extends JComponent {
 	private boolean wasResized;
 	private int playerID;
 
-	public PiecesAndBoardView() {
-		setSize(board.getNumColumns() * Square.SIDE + 15, board.getNumRows()
+	public PiecesAndBoardView(Board board) {
+		this.board = board;
+		setSize((board.getNumColumns() * Square.SIDE) + 15, board.getNumRows()
 				* Square.SIDE);
 		setBorder(BorderFactory.createMatteBorder(0, 7, 0, 7, Color.GREEN));
 		setFocusable(true);
@@ -30,8 +31,7 @@ public class PiecesAndBoardView extends JComponent {
 
 	@Inject
 	public PiecesAndBoardView(Board board, PiecesList list) {
-		this();
-		this.board = board;
+		this(board);
 		this.list = list;
 		wasResized = false;
 		playerID = 0;
@@ -76,7 +76,8 @@ public class PiecesAndBoardView extends JComponent {
 
 	private void clearScreen(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, board.getNumColumns() * Square.SIDE + 15, this.getHeight());
+		g.fillRect(0, 0, board.getNumColumns() * Square.SIDE + 15,
+				this.getHeight());
 	}
 
 }
