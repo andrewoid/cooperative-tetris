@@ -1,9 +1,15 @@
-package edu.touro.cooptetris;
+package edu.touro.cooptetris.net.server;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import edu.touro.cooptetris.Board;
+import edu.touro.cooptetris.DropTimer;
+import edu.touro.cooptetris.GameStateListener;
+import edu.touro.cooptetris.Level;
+import edu.touro.cooptetris.PieceFactory;
+import edu.touro.cooptetris.PiecesList;
 import edu.touro.cooptetris.net.Player;
 import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
@@ -11,10 +17,9 @@ import edu.touro.cooptetris.net.message.MoveRightMessage;
 import edu.touro.cooptetris.net.message.RemoveRowMessage;
 import edu.touro.cooptetris.net.message.RotateMessage;
 import edu.touro.cooptetris.net.message.SoftDropMessage;
-import edu.touro.cooptetris.net.server.WriterThread;
 import edu.touro.cooptetris.pieces.Piece;
 
-public class GameController {
+public class ServerGameController {
 
 	private Board board;
 	private PiecesList list;
@@ -30,7 +35,7 @@ public class GameController {
 	private ArrayList<Player> playerList;
 
 	@Inject
-	public GameController(Board board, PiecesList list,
+	public ServerGameController(Board board, PiecesList list,
 			PieceFactory pieceFactory, WriterThread writer) {
 		this.board = board;
 		this.list = list;

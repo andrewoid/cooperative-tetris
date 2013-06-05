@@ -1,7 +1,9 @@
 package edu.touro.cooptetris.net.message;
 
 import edu.touro.cooptetris.Board;
-import edu.touro.cooptetris.GameController;
+import edu.touro.cooptetris.net.client.ClientGameController;
+import edu.touro.cooptetris.net.server.ServerGameController;
+
 
 public class SetUpPlayerMessage implements Message {
 
@@ -15,7 +17,7 @@ public class SetUpPlayerMessage implements Message {
 	}
 
 	@Override
-	public void handleByServer(GameController gameController) {
+	public void handleByServer(ServerGameController gameController) {
 		// TODO Auto-generated method stub
 
 	}

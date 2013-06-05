@@ -13,6 +13,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
+import edu.touro.cooptetris.net.server.ServerGameController;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
@@ -24,7 +25,7 @@ import edu.touro.cooptetris.sound.ThemeMusicPlayer;
 public class TetrisMain extends JFrame implements GameStateListener {
 
 	private static final long serialVersionUID = 1L;
-	private GameController gameController;
+	private ServerGameController gameController;
 	private PiecesAndBoardView gameView;
 	private KeyboardListener keyboardListener;
 	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
@@ -41,7 +42,7 @@ public class TetrisMain extends JFrame implements GameStateListener {
 	public TetrisMain(final PiecesAndBoardView gameView,
 			ScoreLevelNextPieceDisplay scoreLevelDisplay,
 			ThemeMusicPlayer themeMusicPlayer,
-			final GameController gameController, Board board) {
+			final ServerGameController gameController, Board board) {
 		this.gameController = gameController;
 		this.keyboardListener = new KeyboardListener(gameController.getBoard());
 		this.scoreLevelDisplay = scoreLevelDisplay;
