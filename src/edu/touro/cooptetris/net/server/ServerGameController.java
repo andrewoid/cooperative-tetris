@@ -1,6 +1,7 @@
 package edu.touro.cooptetris.net.server;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.inject.Inject;
 
@@ -15,6 +16,7 @@ import edu.touro.cooptetris.net.PlayerIDGenerator;
 import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
+import edu.touro.cooptetris.net.message.NewPieceMessage;
 import edu.touro.cooptetris.net.message.RemoveRowMessage;
 import edu.touro.cooptetris.net.message.RotateMessage;
 import edu.touro.cooptetris.net.message.SetUpPlayerMessage;
@@ -32,7 +34,6 @@ public class ServerGameController {
 	private ArrayList<Level> levels;
 	private int score;
 	private int currLevel;
-	private Piece nextPiece;
 	private int xDrop;
 	private WriterThread writer;
 	private ArrayList<Player> playerList;
@@ -73,12 +74,6 @@ public class ServerGameController {
 			writer.addMessage(new RotateMessage(piece.getPieceID()));
 		}
 
-	}
-
-	public void addPlayer(Player p) {
-
-		playerList.add(p);
-		setNextPiece(p.getxDrop(), p.getPlayerID());
 	}
 
 	public void moveLeft(Piece piece) {
@@ -143,10 +138,14 @@ public class ServerGameController {
 	}
 
 	public void movePieces() {
+		ArrayList<Player> playersNeedNewPieces = new ArrayList<Player>();
+		Iterator<Piece> iter = list.iterator();
+		Piece p;
 
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
-			for (Piece p : list) {
+			while (iter.hasNext()) {
+				p = iter.next();
 
 				if (!board.willCollideWithFloorVertical(p)
 						&& !board.willCollideWithLandedPieceVertical(p)) {
@@ -160,42 +159,30 @@ public class ServerGameController {
 				}
 
 				if (landed) {
-					list.clear();
 					if (!board.isFull() && score < 9999) {
-
 						for (Player player : playerList) {
 							if (player.getPlayerID() == p.getPlayerID()) {
-								addNewPiece(player.getxDrop(),
-										player.getPlayerID());
+								playersNeedNewPieces.add(player);
 								break;
 							}
 						}
-
+						iter.remove();
 					} else {
 						endGame();
 					}
 				}
 			}
+			for (Player needyPlayer : playersNeedNewPieces) {
+				addNewPiece(needyPlayer.getxDrop(), needyPlayer.getPlayerID());
+			}
 		}
 	}
 
 	public void addNewPiece(int xDrop, int playerID) {
-
-		list.add(nextPiece);
-		Piece tempPiece = nextPiece;
-		setNextPiece(xDrop, playerID);
-		gameStateListener.onNewPiece(tempPiece);
-		// send addNewPieceMessage;
-
-	}
-
-	public void setNextPiece(int xDrop, int playerID) {
-		// Board.NUM_COLUMNS * Square.SIDE / 2
-		this.nextPiece = pieceFactory.getNextPiece(xDrop, 0, playerID);
-	}
-
-	public Piece getNextPiece() {
-		return nextPiece;
+		Piece p = pieceFactory.getNextPiece(xDrop, 0, playerID);
+		list.add(p);
+		gameStateListener.onNewPiece(p);
+		writer.addMessage(new NewPieceMessage(p));
 	}
 
 	public int getCurrLevel() {
@@ -235,8 +222,9 @@ public class ServerGameController {
 	public void addPlayer() {
 		Player p = new Player(playerIDGenerator.getNextPlayerID(), 0);
 		playerList.add(p);
-		calculateXDrops();
 		board.increaseBoardSize();
+		calculateXDrops();
+		addNewPiece(p.getxDrop(), p.getPlayerID());
 		writer.addMessage(new SetUpPlayerMessage(board, p.getPlayerID()));
 	}
 
