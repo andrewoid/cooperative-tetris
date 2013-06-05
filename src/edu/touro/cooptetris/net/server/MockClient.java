@@ -37,17 +37,13 @@ public class MockClient {
 			System.out.println("waiting to receive reply message");
 			Message message= (Message) objectIn.readObject();
 			if(message instanceof SetUpPlayerMessage){
-				System.out.println("WE DID IT");
+				System
+				.out.println("WE DID IT");
 			}else{
 				System.out.println("TIME TO GO HOME");
 			}
 			
 			objectIn.close();
-			
-			
-			
-			
-			
 			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
