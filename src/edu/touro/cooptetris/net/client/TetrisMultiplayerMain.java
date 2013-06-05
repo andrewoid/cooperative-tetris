@@ -32,7 +32,6 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 	private ClientGameController gameController;
 	private PiecesAndBoardView gameView;
 	private MultiplayerKeyboardListener keyboardListener;
-	private ScoreLevelNextPieceDisplay scoreLevelDisplay;
 	private ThemeMusicPlayer themeMusicPlayer;
 	private boolean paused;
 	// private boolean mute;
@@ -46,8 +45,8 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 
 	@Inject
 	public TetrisMultiplayerMain(final PiecesAndBoardView gameView,
-			ScoreLevelNextPieceDisplay scoreLevelDisplay,
-			ThemeMusicPlayer themeMusicPlayer,
+
+	ThemeMusicPlayer themeMusicPlayer,
 			final ClientGameController gameController, Board board)
 			throws UnknownHostException, IOException {
 		this.board = board;
@@ -58,31 +57,41 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		this.gameView.setPlayerID(this.tetrisClient.getGameController()
 				.getPlayerID());
 		this.keyboardListener = new MultiplayerKeyboardListener(tetrisClient);
-		this.scoreLevelDisplay = scoreLevelDisplay;
 		this.gameView.addKeyListener(keyboardListener);
 		keyboardListener.setGameStateListener(this);
 		this.themeMusicPlayer = themeMusicPlayer;
 		setSize();
 
-		scoreLevelDisplay.setPiece(gameController.getNextPiece());
-
 		setLocationRelativeTo(getRootPane());
 		setResizable(false);
-		setTitle("Single Player Tetris");
+		setTitle("MultiPlayer Tetris");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		add(gameView, BorderLayout.CENTER);
-		add(scoreLevelDisplay, BorderLayout.EAST);
 		setVisible(true);
 		themeMusicPlayer.play();
 
 		/*
 		 * new Thread() {
 		 * 
+<<<<<<< OURS
 		 * @Override public void run() { while (true) { gameView.repaint(); if
 		 * (gameView.getWasResized()) { setSize();
 		 * gameView.setWasResized(false); } gameController.movePieces(); } }
+=======
+		 * @Override
+		 * public void run() {
+		 * while (true) {
+		 * gameView.repaint();
+		 * if (gameView.getWasResized()) {
+		 * setSize();
+		 * gameView.setWasResized(false);
+		 * }
+		 * gameController.movePieces();
+		 * }
+		 * }
+>>>>>>> THEIRS
 		 * }.start();
 		 */
 
@@ -107,8 +116,8 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 	}
 
 	public void setSize() {
-		int height = scoreLevelDisplay.getHeight() + 30, width = 100
-				+ board.getNumColumns() * Square.SIDE + 15;
+		int height = 300 + 30, width = 100 + board.getNumColumns()
+				* Square.SIDE + 15;
 		setSize(width, height);
 	}
 
@@ -126,7 +135,6 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 			e.printStackTrace();
 		}
 		gameController.lineCompleted(numLines);
-		scoreLevelDisplay.setScore(gameController.getScore());
 		int currLevel = gameController.getCurrLevel();
 		if (gameController.getScore() > currLevel * 200) {
 			onLevelChange();
@@ -148,7 +156,6 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		}
 		int currLevel = gameController.getCurrLevel();
 		gameController.setCurrLevel(currLevel + 1);
-		scoreLevelDisplay.setLevel(currLevel + 1);
 		gameController.increaseSpeed();
 	}
 
@@ -165,15 +172,11 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
-		scoreLevelDisplay.repaint();
-		scoreLevelDisplay.setPiece(gameController.getNextPiece());
 	}
 
 	@Override
 	public void onNewPiece(Piece piece) {
 		keyboardListener.setPiece(piece);
-		scoreLevelDisplay.setPiece(gameController.getNextPiece());
-		scoreLevelDisplay.repaint();
 	}
 
 	@Override

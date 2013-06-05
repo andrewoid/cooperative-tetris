@@ -10,7 +10,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
-
 public class TetrisServer {
 
 	private ServerSocket server;
@@ -29,7 +28,6 @@ public class TetrisServer {
 		writer = new WriterThread();
 		this.gameController = gameController;
 	}
-	
 
 	public void runServer() {
 
