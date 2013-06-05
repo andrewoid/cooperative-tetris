@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import edu.touro.cooptetris.net.Player;
-import edu.touro.cooptetris.net.PlayerIDGenerator;
 import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
@@ -29,12 +28,10 @@ public class ServerGameController {
 	private int xDrop;
 	private WriterThread writer;
 	private ArrayList<Player> playerList;
-	private PlayerIDGenerator playerIDGenerator;
 
 	@Inject
 	public ServerGameController(Board board, PiecesList list,
-			PieceFactory pieceFactory, WriterThread writer,
-			PlayerIDGenerator playerIDGenerator) {
+			PieceFactory pieceFactory, WriterThread writer) {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
@@ -49,7 +46,6 @@ public class ServerGameController {
 		currLevel = 1;
 		timer = new DropTimer(400);
 		this.writer = writer;
-		this.playerIDGenerator=playerIDGenerator;
 
 	}
 
@@ -139,7 +135,6 @@ public class ServerGameController {
 
 		if (timer.isTimeToDrop()) {
 			boolean landed = false;
-
 			for (Piece p : list) {
 
 				if (!board.willCollideWithFloorVertical(p)
@@ -152,16 +147,24 @@ public class ServerGameController {
 					landed = true;
 					removeRow(p);
 				}
-			}
-			if (landed) {
-				list.clear();
-				if (!board.isFull() && score < 9999) {
-					// addNewPiece();
-				} else {
-					endGame();
+
+				if (landed) {
+					list.clear();
+					if (!board.isFull() && score < 9999) {
+
+						for (Player player : playerList) {
+							if (player.getPlayerID() == p.getPlayerID()) {
+								addNewPiece(player.getxDrop(),
+										player.getPlayerID());
+								break;
+							}
+						}
+
+					} else {
+						endGame();
+					}
 				}
 			}
-
 		}
 	}
 
@@ -216,10 +219,6 @@ public class ServerGameController {
 			}
 		}
 		return null;
-	}
-
-	public void addPlayer() {
-
 	}
 
 	public void endGame() {

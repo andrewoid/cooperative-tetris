@@ -11,6 +11,10 @@ import edu.touro.cooptetris.net.message.NewPlayerMessage;
 
 public class TetrisClient {
 
+	public ClientGameController getGameController() {
+		return gameController;
+	}
+
 	private Socket socket;
 	private ObjectOutputStream objectOut;
 	private ClientGameController gameController;
@@ -26,9 +30,9 @@ public class TetrisClient {
 
 	}
 
-	public int getPlayerID() {
-		return playerID;
-	}
+	// public int getPlayerID() {
+	// return playerID;
+	// }
 
 	private void initializeClient() throws UnknownHostException, IOException {
 		socket = new Socket(new DiscoverClient().discoverTetrisServer(), 8080);

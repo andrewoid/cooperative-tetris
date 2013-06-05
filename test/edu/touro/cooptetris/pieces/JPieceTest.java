@@ -8,7 +8,7 @@ public class JPieceTest {
 
 	@Test
 	public void testInitialPosition() {
-		JPiece j = new JPiece(0, 0, 1);
+		JPiece j = new JPiece(0, 0, 1, 0);
 		Square[] squares = j.getSquares();
 
 		assertEquals(0, squares[0].getX());
@@ -24,7 +24,7 @@ public class JPieceTest {
 
 	@Test
 	public void testRotate() {
-		JPiece j = new JPiece(0, 0, 1);
+		JPiece j = new JPiece(0, 0, 1, 0);
 		j.rotate();
 		Square[] squares = j.getSquares();
 
@@ -43,7 +43,7 @@ public class JPieceTest {
 
 	@Test
 	public void testUnrotate() {
-		JPiece j = new JPiece(0, 0, 1);
+		JPiece j = new JPiece(0, 0, 1, 0);
 		j.rotate();
 		j.unrotate();
 		Square[] squares = j.getSquares();

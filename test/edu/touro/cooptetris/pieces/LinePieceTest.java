@@ -9,7 +9,7 @@ public class LinePieceTest {
 	@Test
 	public void testInitialPosition() {
 
-		LinePiece aLine = new LinePiece(0, 0, 1);
+		LinePiece aLine = new LinePiece(0, 0, 1, 0);
 		Square[] squares = aLine.getSquares();
 
 		assertEquals(0, squares[0].getX());
