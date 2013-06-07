@@ -1,11 +1,11 @@
 package edu.touro.cooptetris;
 
-public class Level {
+public class GameLevel {
 
 	private int timeIncrement;
 	private int levelNum;
 	
-	public Level(int levelNum, int timeIncrement){
+	public GameLevel(int levelNum, int timeIncrement){
 		this.timeIncrement=timeIncrement;
 		this.levelNum=levelNum;
 	}

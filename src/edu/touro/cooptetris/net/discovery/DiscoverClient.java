@@ -5,9 +5,13 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
-import java.net.SocketAddress;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DiscoverClient {
+
+	private final static Logger log = Logger.getLogger(DiscoverClient.class
+			.getName());
 
 	public String discoverTetrisServer() throws IOException {
 
@@ -31,7 +35,7 @@ public class DiscoverClient {
 
 	public static void main(String args[]) throws IOException {
 
-		System.out.println(new DiscoverClient().discoverTetrisServer());
+		log.log(Level.INFO, new DiscoverClient().discoverTetrisServer());
 
 	}
 

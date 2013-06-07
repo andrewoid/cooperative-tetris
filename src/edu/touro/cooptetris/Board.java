@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Singleton;
 
@@ -14,6 +16,8 @@ import edu.touro.cooptetris.pieces.Square;
 @Singleton
 public class Board {
 
+	private final static Logger log = Logger
+			.getLogger(Board.class.getName());
 	private int numRows = 20;
 	private int numColumns = 11;
 
@@ -219,9 +223,9 @@ public class Board {
 	public boolean willCollideWithLandedPieceVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			System.out.println("rowNumber " + rowNumber);
+			log.log(Level.INFO,"rowNumber " + rowNumber);
 			int colNumber = square.getX() / Square.SIDE;
-			System.out.println("colNumber " + colNumber);
+			log.log(Level.INFO,"colNumber " + colNumber);
 			if (rowNumber >= 0) {
 				if (squares.get(rowNumber + 1).get(colNumber) != null) {
 					return true;
