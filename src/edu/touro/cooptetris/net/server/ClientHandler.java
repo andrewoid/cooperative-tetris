@@ -10,12 +10,12 @@ import edu.touro.cooptetris.net.message.Message;
 public class ClientHandler extends Thread {
 
 	private InputStream in;
-	private ServerGameController gameController;
+	private GameControllerThread gameControllerThread;
 
-	public ClientHandler(Socket socket, ServerGameController gameController)
-			throws IOException {
+	public ClientHandler(Socket socket,
+			GameControllerThread gameControllerThread) throws IOException {
 		in = socket.getInputStream();
-		this.gameController = gameController;
+		this.gameControllerThread = gameControllerThread;
 
 	}
 
@@ -32,15 +32,11 @@ public class ClientHandler extends Thread {
 			Message message;
 			try {
 				message = (Message) oiStream.readObject();
-				message.handleByServer(gameController);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				gameControllerThread.addMessage(message);
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				break;
 			}
-
 		}
 	}
 
