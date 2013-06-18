@@ -1,6 +1,7 @@
 package edu.touro.cooptetris;
 
 import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 
 @Singleton
-public class Board {
+public class Board implements Serializable{
 
 	private int numRows = 20;
 	private int numColumns = 11;

@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.Message;
 import edu.touro.cooptetris.net.message.NewPlayerMessage;
 import edu.touro.cooptetris.net.message.SetUpPlayerMessage;
@@ -21,7 +22,7 @@ public class MockClient {
 	
 	public MockClient(){
 		try {
-			socket=new Socket("192.168.117.124",8080);
+			socket=new Socket("localhost",8080);
 			out=socket.getOutputStream();
 			System.out.println("Got output stream");
 			objectOut=new ObjectOutputStream(out);
@@ -39,8 +40,25 @@ public class MockClient {
 			if(message instanceof SetUpPlayerMessage){
 				System
 				.out.println("WE DID IT");
-			}else{
+			}	
+			
+			
+			else{
 				System.out.println("TIME TO GO HOME");
+			}
+			
+			objectOut.writeObject(new HardDropMessage(35));
+			
+			System.out.println("Send HardDropmessage");
+			objectOut.flush();
+			
+			Message message2= (Message) objectIn.readObject();
+			
+			if(message2 instanceof HardDropMessage){
+				System.out.println("WE DID IT AGAIN");
+			}
+			else{
+				System.out.println("FAIL ON TRY 2");
 			}
 			
 			objectIn.close();
