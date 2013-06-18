@@ -6,6 +6,14 @@ public class DropTimer {
 	private long lastTime;
 	private boolean paused;
 
+	public boolean isPaused() {
+		return paused;
+	}
+
+	public void setPaused(boolean paused) {
+		this.paused = paused;
+	}
+
 	public DropTimer(int timeIncrement) {
 		lastTime = System.currentTimeMillis();
 		this.timeIncrement = timeIncrement;
