@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public class LinePiece extends Piece {
 
+	private static final long serialVersionUID = 1L;
+
 	public LinePiece(int x, int y, int pieceID, int playerID) {
 		super(pieceID, playerID);
 

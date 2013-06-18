@@ -15,10 +15,10 @@ import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 
 @Singleton
-public class Board implements Serializable{
+public class Board implements Serializable {
 
-	private final static Logger log = Logger
-			.getLogger(Board.class.getName());
+	private static final long serialVersionUID = 1L;
+	private final static Logger log = Logger.getLogger(Board.class.getName());
 	private int numRows = 20;
 	private int numColumns = 11;
 
@@ -224,9 +224,9 @@ public class Board implements Serializable{
 	public boolean willCollideWithLandedPieceVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			log.log(Level.INFO,"rowNumber " + rowNumber);
+			log.log(Level.INFO, "rowNumber " + rowNumber);
 			int colNumber = square.getX() / Square.SIDE;
-			log.log(Level.INFO,"colNumber " + colNumber);
+			log.log(Level.INFO, "colNumber " + colNumber);
 			if (rowNumber >= 0) {
 				if (squares.get(rowNumber + 1).get(colNumber) != null) {
 					return true;

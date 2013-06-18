@@ -74,12 +74,6 @@ public class ClientGameControllerTest {
 	}
 
 	@Test
-	public void testLineCompleted() {
-		cgc.lineCompleted(1);
-		assertEquals(10, cgc.getScore());
-	}
-
-	@Test
 	public void testPauseAndUnPause() {
 		cgc.pauseAndUnPause();
 		assertTrue(cgc.getTimer().isPaused());

@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public class ZPiece extends Piece {
 
+	private static final long serialVersionUID = 1L;
+
 	public ZPiece(int x, int y, int pieceID, int playerID) {
 		super(pieceID, playerID);
 

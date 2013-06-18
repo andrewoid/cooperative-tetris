@@ -8,6 +8,7 @@ import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
 import edu.touro.cooptetris.net.message.NewPieceMessage;
+import edu.touro.cooptetris.net.message.NewPlayerMessage;
 import edu.touro.cooptetris.net.message.RotateMessage;
 import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.net.server.WriterThread;
@@ -40,7 +41,7 @@ public class MockServer {
 				aClientHandler.start();
 				// writer.addMessage(new NewPlayerMessage());
 				Piece p = new JPiece(20, 20, 0, 0);
-				Piece p2 = new JPiece(50, 10, 1, 1);
+				// Piece p2 = new JPiece(50, 10, 1, 1);
 				writer.addMessage(new NewPieceMessage(p));
 				Thread.sleep(1000);
 				writer.addMessage(new SoftDropMessage(0));
@@ -57,27 +58,33 @@ public class MockServer {
 				writer.addMessage(new RotateMessage(0));
 				Thread.sleep(1000);
 				writer.addMessage(new HardDropMessage(0));
-				writer.addMessage(new NewPieceMessage(p2));
+				// writer.addMessage(new NewPieceMessage(p2));
+				// Thread.sleep(1000);
+				// writer.addMessage(new SoftDropMessage(1));
+				// //writer.addMessage(new SoftDropMessage(1));
+				// writer.addMessage(new SoftDropMessage(1));
+				// Thread.sleep(1000);
+				// writer.addMessage(new MoveLeftMessage(1));
+				// Thread.sleep(1000);
+				// writer.addMessage(new SoftDropMessage(1));
+				// writer.addMessage(new MoveRightMessage(1));
+				// Thread.sleep(1000);
+				// writer.addMessage(new RotateMessage(1));
 				Thread.sleep(1000);
-				writer.addMessage(new SoftDropMessage(1));
-				writer.addMessage(new SoftDropMessage(1));
-				writer.addMessage(new SoftDropMessage(1));
+				// writer.addMessage(new RotateMessage(1));
+				writer.addMessage(new NewPlayerMessage());
 				Thread.sleep(1000);
-				writer.addMessage(new MoveLeftMessage(1));
+				writer.addMessage(new NewPlayerMessage());
 				Thread.sleep(1000);
-				writer.addMessage(new SoftDropMessage(1));
-				writer.addMessage(new MoveRightMessage(1));
+				writer.addMessage(new NewPlayerMessage());
 				Thread.sleep(1000);
-				writer.addMessage(new RotateMessage(1));
-				Thread.sleep(1000);
-				writer.addMessage(new RotateMessage(1));
+				writer.addMessage(new NewPlayerMessage());
 				// writer.addMessage(new HardDropMessage(0));
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

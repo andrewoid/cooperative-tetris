@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 public class Square implements Serializable {
-
+	private static final long serialVersionUID = 1L;
 	public static final int SIDE = 15;
 	private int x;
 	private int y;
