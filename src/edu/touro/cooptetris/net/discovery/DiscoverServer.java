@@ -36,7 +36,6 @@ public class DiscoverServer extends Thread {
 				socket.send(reply);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
