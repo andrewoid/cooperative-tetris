@@ -6,7 +6,6 @@ import java.util.HashMap;
 import javax.inject.Inject;
 
 import edu.touro.cooptetris.Board;
-import edu.touro.cooptetris.DropTimer;
 import edu.touro.cooptetris.GameLevel;
 import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.PieceFactory;
@@ -18,30 +17,8 @@ public class ClientGameController {
 
 	private Board board;
 	private PiecesList list;
-
-	public PiecesList getList() {
-		return list;
-	}
-
-	public void setList(PiecesList list) {
-		this.list = list;
-	}
-
 	private GameStateListener gameStateListener;
-	private DropTimer timer;
-
-	public DropTimer getTimer() {
-		return timer;
-	}
-
-	public void setTimer(DropTimer timer) {
-		this.timer = timer;
-	}
-
 	private ArrayList<GameLevel> levels;
-	private int score;
-	private int currLevel;
-	// private Piece nextPiece;
 	private int playerID;
 	private HashMap<Integer, Piece> activePieces;
 	private PiecesAndBoardView view;
@@ -52,21 +29,15 @@ public class ClientGameController {
 		this.board = board;
 		this.list = list;
 		this.view = view;
-		// look below!!! For errors!!
-		// setNextPiece(nextPiece);
-		// look above!!
 		levels = new ArrayList<GameLevel>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new GameLevel(i, 1000 - (i * 100)));
 		}
-		currLevel = 1;
-		timer = new DropTimer(400);
 		this.activePieces = new HashMap<Integer, Piece>();
 	}
 
-	public void increaseSpeed() {
-		int currIncrement = timer.getTimeIncrement();
-		timer.setTimeIncrement(currIncrement - 30);
+	public PiecesList getList() {
+		return list;
 	}
 
 	public void rotate(Piece piece) {
@@ -105,28 +76,6 @@ public class ClientGameController {
 		}
 	}
 
-	public void lineCompleted(int numLines) {
-		switch (numLines) {
-		case 1:
-			setScore(score + 10);
-			break;
-		case 2:
-			setScore(score + 25);
-			break;
-		case 3:
-			setScore(score + 50);
-			break;
-		case 4:
-			setScore(score + 100);
-			break;
-		}
-
-	}
-
-	public void pauseAndUnPause() {
-		timer.pauseAndUnPause();
-	}
-
 	public void removeRow(Piece p) {
 		int numRows = board.checkFullRowsOfPiece(p);
 		if (numRows > 0) {
@@ -134,54 +83,13 @@ public class ClientGameController {
 		}
 	}
 
-	/*
-	 * public void movePieces() {
-	 * 
-	 * if (timer.isTimeToDrop()) { boolean landed = false;
-	 * 
-	 * for (Piece p : list) {
-	 * 
-	 * if (!board.willCollideWithFloorVertical(p) &&
-	 * !board.willCollideWithLandedPieceVertical(p)) { p.moveDown(); } else {
-	 * board.landPiece(p); gameStateListener.onHitFloor(); int numRows =
-	 * board.checkFullRowsOfPiece(p); landed = true; if (numRows > 0) {
-	 * gameStateListener.onCompleteLine(numRows); } } } if (landed) {
-	 * list.clear(); if (!board.isFull() && score < 9999) { //addNewPiece(); }
-	 * else { endGame(); } }
-	 * 
-	 * } }
-	 */
-
 	public void addNewPiece(Piece nextPiece) {
 		int playerID = nextPiece.getPlayerID();
 		if (activePieces.containsKey(playerID)) {
 			activePieces.remove(playerID);
 		}
-
 		activePieces.put(playerID, nextPiece);
 		list.add(nextPiece);
-
-		Piece tempPiece = nextPiece;
-		// setNextPiece(nextPiece);
-		// gameStateListener.onNewPiece(tempPiece);
-
-	}
-
-	public int getCurrLevel() {
-		return currLevel;
-	}
-
-	public void setCurrLevel(int currLevel) {
-		this.currLevel = currLevel;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-
 	}
 
 	public void setGameStateListener(GameStateListener gameStateListener) {
@@ -219,6 +127,12 @@ public class ClientGameController {
 
 	public void repaint() {
 		view.repaint();
+	}
+
+	public void addPlayer() {
+		board.increaseBoardSize();
+		gameStateListener.onIncreaseSize();
+
 	}
 
 }

@@ -16,8 +16,8 @@ public interface GameStateListener {
 
 	public void onRotate();
 
-	public void onPause();
-
 	public void onToggleThemeMusic();
+
+	public void onIncreaseSize();
 
 }

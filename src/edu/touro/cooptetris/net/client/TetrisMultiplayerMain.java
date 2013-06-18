@@ -17,7 +17,6 @@ import com.google.inject.Module;
 import edu.touro.cooptetris.Board;
 import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.PiecesAndBoardView;
-import edu.touro.cooptetris.ScoreLevelNextPieceDisplay;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 import edu.touro.cooptetris.sound.CompleteLineMusicPlayer;
@@ -33,20 +32,12 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 	private PiecesAndBoardView gameView;
 	private MultiplayerKeyboardListener keyboardListener;
 	private ThemeMusicPlayer themeMusicPlayer;
-	private boolean paused;
-	// private boolean mute;
 	private TetrisClient tetrisClient;
 	private Board board;
 
-	public static void main(String[] args) {
-		Injector injector = Guice.createInjector(new Module[0]);
-		injector.getInstance(TetrisMultiplayerMain.class);
-	}
-
 	@Inject
 	public TetrisMultiplayerMain(final PiecesAndBoardView gameView,
-
-	ThemeMusicPlayer themeMusicPlayer,
+			ThemeMusicPlayer themeMusicPlayer,
 			final ClientGameController gameController, Board board)
 			throws UnknownHostException, IOException {
 		this.board = board;
@@ -61,63 +52,35 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		keyboardListener.setGameStateListener(this);
 		this.themeMusicPlayer = themeMusicPlayer;
 		setSize();
-
 		setLocationRelativeTo(getRootPane());
 		setResizable(false);
 		setTitle("MultiPlayer Tetris");
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		add(gameView, BorderLayout.CENTER);
 		setVisible(true);
 		themeMusicPlayer.play();
 
-		/*
-		 * new Thread() {
-		 * 
-<<<<<<< OURS
-		 * @Override public void run() { while (true) { gameView.repaint(); if
-		 * (gameView.getWasResized()) { setSize();
-		 * gameView.setWasResized(false); } gameController.movePieces(); } }
-=======
-		 * @Override
-		 * public void run() {
-		 * while (true) {
-		 * gameView.repaint();
-		 * if (gameView.getWasResized()) {
-		 * setSize();
-		 * gameView.setWasResized(false);
-		 * }
-		 * gameController.movePieces();
-		 * }
-		 * }
->>>>>>> THEIRS
-		 * }.start();
-		 */
-
 	}
 
 	@Override
 	public void onGameOver() {
 		themeMusicPlayer.stop();
-		String message = "Game over! Score is " + gameController.getScore()
-				+ ".\n" + "Do you want to play again?";
+		String message = "Game over! " + ".\n" + "Do you want to play again?";
 		int gameOver = JOptionPane.showConfirmDialog(null, message);
-		if (gameOver == 0) {
-			gameController.setScore(0);
-			gameController.setCurrLevel(1);
+		if (gameOver == JOptionPane.YES_OPTION) {
 			this.dispose();
 			Injector injector = Guice.createInjector(new Module[0]);
 			injector.getInstance(TetrisMultiplayerMain.class);
 		}
-		if (gameOver == 1) {
+		if (gameOver == JOptionPane.NO_OPTION) {
 			System.exit(0);
 		}
 	}
 
 	public void setSize() {
-		int height = 300 + 30, width = 100 + board.getNumColumns()
-				* Square.SIDE + 15;
+		int height = 300 + 30;
+		int width = board.getNumColumns() * Square.SIDE + 15;
 		setSize(width, height);
 	}
 
@@ -134,11 +97,6 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
-		gameController.lineCompleted(numLines);
-		int currLevel = gameController.getCurrLevel();
-		if (gameController.getScore() > currLevel * 200) {
-			onLevelChange();
-		}
 	}
 
 	@Override
@@ -154,9 +112,6 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
-		int currLevel = gameController.getCurrLevel();
-		gameController.setCurrLevel(currLevel + 1);
-		gameController.increaseSpeed();
 	}
 
 	@Override
@@ -194,21 +149,20 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		}
 	}
 
-	@Override
-	public void onPause() {
-		gameController.pauseAndUnPause();
-		themeMusicPlayer.pauseAndUnPause();
-		paused = !paused;
-
-	}
-
-	public boolean isPaused() {
-		return paused;
+	public static void main(String[] args) {
+		Injector injector = Guice.createInjector(new Module[0]);
+		injector.getInstance(TetrisMultiplayerMain.class);
 	}
 
 	@Override
 	public void onToggleThemeMusic() {
 		themeMusicPlayer.stop();
+
+	}
+
+	@Override
+	public void onIncreaseSize() {
+		setSize();
 
 	}
 

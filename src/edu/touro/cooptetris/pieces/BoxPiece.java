@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public class BoxPiece extends Piece {
 
+	private static final long serialVersionUID = 1L;
+
 	public BoxPiece(int x, int y, int pieceID, int playerID) {
 		super(pieceID, playerID);
 		setLocation(x, y);

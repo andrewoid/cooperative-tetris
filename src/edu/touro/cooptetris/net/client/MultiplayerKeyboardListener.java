@@ -28,10 +28,7 @@ public class MultiplayerKeyboardListener implements KeyListener {
 	public void keyPressed(KeyEvent event) {
 
 		int keyCode = event.getKeyCode();
-		if (keyCode == KeyEvent.VK_P) {
-			paused = !paused;
-			gameStateListener.onPause();
-		} else if (keyCode == KeyEvent.VK_T) {
+		if (keyCode == KeyEvent.VK_T) {
 			gameStateListener.onToggleThemeMusic();
 		} else if (piece != null && !paused) {
 			switch (keyCode) {

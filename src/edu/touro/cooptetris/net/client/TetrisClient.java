@@ -11,10 +11,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
-import edu.touro.cooptetris.net.discovery.DiscoverClient;
 import edu.touro.cooptetris.net.message.Message;
 import edu.touro.cooptetris.net.message.NewPlayerMessage;
-import edu.touro.cooptetris.net.server.TetrisServer;
 
 public class TetrisClient {
 
@@ -34,7 +32,7 @@ public class TetrisClient {
 	private void initializeClient() throws UnknownHostException, IOException {
 		// socket = new Socket(new DiscoverClient().discoverTetrisServer(),
 		// 8080);
-		socket = new Socket("192.168.117.124", 8080);
+		socket = new Socket("localhost", 8080);
 		objectOut = new ObjectOutputStream(socket.getOutputStream());
 		readerThread = new ReaderThread(socket, gameController);
 
@@ -51,8 +49,4 @@ public class TetrisClient {
 		return gameController;
 	}
 
-	public static void main(String[] args) {
-		Injector injector = Guice.createInjector(new Module[0]);
-		TetrisClient client = injector.getInstance(TetrisClient.class);
-	}
 }

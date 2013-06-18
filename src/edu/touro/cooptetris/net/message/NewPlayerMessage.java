@@ -13,12 +13,13 @@ public class NewPlayerMessage implements Message {
 
 	@Override
 	public void handleByClient(ClientGameController gameController) {
+		gameController.addPlayer();
 	}
 
 	@Override
 	public void handleByServer(ServerGameController gameController) {
 		gameController.addPlayer();
-		
+
 	}
 
 }

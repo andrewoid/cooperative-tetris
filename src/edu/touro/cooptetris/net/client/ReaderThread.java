@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 import edu.touro.cooptetris.net.message.Message;
-import edu.touro.cooptetris.net.message.NewPieceMessage;
 
 public class ReaderThread extends Thread {
 
@@ -28,12 +27,9 @@ public class ReaderThread extends Thread {
 				message.handleByClient(gameController);
 				gameController.repaint();
 
-			} catch (IOException e) {
-
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-
-				e.printStackTrace();
+				break;
 			}
 		}
 	}
