@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.inject.Singleton;
 
@@ -14,8 +16,10 @@ import edu.touro.cooptetris.net.message.Message;
 @Singleton
 public class WriterThread extends Thread {
 
-	private final LinkedBlockingQueue<Message>		messages;
-	private final LinkedList<ObjectOutputStream>	outs;
+	private final static Logger log = Logger.getLogger(WriterThread.class
+			.getName());
+	private final LinkedBlockingQueue<Message> messages;
+	private final LinkedList<ObjectOutputStream> outs;
 
 	// DataOutputStream
 
@@ -34,8 +38,7 @@ public class WriterThread extends Thread {
 			try {
 				out.writeObject(message);
 				out.flush();
-			}
-			catch (final IOException e) {
+			} catch (final IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -43,13 +46,13 @@ public class WriterThread extends Thread {
 
 	public void addMessage(final Message message) {
 		messages.add(message);
-		System.out.println("got message 1");
+		log.log(Level.INFO,"got message 1");
 	}
 
 	public void writeMessage() throws InterruptedException {
-		System.out.println("Taking a message?");
+		log.log(Level.INFO,"Taking a message?");
 		final Message message = messages.take();
-		System.out.println("Took message");
+		log.log(Level.INFO,"Took message");
 		serializeMessage(message);
 	}
 
@@ -58,8 +61,7 @@ public class WriterThread extends Thread {
 		while (true) {
 			try {
 				writeMessage();
-			}
-			catch (final InterruptedException e) {
+			} catch (final InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

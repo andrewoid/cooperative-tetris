@@ -1,8 +1,12 @@
 package edu.touro.cooptetris.net;
 
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MessageParser {
+	private final static Logger log = Logger
+			.getLogger(MessageParser.class.getName());
 	private MessageType messageType;
 	private String player;
 	private int pieceID;
@@ -11,7 +15,7 @@ public class MessageParser {
 		try{
 		parse(msg);
 		}catch(Exception e){
-			System.out.println("error parsing message");
+			log.log(Level.INFO,"error parsing message");
 		}
 	}
 	private void parse(String msg)throws Exception{

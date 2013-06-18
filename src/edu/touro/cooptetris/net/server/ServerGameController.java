@@ -2,13 +2,13 @@ package edu.touro.cooptetris.net.server;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import edu.touro.cooptetris.GameLevel;
 import javax.inject.Inject;
-
 import edu.touro.cooptetris.Board;
 import edu.touro.cooptetris.DropTimer;
 import edu.touro.cooptetris.GameStateListener;
-import edu.touro.cooptetris.Level;
 import edu.touro.cooptetris.PieceFactory;
 import edu.touro.cooptetris.PiecesList;
 import edu.touro.cooptetris.net.Player;
@@ -24,6 +24,7 @@ import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 
+
 public class ServerGameController {
 
 	private Board board;
@@ -31,13 +32,16 @@ public class ServerGameController {
 	private PieceFactory pieceFactory;
 	// private GameStateListener gameStateListener;
 	private DropTimer timer;
-	private ArrayList<Level> levels;
+	private ArrayList<GameLevel> levels;
 	private int score;
 	private int currLevel;
 	private int xDrop;
 	private WriterThread writer;
 	private ArrayList<Player> playerList;
 	private PlayerIDGenerator playerIDGenerator;
+
+	private final static Logger log = Logger
+			.getLogger(ServerGameController.class.getName());
 
 	@Inject
 	public ServerGameController(Board board, PiecesList list,
@@ -50,9 +54,9 @@ public class ServerGameController {
 		// must initially drop a piece for each player
 		playerList = new ArrayList<Player>();
 
-		levels = new ArrayList<Level>();
+		levels = new ArrayList<GameLevel>();
 		for (int i = 0; i < 10; i++) {
-			levels.add(new Level(i, 1000 - (i * 100)));
+			levels.add(new GameLevel(i, 1000 - (i * 100)));
 		}
 		currLevel = 1;
 		timer = new DropTimer(400);
@@ -223,8 +227,7 @@ public class ServerGameController {
 		Player p = new Player(playerIDGenerator.getNextPlayerID(), 0);
 		playerList.add(p);
 		writer.addMessage(new SetUpPlayerMessage(board, p.getPlayerID()));
-		System.out.println("Writing out new player: player id:"
-				+ p.getPlayerID());
+		log.log(Level.INFO, "Writing out new player: player id:"+p.getPlayerID());
 		board.increaseBoardSize();
 		calculateXDrops();
 		addNewPiece(p.getxDrop(), p.getPlayerID());

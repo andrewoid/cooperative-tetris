@@ -1,12 +1,13 @@
 package edu.touro.cooptetris.net.server;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.Message;
@@ -15,6 +16,8 @@ import edu.touro.cooptetris.net.message.SetUpPlayerMessage;
 
 public class MockClient {
 	
+	private final static Logger log = Logger
+			.getLogger(MockClient.class.getName());
 	Socket socket;
 	OutputStream out;
 	ObjectOutputStream objectOut;
@@ -24,27 +27,23 @@ public class MockClient {
 		try {
 			socket=new Socket("localhost",8080);
 			out=socket.getOutputStream();
-			System.out.println("Got output stream");
+			log.log(Level.INFO,"Got output stream");
 			objectOut=new ObjectOutputStream(out);
-			System.out.println("made objectOutput stream");
+			log.log(Level.INFO,"made objectOutput stream");
 			
 			objectOut.writeObject(new NewPlayerMessage());
-			System.out.println("sent new player message");
+			log.log(Level.INFO,"sent new player message");
 			objectOut.flush();
 
 			objectIn=new ObjectInputStream(socket.getInputStream());
-			System.out.println("set up object input stream");
+			log.log(Level.INFO,"set up object input stream");
 			
-			System.out.println("waiting to receive reply message");
+			log.log(Level.INFO,"waiting to receive reply message");
 			Message message= (Message) objectIn.readObject();
 			if(message instanceof SetUpPlayerMessage){
-				System
-				.out.println("WE DID IT");
-			}	
-			
-			
-			else{
-				System.out.println("TIME TO GO HOME");
+				log.log(Level.INFO,"WE DID IT");
+			}else{
+				log.log(Level.INFO,"TIME TO GO HOME");
 			}
 			
 			objectOut.writeObject(new HardDropMessage(35));

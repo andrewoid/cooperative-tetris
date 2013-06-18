@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.ServerSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DiscoverServer extends Thread {
+
+	private final static Logger log = Logger.getLogger(DiscoverServer.class
+			.getName());
 
 	public void run() {
 
@@ -21,14 +25,14 @@ public class DiscoverServer extends Thread {
 			while (true) {
 				buf = new byte[1];
 				packet = new DatagramPacket(buf, buf.length);
-				System.out.println("Listening for a packet");
+				log.log(Level.INFO, "Listening for a packet");
 				socket.receive(packet);
-				System.out.println("Recieved a packet");
+				log.log(Level.INFO, "Recieved a packet");
 
 				DatagramPacket reply = new DatagramPacket(
 						new byte[] { (byte) 0x0F }, 1,
 						packet.getSocketAddress());
-				System.out.println("Sending a packet");
+				log.log(Level.INFO, "Sending a packet");
 				socket.send(reply);
 			}
 		} catch (IOException e) {
