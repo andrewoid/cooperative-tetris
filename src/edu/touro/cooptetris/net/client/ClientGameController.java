@@ -7,8 +7,8 @@ import javax.inject.Inject;
 
 import edu.touro.cooptetris.Board;
 import edu.touro.cooptetris.DropTimer;
-import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.GameLevel;
+import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.PieceFactory;
 import edu.touro.cooptetris.PiecesAndBoardView;
 import edu.touro.cooptetris.PiecesList;
@@ -20,6 +20,15 @@ public class ClientGameController {
 	private PiecesList list;
 	private GameStateListener gameStateListener;
 	private DropTimer timer;
+
+	public DropTimer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(DropTimer timer) {
+		this.timer = timer;
+	}
+
 	private ArrayList<GameLevel> levels;
 	private int score;
 	private int currLevel;
