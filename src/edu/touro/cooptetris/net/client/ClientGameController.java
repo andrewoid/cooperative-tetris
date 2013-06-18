@@ -18,6 +18,15 @@ public class ClientGameController {
 
 	private Board board;
 	private PiecesList list;
+
+	public PiecesList getList() {
+		return list;
+	}
+
+	public void setList(PiecesList list) {
+		this.list = list;
+	}
+
 	private GameStateListener gameStateListener;
 	private DropTimer timer;
 
@@ -154,7 +163,7 @@ public class ClientGameController {
 
 		Piece tempPiece = nextPiece;
 		// setNextPiece(nextPiece);
-		gameStateListener.onNewPiece(tempPiece);
+		// gameStateListener.onNewPiece(tempPiece);
 
 	}
 
