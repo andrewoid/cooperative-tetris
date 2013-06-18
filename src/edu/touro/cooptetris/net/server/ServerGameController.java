@@ -34,7 +34,6 @@ public class ServerGameController {
 	private ArrayList<GameLevel> levels;
 	private int score;
 	private int currLevel;
-	private int xDrop;
 	private WriterThread writer;
 	private ArrayList<Player> playerList;
 	private PlayerIDGenerator playerIDGenerator;
@@ -67,6 +66,10 @@ public class ServerGameController {
 	public void increaseSpeed() {
 		int currIncrement = timer.getTimeIncrement();
 		timer.setTimeIncrement(currIncrement - 30);
+	}
+
+	public DropTimer getTimer() {
+		return timer;
 	}
 
 	public void rotate(Piece piece) {
@@ -157,8 +160,12 @@ public class ServerGameController {
 				} else {
 					board.landPiece(p);
 					// gameStateListener.onHitFloor();
+					int numRows = board.checkFullRowsOfPiece(p);
+					// send message for removeRow?
 					landed = true;
-					removeRow(p);
+					if (numRows > 0) {
+						// gameStateListener.onCompleteLine(numRows);
+					}
 				}
 
 				if (landed) {
@@ -190,6 +197,10 @@ public class ServerGameController {
 
 	public PiecesList getPiecesList() {
 		return list;
+	}
+
+	public ArrayList<Player> getPlayerList() {
+		return playerList;
 	}
 
 	public int getCurrLevel() {
