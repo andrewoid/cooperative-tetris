@@ -24,7 +24,6 @@ import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 
-
 public class ServerGameController {
 
 	private Board board;
@@ -189,6 +188,10 @@ public class ServerGameController {
 		writer.addMessage(new NewPieceMessage(p));
 	}
 
+	public PiecesList getPiecesList() {
+		return list;
+	}
+
 	public int getCurrLevel() {
 		return currLevel;
 	}
@@ -227,7 +230,8 @@ public class ServerGameController {
 		Player p = new Player(playerIDGenerator.getNextPlayerID(), 0);
 		playerList.add(p);
 		writer.addMessage(new SetUpPlayerMessage(board, p.getPlayerID()));
-		log.log(Level.INFO, "Writing out new player: player id:"+p.getPlayerID());
+		log.log(Level.INFO,
+				"Writing out new player: player id:" + p.getPlayerID());
 		board.increaseBoardSize();
 		calculateXDrops();
 		addNewPiece(p.getxDrop(), p.getPlayerID());

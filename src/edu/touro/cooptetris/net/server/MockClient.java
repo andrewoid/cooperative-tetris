@@ -48,16 +48,16 @@ public class MockClient {
 			
 			objectOut.writeObject(new HardDropMessage(35));
 			
-			System.out.println("Send HardDropmessage");
+			log.log(Level.INFO, "Sending HardDropMessage");
 			objectOut.flush();
 			
 			Message message2= (Message) objectIn.readObject();
 			
 			if(message2 instanceof HardDropMessage){
-				System.out.println("WE DID IT AGAIN");
+				log.log(Level.INFO,"WE DID IT AGAIN");
 			}
 			else{
-				System.out.println("FAIL ON TRY 2");
+				log.log(Level.INFO,"Did not receive HardDropMessage");
 			}
 			
 			objectIn.close();
