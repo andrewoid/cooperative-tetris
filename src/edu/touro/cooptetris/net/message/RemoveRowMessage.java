@@ -19,9 +19,13 @@ public class RemoveRowMessage implements Message {
 
 	@Override
 	public void handleByClient(ClientGameController gameController) {
+
 		logger.info("received " + this.getClass());
+
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.removeRow(piece);
+		if (piece != null) {
+			gameController.removeRow(piece);
+		}
 
 	}
 

@@ -181,19 +181,30 @@ public class Board implements Serializable {
 				return true;
 			}
 
-			if (rowNumber >= 0) {
+			if (rowNumber >= 0 && rowNumber < squares.size() 
+					&& colNumber >=0 && colNumber < squares.get(0).size()) {
 				if (squares.get(rowNumber).get(colNumber + 1) != null) {
 					return true;
 				}
+			}
+			else{
+				log.info("caught index out of bounds exception in board.willCollideWithFloorRight()");
+				return true;
 			}
 		}
 		return false;
 	}
 
 	public boolean isFull() {
-		if (squares.get(0).get(numColumns / 2) != null) {
-			return true;
-		} else {
+		try{
+			if (squares.get(0).get(numColumns / 2) != null) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		catch (Exception e){
+			log.info("caught index out of bounds exception in board.isFull()");
 			return false;
 		}
 	}

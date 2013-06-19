@@ -6,7 +6,6 @@ import edu.touro.cooptetris.pieces.Piece;
 
 public class MoveRightMessage implements Message {
 
-	
 	private static final long serialVersionUID = 1L;
 	private int pieceID;
 
@@ -17,12 +16,16 @@ public class MoveRightMessage implements Message {
 	@Override
 	public void handleByClient(ClientGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.moveRight(piece);
+		if (piece != null) {
+			gameController.moveRight(piece);
+		}
 	}
 
 	@Override
 	public void handleByServer(ServerGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.moveRight(piece);
+		if (piece != null) {
+			gameController.moveRight(piece);
+		}
 	}
 }

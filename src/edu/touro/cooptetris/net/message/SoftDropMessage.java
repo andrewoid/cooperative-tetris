@@ -19,14 +19,18 @@ public class SoftDropMessage implements Message {
 	@Override
 	public void handleByClient(ClientGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.moveDown(piece);
 
+		if (piece != null) {
+			gameController.moveDown(piece);
+		}
 	}
 
 	@Override
 	public void handleByServer(ServerGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.moveDown(piece);
+		if (piece != null) {
+			gameController.moveDown(piece);
+		}
 	}
 
 }

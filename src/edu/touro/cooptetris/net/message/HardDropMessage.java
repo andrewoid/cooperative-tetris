@@ -16,13 +16,17 @@ public class HardDropMessage implements Message {
 	@Override
 	public void handleByClient(ClientGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.drop(piece);
+		if (piece != null) {
+			gameController.drop(piece);
+		}
 	}
 
 	@Override
 	public void handleByServer(ServerGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.drop(piece);
+		if (piece != null) {
+			gameController.drop(piece);
+		}
 	}
 
 }

@@ -231,7 +231,7 @@ public class ServerGameController {
 	public void addPlayer() {
 		Player p = new Player(playerIDGenerator.getNextPlayerID(), 0);
 		playerList.add(p);
-		writer.addMessage(new SetUpPlayerMessage(board, p.getPlayerID()));
+		writer.addMessage(new SetUpPlayerMessage(board, p.getPlayerID(), list));
 		log.log(Level.INFO,
 				"Writing out new player: player id:" + p.getPlayerID());
 		board.increaseBoardSize();

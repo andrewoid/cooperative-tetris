@@ -35,7 +35,7 @@ public class TetrisServer {
 		this.gameControllerThread = gameControllerThread;
 		gameControllerThread.start();
 		movePiecesThread.start();
-		//disco.start();
+		disco.start();
 	}
 
 	public void runServer() {
