@@ -136,4 +136,9 @@ public class ClientGameController {
 
 	}
 
+	public void setPiecesList(PiecesList list) {
+		this.list.clear();
+		this.list.addAll(list);
+	}
+
 }

@@ -4,7 +4,7 @@ import edu.touro.cooptetris.net.client.ClientGameController;
 import edu.touro.cooptetris.net.server.ServerGameController;
 import edu.touro.cooptetris.pieces.Piece;
 
-public class SoftDropMessage implements Message{
+public class SoftDropMessage implements Message {
 
 	private static final long serialVersionUID = 1L;
 	private int pieceID;
@@ -16,13 +16,17 @@ public class SoftDropMessage implements Message{
 	@Override
 	public void handleByClient(ClientGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.moveDown(piece);
+		if (piece != null) {
+			gameController.moveDown(piece);
+		}
 	}
 
 	@Override
 	public void handleByServer(ServerGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.moveDown(piece);
+		if (piece != null) {
+			gameController.moveDown(piece);
+		}
 	}
-	
+
 }
