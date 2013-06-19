@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import edu.touro.cooptetris.GameLevel;
+
 import javax.inject.Inject;
+
+import com.google.inject.Singleton;
+
 import edu.touro.cooptetris.Board;
 import edu.touro.cooptetris.DropTimer;
+import edu.touro.cooptetris.GameLevel;
 import edu.touro.cooptetris.GameStateListener;
 import edu.touro.cooptetris.PieceFactory;
 import edu.touro.cooptetris.PiecesList;
@@ -17,13 +21,13 @@ import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
 import edu.touro.cooptetris.net.message.NewPieceMessage;
-import edu.touro.cooptetris.net.message.RemoveRowMessage;
 import edu.touro.cooptetris.net.message.RotateMessage;
 import edu.touro.cooptetris.net.message.SetUpPlayerMessage;
 import edu.touro.cooptetris.net.message.SoftDropMessage;
 import edu.touro.cooptetris.pieces.Piece;
 import edu.touro.cooptetris.pieces.Square;
 
+@Singleton
 public class ServerGameController {
 
 	private Board board;
@@ -133,14 +137,6 @@ public class ServerGameController {
 
 	public void pauseAndUnPause() {
 		timer.pauseAndUnPause();
-	}
-
-	public void removeRow(Piece p) {
-		int numRows = board.checkFullRowsOfPiece(p);
-		if (numRows > 0) {
-			// gameStateListener.onCompleteLine(numRows);
-		}
-		writer.addMessage(new RemoveRowMessage(p.getPieceID()));
 	}
 
 	public void movePieces() {

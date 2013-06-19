@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
@@ -30,29 +31,37 @@ public class WriterThread extends Thread {
 
 	public void addSocket(final Socket socket) throws IOException {
 		final OutputStream out = socket.getOutputStream();
-		outs.add(new ObjectOutputStream(out));
+		synchronized (outs) {
+			outs.add(new ObjectOutputStream(out));
+		}
 	}
 
 	private void serializeMessage(final Message message) {
-		for (final ObjectOutputStream out : outs) {
-			try {
-				out.writeObject(message);
-				out.flush();
-			} catch (final IOException e) {
-				e.printStackTrace();
+		synchronized (outs) {
+			Iterator<ObjectOutputStream> iter = outs.iterator();
+			ObjectOutputStream out;
+			while (iter.hasNext()) {
+				out = iter.next();
+				try {
+					out.writeObject(message);
+					out.flush();
+				} catch (final Exception e) {
+					iter.remove();
+					log.log(Level.INFO, "Removed a client");
+				}
 			}
 		}
 	}
 
 	public void addMessage(final Message message) {
 		messages.add(message);
-		log.log(Level.INFO,"got message 1");
+		log.log(Level.INFO, "got message 1");
 	}
 
 	public void writeMessage() throws InterruptedException {
-		log.log(Level.INFO,"Taking a message?");
+		log.log(Level.INFO, "Taking a message?");
 		final Message message = messages.take();
-		log.log(Level.INFO,"Took message");
+		log.log(Level.INFO, "Took message");
 		serializeMessage(message);
 	}
 
