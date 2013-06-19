@@ -37,7 +37,6 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 
 	@Inject
 	public TetrisMultiplayerMain(final PiecesAndBoardView gameView,
-			ThemeMusicPlayer themeMusicPlayer,
 			final ClientGameController gameController, Board board)
 			throws UnknownHostException, IOException {
 		this.board = board;
@@ -50,7 +49,6 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		this.keyboardListener = new MultiplayerKeyboardListener(tetrisClient);
 		this.gameView.addKeyListener(keyboardListener);
 		keyboardListener.setGameStateListener(this);
-		this.themeMusicPlayer = themeMusicPlayer;
 		setSize();
 		setLocationRelativeTo(getRootPane());
 		setResizable(false);
@@ -59,7 +57,6 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 		setLayout(new BorderLayout());
 		add(gameView, BorderLayout.CENTER);
 		setVisible(true);
-		themeMusicPlayer.play();
 
 	}
 
