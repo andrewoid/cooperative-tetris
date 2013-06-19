@@ -203,12 +203,14 @@ public class Board implements Serializable {
 	}
 
 	public void increaseBoardSize() {
-		// numRows += 3;
-		numColumns += 6;
-
-		/*
-		 * for (int i = 0; i < 3; i++) { squares.add(new ArrayList<Square>()); }
-		 */
+		numColumns += 3;
+		int rowNum=0;
+		for (List<Square> row : squares) {
+			for (int i = 0; i < 3; i++) {
+				row.add(new Square(i, rowNum, null));
+			}
+			rowNum++;
+		}
 	}
 
 	public boolean willCollideWithFloorVertical(Piece piece) {
@@ -224,9 +226,9 @@ public class Board implements Serializable {
 	public boolean willCollideWithLandedPieceVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			//log.log(Level.INFO, "rowNumber " + rowNumber);
+			// log.log(Level.INFO, "rowNumber " + rowNumber);
 			int colNumber = square.getX() / Square.SIDE;
-			//log.log(Level.INFO, "colNumber " + colNumber);
+			// log.log(Level.INFO, "colNumber " + colNumber);
 			if (rowNumber >= 0) {
 				if (squares.get(rowNumber + 1).get(colNumber) != null) {
 					return true;
