@@ -169,7 +169,6 @@ public class ServerGameController {
 						for (Player player : playerList) {
 							if (player.getPlayerID() == p.getPlayerID()) {
 								playersNeedNewPieces.add(player);
-								break;
 							}
 						}
 						iter.remove();
@@ -187,7 +186,6 @@ public class ServerGameController {
 	public void addNewPiece(int xDrop, int playerID) {
 		Piece p = pieceFactory.getNextPiece(xDrop, 0, playerID);
 		list.add(p);
-		// gameStateListener.onNewPiece(p);
 		writer.addMessage(new NewPieceMessage(p));
 	}
 

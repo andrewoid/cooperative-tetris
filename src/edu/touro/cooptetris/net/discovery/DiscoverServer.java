@@ -11,13 +11,15 @@ public class DiscoverServer extends Thread {
 
 	private final static Logger log = Logger.getLogger(DiscoverServer.class
 			.getName());
+	public static final String IP = "226.0.0.1";
+	public static final int PORT = 6020;
 
 	public void run() {
 
 		MulticastSocket socket;
 		try {
-			socket = new MulticastSocket(6020);
-			InetAddress group = InetAddress.getByName("226.0.0.1");
+			socket = new MulticastSocket(PORT);
+			InetAddress group = InetAddress.getByName(IP);
 			socket.joinGroup(group);
 
 			byte[] buf;
@@ -25,14 +27,13 @@ public class DiscoverServer extends Thread {
 			while (true) {
 				buf = new byte[1];
 				packet = new DatagramPacket(buf, buf.length);
-				log.log(Level.INFO, "Listening for a packet");
+				log.log(Level.INFO, "Listening for DISCOVERY");
 				socket.receive(packet);
-				log.log(Level.INFO, "Recieved a packet");
+				log.log(Level.INFO, "Recieved a DISCOVERY packet");
 
 				DatagramPacket reply = new DatagramPacket(
 						new byte[] { (byte) 0x0F }, 1,
 						packet.getSocketAddress());
-				log.log(Level.INFO, "Sending a packet");
 				socket.send(reply);
 			}
 		} catch (IOException e) {

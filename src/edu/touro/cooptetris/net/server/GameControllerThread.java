@@ -21,8 +21,6 @@ public class GameControllerThread extends Thread {
 	}
 
 	private void readMessage() throws InterruptedException {
-		// TODO: change this from an iterator to just taking
-		// messages off the queue
 		Message message = messages.take();
 		message.handleByServer(serverGameController);
 	}

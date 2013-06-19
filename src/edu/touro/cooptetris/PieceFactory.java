@@ -25,12 +25,13 @@ public class PieceFactory {
 	public PieceFactory(PieceIDGenerator pieceIDGenerator) {
 		random = new Random();
 		this.pieceIDGenerator = pieceIDGenerator;
-		nextPiece = getRandomPiece(0, 0,0);// what should player id be?
+		nextPiece = getRandomPiece(0, 0, 0);// what should player id be?
 	}
 
 	public Piece getNextPiece(int x, int y, int playerID) {
 		Piece tempPiece = nextPiece;
 		tempPiece.setLocation(x, y);
+		tempPiece.setPlayerID(playerID);
 
 		nextPiece = getRandomPiece(0, 0, playerID);
 		return tempPiece;
