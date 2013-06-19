@@ -17,14 +17,9 @@ public class SoundPlayer {
 			throws UnsupportedAudioFileException, IOException,
 			LineUnavailableException {
 
-		// Open an audio input stream.
-		// URL url =
-		// this.getClass().getClassLoader().getResource("tetristheme.wav");
 		File soundFile = new File(soundFileName);
 		AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-		// Get a sound clip resource.
 		clip = AudioSystem.getClip();
-		// Open audio clip and load samples from the audio input stream.
 		clip.open(audioIn);
 
 	}

@@ -166,4 +166,8 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 
 	}
 
+	public ClientGameController getGameController() {
+		return gameController;
+	}
+
 }

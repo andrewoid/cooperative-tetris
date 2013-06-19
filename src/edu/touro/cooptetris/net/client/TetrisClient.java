@@ -7,10 +7,6 @@ import java.net.UnknownHostException;
 
 import javax.inject.Inject;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-
 import edu.touro.cooptetris.net.message.Message;
 import edu.touro.cooptetris.net.message.NewPlayerMessage;
 

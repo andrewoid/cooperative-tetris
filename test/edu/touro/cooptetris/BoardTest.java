@@ -21,21 +21,8 @@ public class BoardTest {
 		board = new Board();
 	}
 
-	private void givenFullBoard() {
-		board = new Board();
-		for (int j = 0; j < board.getNumRows(); j++) {
-			fullRow = new Square[board.getNumColumns()];
-
-			for (int i = 0; i < fullRow.length; i++) {
-				fullRow[i] = new Square(0, 0, Color.BLACK);
-			}
-			board.setSquaresArray(fullRow, j);
-		}
-	}
-
 	private void givenFullRow() {
 		fullRow = new Square[board.getNumColumns()];
-
 		for (int i = 0; i < fullRow.length; i++) {
 			fullRow[i] = new Square(0, 0, Color.BLACK);
 		}
@@ -51,11 +38,8 @@ public class BoardTest {
 	public void testCollidesWithFloorLeft() {
 		givenBoard();
 		givenFullRow();
-
 		LinePiece linePiece = givenLinePiece();
-
 		assertFalse(board.willCollideWithFloorLeft(linePiece));
-
 		board.setSquareFull(new Square(0, 16 * Square.SIDE, Color.BLACK));
 		assertTrue(board.willCollideWithFloorLeft(linePiece));
 	}
@@ -64,13 +48,10 @@ public class BoardTest {
 	public void testCollidesWithFloorRight() {
 		givenBoard();
 		givenFullRow();
-
 		LinePiece linePiece = givenLinePiece();
 		assertFalse(board.willCollideWithFloorRight(linePiece));
-
 		board.setSquareFull(new Square(2 * Square.SIDE, 16 * Square.SIDE,
 				Color.BLACK));
-
 		assertTrue(board.willCollideWithFloorRight(linePiece));
 	}
 
@@ -78,7 +59,6 @@ public class BoardTest {
 	public void testWillCollideWithFloorVertical() {
 		givenBoard();
 		givenFullRow();
-
 		LinePiece linePiece = givenLinePiece();
 		linePiece.moveDown();
 		assertTrue(board.willCollideWithFloorVertical(linePiece));
@@ -99,16 +79,12 @@ public class BoardTest {
 	public void testLandPiece() {
 		givenBoard();
 		givenFullRow();
-
 		givenLinePiece();
-
 		LinePiece SecondLinePiece = new LinePiece(30, 10, 1, 0);
 		board.landPiece(SecondLinePiece);
 
-		// assertTrue(board.willCollideWithFloorRight(linePiece));
 	}
 
-	// @Test
 	public void testRemoveRow() {
 		givenBoard();
 
@@ -162,7 +138,6 @@ public class BoardTest {
 		assertFalse(board.isFull());
 		board.setSquareFull(new Square(82, 0, Color.BLACK));
 		assertTrue(board.isFull());
-
 	}
 
 	private void whenFullRowsAreRemoved() {

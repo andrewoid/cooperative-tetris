@@ -95,16 +95,6 @@ public class ServerGameControllerTest {
 	}
 
 	@Test
-	public void testRemoveRow() {
-
-	}
-
-	@Test
-	public void testMovePieces() {
-
-	}
-
-	@Test
 	public void testAddNewPiece() {
 		PiecesList list = serverGameController.getPiecesList();
 		serverGameController.addNewPiece(0, 1);
