@@ -224,9 +224,9 @@ public class Board implements Serializable {
 	public boolean willCollideWithLandedPieceVertical(Piece piece) {
 		for (Square square : piece.getSquares()) {
 			int rowNumber = square.getY() / Square.SIDE;
-			log.log(Level.INFO, "rowNumber " + rowNumber);
+			//log.log(Level.INFO, "rowNumber " + rowNumber);
 			int colNumber = square.getX() / Square.SIDE;
-			log.log(Level.INFO, "colNumber " + colNumber);
+			//log.log(Level.INFO, "colNumber " + colNumber);
 			if (rowNumber >= 0) {
 				if (squares.get(rowNumber + 1).get(colNumber) != null) {
 					return true;
