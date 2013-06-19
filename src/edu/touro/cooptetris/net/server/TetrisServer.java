@@ -10,6 +10,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
+import edu.touro.cooptetris.net.discovery.DiscoverServer;
+
 public class TetrisServer {
 
 	private ServerSocket server;
@@ -20,7 +22,8 @@ public class TetrisServer {
 	@Inject
 	public TetrisServer(WriterThread writer,
 			GameControllerThread gameControllerThread,
-			MovePiecesThread movePiecesThread) {
+			MovePiecesThread movePiecesThread,
+			DiscoverServer disco) {
 		try {
 			server = new ServerSocket(8080);
 		} catch (IOException e) {
@@ -32,6 +35,7 @@ public class TetrisServer {
 		this.gameControllerThread = gameControllerThread;
 		gameControllerThread.start();
 		movePiecesThread.start();
+		//disco.start();
 	}
 
 	public void runServer() {

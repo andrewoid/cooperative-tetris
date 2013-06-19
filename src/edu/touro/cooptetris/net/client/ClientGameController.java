@@ -90,6 +90,7 @@ public class ClientGameController {
 		}
 		activePieces.put(playerID, nextPiece);
 		list.add(nextPiece);
+		gameStateListener.onNewPiece(nextPiece);
 	}
 
 	public void setGameStateListener(GameStateListener gameStateListener) {

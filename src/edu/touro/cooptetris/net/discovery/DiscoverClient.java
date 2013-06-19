@@ -29,7 +29,9 @@ public class DiscoverClient {
 		packet = new DatagramPacket(buf, buf.length);
 		socket.receive(packet);
 
-		return ((InetSocketAddress) packet.getSocketAddress()).getHostName();
+		String address = ((InetAddress) packet.getAddress()).getHostName();
+
+		return address;
 
 	}
 

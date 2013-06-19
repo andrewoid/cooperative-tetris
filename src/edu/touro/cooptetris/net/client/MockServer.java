@@ -38,35 +38,47 @@ public class MockServer {
 			while ((socket = server.accept()) != null) {
 				writer.addSocket(socket);
 				Piece p = new JPiece(20, 20, 0, 0);
-				writer.addMessage(new NewPieceMessage(p));
-				Thread.sleep(1000);
-				writer.addMessage(new SoftDropMessage(0));
-				writer.addMessage(new SoftDropMessage(0));
-				writer.addMessage(new SoftDropMessage(0));
-				Thread.sleep(1000);
-				writer.addMessage(new MoveLeftMessage(0));
-				Thread.sleep(1000);
-				writer.addMessage(new SoftDropMessage(0));
-				writer.addMessage(new MoveRightMessage(0));
-				Thread.sleep(1000);
-				writer.addMessage(new RotateMessage(0));
-				Thread.sleep(1000);
-				writer.addMessage(new RotateMessage(0));
-				Thread.sleep(1000);
-				writer.addMessage(new HardDropMessage(0));
-				Thread.sleep(1000);
-				writer.addMessage(new NewPlayerMessage());
-				Thread.sleep(1000);
-				writer.addMessage(new NewPlayerMessage());
-				Thread.sleep(1000);
-				writer.addMessage(new NewPlayerMessage());
-				Thread.sleep(1000);
-				writer.addMessage(new NewPlayerMessage());
+				writer.addMessage(new NewPieceMessage(p));/*
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * SoftDropMessage(0));
+														 * writer.addMessage(new
+														 * SoftDropMessage(0));
+														 * writer.addMessage(new
+														 * SoftDropMessage(0));
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * MoveLeftMessage(0));
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * SoftDropMessage(0));
+														 * writer.addMessage(new
+														 * MoveRightMessage(0));
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * RotateMessage(0));
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * RotateMessage(0));
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * HardDropMessage(0));
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * NewPlayerMessage());
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * NewPlayerMessage());
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * NewPlayerMessage());
+														 * Thread.sleep(1000);
+														 * writer.addMessage(new
+														 * NewPlayerMessage());
+														 */
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
