@@ -3,11 +3,13 @@ package edu.touro.cooptetris.net.client;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.logging.Logger;
 
 import edu.touro.cooptetris.net.message.Message;
 
 public class ReaderThread extends Thread {
-
+	private final static Logger logger = Logger.getLogger(ReaderThread.class
+			.getName());
 	private ObjectInputStream objectIn;
 	private ClientGameController gameController;
 
@@ -24,6 +26,7 @@ public class ReaderThread extends Thread {
 			Message message;
 			try {
 				message = (Message) objectIn.readObject();
+				logger.info("received message " + message.getClass());
 				message.handleByClient(gameController);
 				gameController.repaint();
 

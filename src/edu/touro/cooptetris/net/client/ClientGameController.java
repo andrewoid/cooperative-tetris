@@ -2,6 +2,7 @@ package edu.touro.cooptetris.net.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -14,7 +15,8 @@ import edu.touro.cooptetris.PiecesList;
 import edu.touro.cooptetris.pieces.Piece;
 
 public class ClientGameController {
-
+	private final static Logger logger = Logger
+			.getLogger(ClientGameController.class.getName());
 	private Board board;
 	private PiecesList list;
 	private GameStateListener gameStateListener;

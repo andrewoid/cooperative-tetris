@@ -254,7 +254,10 @@ public class ServerGameController {
 		Player p;
 		for (int i = 0; i < playerList.size(); i++) {
 			p = playerList.get(i);
-			p.setxDrop((i + 1) * (dropInterval) - (dropInterval / 2));
+			int xDrop = (i + 1) * (dropInterval) - (dropInterval / 2);
+			log.info("Player " + i + " xDrop is " + xDrop
+					+ " drop interval is " + dropInterval);
+			p.setxDrop(xDrop);
 		}
 	}
 
