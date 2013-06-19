@@ -1,6 +1,5 @@
 package edu.touro.cooptetris.net.server;
 
-import java.util.Iterator;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.inject.Inject;
@@ -21,15 +20,11 @@ public class GameControllerThread extends Thread {
 		messages = new LinkedBlockingQueue<Message>();
 	}
 
-	private void sendMessage() {
-		Iterator<Message> iter = messages.iterator();
-		Message message;
-
-		while (iter.hasNext()) {
-			message = iter.next();
-			message.handleByServer(serverGameController);
-			iter.remove();
-		}
+	private void readMessage() throws InterruptedException {
+		// TODO: change this from an iterator to just taking
+		// messages off the queue
+		Message message = messages.take();
+		message.handleByServer(serverGameController);
 	}
 
 	public void addMessage(Message message) {
@@ -39,7 +34,11 @@ public class GameControllerThread extends Thread {
 	@Override
 	public void run() {
 		while (true) {
-			sendMessage();
+			try {
+				readMessage();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
