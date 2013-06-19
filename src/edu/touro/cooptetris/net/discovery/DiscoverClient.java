@@ -17,12 +17,12 @@ public class DiscoverClient {
 
 		// copied from
 		// http://stackoverflow.com/questions/10453721/broadcast-server-discovery
-		MulticastSocket socket = new MulticastSocket(6020);
-		InetAddress group = InetAddress.getByName("226.0.0.1");
+		MulticastSocket socket = new MulticastSocket(DiscoverServer.PORT);
+		InetAddress group = InetAddress.getByName(DiscoverServer.IP);
 		socket.joinGroup(group);
 
 		DatagramPacket packet = new DatagramPacket(new byte[] { (byte) 0xF0 },
-				1, group, 6020);
+				1, group, DiscoverServer.PORT);
 		socket.send(packet);
 
 		byte buf[] = new byte[1];
