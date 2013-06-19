@@ -21,6 +21,7 @@ import edu.touro.cooptetris.net.message.HardDropMessage;
 import edu.touro.cooptetris.net.message.MoveLeftMessage;
 import edu.touro.cooptetris.net.message.MoveRightMessage;
 import edu.touro.cooptetris.net.message.NewPieceMessage;
+import edu.touro.cooptetris.net.message.RemoveRowMessage;
 import edu.touro.cooptetris.net.message.RotateMessage;
 import edu.touro.cooptetris.net.message.SetUpPlayerMessage;
 import edu.touro.cooptetris.net.message.SoftDropMessage;
@@ -135,10 +136,6 @@ public class ServerGameController {
 
 	}
 
-	public void pauseAndUnPause() {
-		timer.pauseAndUnPause();
-	}
-
 	public void movePieces() {
 		ArrayList<Player> playersNeedNewPieces = new ArrayList<Player>();
 		Iterator<Piece> iter = list.iterator();
@@ -157,7 +154,7 @@ public class ServerGameController {
 					board.landPiece(p);
 					// gameStateListener.onHitFloor();
 					int numRows = board.checkFullRowsOfPiece(p);
-					// send message for removeRow?
+					writer.addMessage(new RemoveRowMessage(p.getPieceID()));
 					landed = true;
 					if (numRows > 0) {
 						// gameStateListener.onCompleteLine(numRows);
@@ -258,6 +255,7 @@ public class ServerGameController {
 			log.info("Player " + i + " xDrop is " + xDrop
 					+ " drop interval is " + dropInterval);
 			p.setxDrop(xDrop);
+			// INFO: Player 0 xDrop is 83 drop interval is 165
 		}
 	}
 

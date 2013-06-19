@@ -21,7 +21,9 @@ public class NewPieceMessage implements Message {
 	public void handleByClient(ClientGameController gameController) {
 
 		logger.info("received new piece message");
-		gameController.addNewPiece(piece);
+		if (piece != null) {
+			gameController.addNewPiece(piece);
+		}
 	}
 
 	@Override

@@ -33,7 +33,6 @@ public class Board implements Serializable {
 				row.add(null);
 			}
 			squares.add(row);
-
 		}
 	}
 
@@ -183,7 +182,7 @@ public class Board implements Serializable {
 
 			if (rowNumber >= 0 && rowNumber < squares.size() 
 					&& colNumber >=0 && colNumber < squares.get(0).size()) {
-				if (squares.get(rowNumber).get(colNumber + 1) != null) {
+				if (getSquare(rowNumber, colNumber+1) != null) {
 					return true;
 				}
 			}
@@ -195,9 +194,18 @@ public class Board implements Serializable {
 		return false;
 	}
 
+	public Square getSquare(int rowNumber, int colNumber){
+		try{
+			return squares.get(rowNumber).get(colNumber);
+		}catch(Exception e){
+			log.info("no square in method getSquare at row" + rowNumber + " and col " + colNumber);
+			return null;
+		}
+	}
+	
 	public boolean isFull() {
 		try{
-			if (squares.get(0).get(numColumns / 2) != null) {
+			if (getSquare(0, numColumns/2) != null) {
 				return true;
 			} else {
 				return false;

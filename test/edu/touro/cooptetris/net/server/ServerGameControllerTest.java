@@ -113,6 +113,16 @@ public class ServerGameControllerTest {
 		assertEquals(144, players.get(3).getxDrop());
 	}
 
+	@Test
+	public void testCalculateXDropsForOnePlayer() {
+		ArrayList<Player> players1 = serverGameController.getPlayerList();
+		players1.add(new Player(0, 0));
+		serverGameController.calculateXDrops();
+		ArrayList<Player> players = serverGameController.getPlayerList();
+		assertEquals(50, players.get(0).getxDrop());
+
+	}
+
 	private void given4Players() {
 		ArrayList<Player> players = serverGameController.getPlayerList();
 		for (int i = 0; i < 4; i++) {

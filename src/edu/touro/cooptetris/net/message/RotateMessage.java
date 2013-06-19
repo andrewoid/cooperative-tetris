@@ -16,13 +16,15 @@ public class RotateMessage implements Message {
 	@Override
 	public void handleByClient(ClientGameController gameController) {
 		Piece p = gameController.getPieceByID(pieceID);
-		p.rotate();
+		if (p != null){
+		p.rotate();}
 	}
 
 	@Override
 	public void handleByServer(ServerGameController gameController) {
 		Piece piece = gameController.getPieceByID(pieceID);
-		gameController.rotate(piece);
+		if (piece != null){
+		gameController.rotate(piece);}
 	}
 
 }

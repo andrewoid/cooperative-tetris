@@ -76,7 +76,7 @@ public class TetrisMultiplayerMain extends JFrame implements GameStateListener {
 	}
 
 	public void setSize() {
-		int height = 300 + 30;
+		int height = 330;
 		int width = board.getNumColumns() * Square.SIDE + 15;
 		setSize(width, height);
 	}
