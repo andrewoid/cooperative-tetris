@@ -3,7 +3,6 @@ package edu.touro.cooptetris.net.discovery;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,9 +16,8 @@ public class DiscoverClient {
 
 		// copied from
 		// http://stackoverflow.com/questions/10453721/broadcast-server-discovery
-		MulticastSocket socket = new MulticastSocket(DiscoverServer.PORT);
+		MulticastSocket socket = new MulticastSocket();
 		InetAddress group = InetAddress.getByName(DiscoverServer.IP);
-		socket.joinGroup(group);
 
 		DatagramPacket packet = new DatagramPacket(new byte[] { (byte) 0xF0 },
 				1, group, DiscoverServer.PORT);
@@ -29,7 +27,7 @@ public class DiscoverClient {
 		packet = new DatagramPacket(buf, buf.length);
 		socket.receive(packet);
 
-		String address = ((InetAddress) packet.getAddress()).getHostName();
+		String address = packet.getAddress().getHostAddress();
 
 		return address;
 
