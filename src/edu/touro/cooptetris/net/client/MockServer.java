@@ -36,9 +36,7 @@ public class MockServer {
 
 		try {
 			while ((socket = server.accept()) != null) {
-				MockClientHandler aClientHandler = new MockClientHandler(socket);
 				writer.addSocket(socket);
-				// aClientHandler.start();
 				Piece p = new JPiece(20, 20, 0, 0);
 				writer.addMessage(new NewPieceMessage(p));
 				Thread.sleep(1000);
