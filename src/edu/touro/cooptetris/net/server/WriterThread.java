@@ -54,14 +54,13 @@ public class WriterThread extends Thread {
 	}
 
 	public void addMessage(final Message message) {
+		log.log(Level.INFO, "Adding " + message.getClass());
 		messages.add(message);
-		log.log(Level.INFO, "got message 1");
 	}
 
 	public void writeMessage() throws InterruptedException {
-		log.log(Level.INFO, "Taking a message?");
 		final Message message = messages.take();
-		log.log(Level.INFO, "Took message");
+		log.log(Level.INFO, "Writing " + message.getClass());
 		serializeMessage(message);
 	}
 
