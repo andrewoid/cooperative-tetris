@@ -22,8 +22,6 @@ public class WriterThread extends Thread {
 	private final LinkedBlockingQueue<Message> messages;
 	private final LinkedList<ObjectOutputStream> outs;
 
-	// DataOutputStream
-
 	public WriterThread() {
 		messages = new LinkedBlockingQueue<Message>();
 		outs = new LinkedList<ObjectOutputStream>();
@@ -70,7 +68,6 @@ public class WriterThread extends Thread {
 			try {
 				writeMessage();
 			} catch (final InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

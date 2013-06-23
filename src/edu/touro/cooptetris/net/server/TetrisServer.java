@@ -22,8 +22,7 @@ public class TetrisServer {
 	@Inject
 	public TetrisServer(WriterThread writer,
 			GameControllerThread gameControllerThread,
-			MovePiecesThread movePiecesThread,
-			DiscoverServer disco) {
+			MovePiecesThread movePiecesThread, DiscoverServer disco) {
 		try {
 			server = new ServerSocket(8080);
 		} catch (IOException e) {
@@ -39,11 +38,9 @@ public class TetrisServer {
 	}
 
 	public void runServer() {
-
 		try {
 			while ((socket = server.accept()) != null) {
 				writer.addSocket(socket);
-
 				ClientHandler aClientHandler = new ClientHandler(socket,
 						gameControllerThread);
 				aClientHandler.start();

@@ -28,7 +28,7 @@ public class DiscoverClient {
 		socket.receive(packet);
 
 		String address = packet.getAddress().getHostAddress();
-
+		socket.close();
 		return address;
 
 	}

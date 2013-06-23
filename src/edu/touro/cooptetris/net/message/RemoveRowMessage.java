@@ -2,7 +2,6 @@ package edu.touro.cooptetris.net.message;
 
 import java.util.logging.Logger;
 
-import edu.touro.cooptetris.Board;
 import edu.touro.cooptetris.net.client.ClientGameController;
 import edu.touro.cooptetris.net.server.ServerGameController;
 import edu.touro.cooptetris.pieces.Piece;

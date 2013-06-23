@@ -2,6 +2,7 @@ package edu.touro.cooptetris.net.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -139,6 +140,7 @@ public class ClientGameController {
 	}
 
 	public void setPiecesList(PiecesList list) {
+		logger.log(Level.INFO, "Set List");
 		this.list.clear();
 		this.list.addAll(list);
 	}

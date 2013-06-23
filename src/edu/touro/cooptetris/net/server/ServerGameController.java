@@ -34,7 +34,6 @@ public class ServerGameController {
 	private Board board;
 	private PiecesList list;
 	private PieceFactory pieceFactory;
-	// private GameStateListener gameStateListener;
 	private DropTimer timer;
 	private ArrayList<GameLevel> levels;
 	private int score;
@@ -53,19 +52,17 @@ public class ServerGameController {
 		this.board = board;
 		this.list = list;
 		this.pieceFactory = pieceFactory;
+		this.writer = writer;
+		this.playerIDGenerator = playerIDGenerator;
 		// didn't set xDrop
 		// must initially drop a piece for each player
 		playerList = new ArrayList<Player>();
-
 		levels = new ArrayList<GameLevel>();
 		for (int i = 0; i < 10; i++) {
 			levels.add(new GameLevel(i, 1000 - (i * 100)));
 		}
 		currLevel = 1;
 		timer = new DropTimer(400);
-		this.writer = writer;
-		this.playerIDGenerator = playerIDGenerator;
-
 	}
 
 	public void increaseSpeed() {
@@ -208,7 +205,6 @@ public class ServerGameController {
 
 	public void setScore(int score) {
 		this.score = score;
-
 	}
 
 	public void setGameStateListener(GameStateListener gameStateListener) {

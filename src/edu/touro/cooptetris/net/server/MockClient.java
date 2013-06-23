@@ -85,5 +85,6 @@ public class MockClient {
 
 	public static void main(String[] args) {
 		MockClient m = new MockClient();
+		m.toString();
 	}
 }

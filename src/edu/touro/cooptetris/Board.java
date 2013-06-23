@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Singleton;
@@ -180,13 +179,12 @@ public class Board implements Serializable {
 				return true;
 			}
 
-			if (rowNumber >= 0 && rowNumber < squares.size() 
-					&& colNumber >=0 && colNumber < squares.get(0).size()) {
-				if (getSquare(rowNumber, colNumber+1) != null) {
+			if (rowNumber >= 0 && rowNumber < squares.size() && colNumber >= 0
+					&& colNumber < squares.get(0).size()) {
+				if (getSquare(rowNumber, colNumber + 1) != null) {
 					return true;
 				}
-			}
-			else{
+			} else {
 				log.info("caught index out of bounds exception in board.willCollideWithFloorRight()");
 				return true;
 			}
@@ -194,24 +192,24 @@ public class Board implements Serializable {
 		return false;
 	}
 
-	public Square getSquare(int rowNumber, int colNumber){
-		try{
+	public Square getSquare(int rowNumber, int colNumber) {
+		try {
 			return squares.get(rowNumber).get(colNumber);
-		}catch(Exception e){
-			log.info("no square in method getSquare at row" + rowNumber + " and col " + colNumber);
+		} catch (Exception e) {
+			log.info("no square in method getSquare at row" + rowNumber
+					+ " and col " + colNumber);
 			return null;
 		}
 	}
-	
+
 	public boolean isFull() {
-		try{
-			if (getSquare(0, numColumns/2) != null) {
+		try {
+			if (getSquare(0, numColumns / 2) != null) {
 				return true;
 			} else {
 				return false;
 			}
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			log.info("caught index out of bounds exception in board.isFull()");
 			return false;
 		}
@@ -223,7 +221,7 @@ public class Board implements Serializable {
 
 	public void increaseBoardSize() {
 		numColumns += 3;
-		int rowNum=0;
+		int rowNum = 0;
 		for (List<Square> row : squares) {
 			for (int i = 0; i < 3; i++) {
 				row.add(new Square(i, rowNum, null));

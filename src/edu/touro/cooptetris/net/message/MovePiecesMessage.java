@@ -20,7 +20,7 @@ public class MovePiecesMessage implements Message {
 	@Override
 	public void handleByServer(ServerGameController gameController) {
 		gameController.movePieces();
-		//log.log(Level.INFO, "Handling a MovePiecesMessage");
+		log.log(Level.INFO, "Handling a MovePiecesMessage");
 	}
 
 }
